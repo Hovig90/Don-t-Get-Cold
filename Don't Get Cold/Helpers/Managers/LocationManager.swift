@@ -20,7 +20,8 @@ class LocationManager: CLLocationManager {
 
         self.pausesLocationUpdatesAutomatically = false
         self.distanceFilter = kCLDistanceFilterNone
-        self.desiredAccuracy = kCLLocationAccuracyBest
+        self.desiredAccuracy = kCLLocationAccuracyKilometer
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
