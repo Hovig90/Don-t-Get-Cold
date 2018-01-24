@@ -11,32 +11,15 @@ import Foundation
 class DataManager {
     
     //MARK: Members
-    static let BaseUrl = "http://api.openweathermap.org/data/2.5/weather"
-    static let session = URLSession(configuration: .default)
-    static var dataTask: URLSessionDataTask?
+    enum Units: String {
+        case metric
+        case imperial
+        case kelvin
+    }
     
     //MARK: Public
-    static func getWeatherData(forLatitude lat: String, andLongitude lon: String) {
-        
-        dataTask?.cancel()
-        if var urlComponents = URLComponents(string: BaseUrl) {//lat=\(lat)&lon=\(lon)
-            urlComponents.query = "APPID=\(AppConstants.WeatherApiKey)&q=toronto&units=metric"
-            guard let url = urlComponents.url else { return }
-            
-            dataTask = session.dataTask(with: url, completionHandler: { (data, responce, error) in
-                guard error == nil, let data = data?.convertToDictionary() else {
-                    return
-                }
-                
-                
-                let weather = Weather(response: nil, representation: data)
-                
-            })
-            dataTask?.resume()
-        }
-        
-        
-        
+    static func getCurrentWeatherData(withCityName city: String?, cityID id: String?, units: Units, completion: @escaping (Weather?, Error?) -> Void) {
+        DataManager.getCurrentWeatherData(withParameter: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)", completion: completion)
     }
     
     static func getCities(completion: @escaping (([City]?) -> Void))  {
@@ -59,5 +42,15 @@ class DataManager {
         }
     }
     
-    
+    //MARK: Private
+    private static func getCurrentWeatherData(withParameter param: String, completion: @escaping (Weather?, Error?) -> Void) {
+        RequestManager.request(withURL: AppConstants.BaseUrl + AppConstants.Encoding.weather.rawValue, parameters: param) { (data, responce, error) in
+            guard error == nil, let data = data?.convertToDictionary() else {
+                completion(nil, error)
+                return
+            }
+            
+            completion(Weather(response: nil, representation: data), nil)
+        }
+    }
 }

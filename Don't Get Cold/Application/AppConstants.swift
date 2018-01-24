@@ -11,9 +11,11 @@ import Foundation
 struct AppConstants {
     
     static let WeatherApiKey = "bbcf61f77b09ced0996ff61969903587"
+    static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
     
     enum Encoding: String {
         case weather
+        case forecast
         case coord
         case lat
         case lon

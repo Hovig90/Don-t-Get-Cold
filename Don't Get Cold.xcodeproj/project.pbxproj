@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		683F10E220180757003A2F7F /* city.list.json in Resources */ = {isa = PBXBuildFile; fileRef = 683F10E120180757003A2F7F /* city.list.json */; };
 		683F10E6201807DF003A2F7F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10E5201807DF003A2F7F /* City.swift */; };
+		683F10EA20181B37003A2F7F /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10E920181B37003A2F7F /* RequestManager.swift */; };
 		68410AE520147568003FA3B7 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AE420147568003FA3B7 /* PermissionManager.swift */; };
 		68410AE720147603003FA3B7 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AE620147602003FA3B7 /* AlertManager.swift */; };
 		68410AEB2014765B003FA3B7 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		683F10E120180757003A2F7F /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
 		683F10E5201807DF003A2F7F /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		683F10E920181B37003A2F7F /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		68410AE420147568003FA3B7 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		68410AE620147602003FA3B7 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				689A3FD7201470B800FFF496 /* LocationManager.swift */,
 				68410AE620147602003FA3B7 /* AlertManager.swift */,
 				68410AEC201485D0003FA3B7 /* DataManager.swift */,
+				683F10E920181B37003A2F7F /* RequestManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				68410AED201485D0003FA3B7 /* DataManager.swift in Sources */,
 				68410AE720147603003FA3B7 /* AlertManager.swift in Sources */,
 				68410AE520147568003FA3B7 /* PermissionManager.swift in Sources */,
+				683F10EA20181B37003A2F7F /* RequestManager.swift in Sources */,
 				683F10E6201807DF003A2F7F /* City.swift in Sources */,
 				689A3FD8201470B800FFF496 /* LocationManager.swift in Sources */,
 			);
