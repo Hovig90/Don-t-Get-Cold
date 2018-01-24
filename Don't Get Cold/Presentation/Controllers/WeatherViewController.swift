@@ -31,7 +31,13 @@ class WeatherViewController: UIViewController {
             }
         }
     
-        DataManager.getWeatherData(forLatitude: "", andLongitude: "")
+        DataManager.getCurrentWeatherData(withCityName: "toronto", cityID: nil, units: .metric) { (weather, error) in
+            guard error == nil else {
+                return
+            }
+            
+            
+        }
         PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             
         }

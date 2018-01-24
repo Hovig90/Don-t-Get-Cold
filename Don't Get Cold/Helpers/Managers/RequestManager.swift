@@ -20,7 +20,7 @@ class RequestManager {
             urlComponents.query = parameters
             guard let url = urlComponents.url else { return }
             
-            session.dataTask(with: url, completionHandler: { (data, responce, error) in
+            dataTask = session.dataTask(with: url, completionHandler: { (data, responce, error) in
                 compeletion(data, responce, error)
             })
         }
