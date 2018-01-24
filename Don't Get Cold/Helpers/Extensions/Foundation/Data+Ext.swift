@@ -16,6 +16,14 @@ extension Data {
         } catch {
             fatalError(error.localizedDescription)
         }
-        
+    }
+    
+    func convertToArrayOfDictionaries() -> [[String : Any]]? {
+        do {
+            let jsonDictionary = try JSONSerialization.jsonObject(with: self, options: []) as? [[String: Any]]
+            return jsonDictionary
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 
 protocol Convertable {
     func toJSONDictionary() -> [String : Any]
+    init?(with jsonDictionary: [String : Any])
 }
 
 protocol ServiceObjectSerializable/*: Convertable*/ {

@@ -35,6 +35,7 @@ struct AppConstants {
         case temp_max
         case speed
         case deg
+        case country
     }
 }
 

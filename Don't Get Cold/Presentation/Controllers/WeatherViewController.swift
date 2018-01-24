@@ -18,12 +18,19 @@ extension WeatherViewController : CLLocationManagerDelegate {
 class WeatherViewController: UIViewController {
 
     //MARK: Members
-    
+    var citiess: [City] = []
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        DataManager.getCities { (cities) in
+            if let cities = cities {
+                self.citiess = cities
+            }
+        }
+    
         DataManager.getWeatherData(forLatitude: "", andLongitude: "")
         PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             

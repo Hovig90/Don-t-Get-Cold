@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct BaseModel: Convertable {
+class BaseModel: Convertable {
     
+    required init?(with jsonDictionary: [String : Any]) { }
 
     func toJSONDictionary() -> [String : Any] {
         return JSONDictionaryConverter.getJSONDicationaryFromObject(self)

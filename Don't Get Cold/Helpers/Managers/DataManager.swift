@@ -39,5 +39,25 @@ class DataManager {
         
     }
     
+    static func getCities(completion: @escaping (([City]?) -> Void))  {
+        DispatchQueue.global(qos: .background).async {
+            let url = Bundle.main.url(forResource: "city.list", withExtension: ".json")
+            if let url = url {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let dict = data.convertToArrayOfDictionaries()
+                    var cities: [City] = []
+                    for city in dict! {
+                        cities.append(City(with: city)!)
+                    }
+                    completion(cities)
+                } catch {
+                    completion(nil)
+                    fatalError(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     
 }

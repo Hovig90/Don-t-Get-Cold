@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		683F10E220180757003A2F7F /* city.list.json in Resources */ = {isa = PBXBuildFile; fileRef = 683F10E120180757003A2F7F /* city.list.json */; };
+		683F10E6201807DF003A2F7F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10E5201807DF003A2F7F /* City.swift */; };
 		68410AE520147568003FA3B7 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AE420147568003FA3B7 /* PermissionManager.swift */; };
 		68410AE720147603003FA3B7 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AE620147602003FA3B7 /* AlertManager.swift */; };
 		68410AEB2014765B003FA3B7 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		683F10E120180757003A2F7F /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
+		683F10E5201807DF003A2F7F /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		68410AE420147568003FA3B7 /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		68410AE620147602003FA3B7 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
@@ -55,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		683F10E32018079F003A2F7F /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				683F10E5201807DF003A2F7F /* City.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
 		68410AE820147640003FA3B7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +89,7 @@
 			children = (
 				6851D4272016E98700B5B68B /* Base */,
 				6851D4242015529600B5B68B /* Service */,
+				683F10E32018079F003A2F7F /* Local */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +184,7 @@
 		689A3FD220146B6200FFF496 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				683F10E120180757003A2F7F /* city.list.json */,
 				689A3FC42014630A00FFF496 /* Assets.xcassets */,
 				689A3FC92014630A00FFF496 /* Info.plist */,
 			);
@@ -266,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				689A3FC82014630A00FFF496 /* LaunchScreen.storyboard in Resources */,
+				683F10E220180757003A2F7F /* city.list.json in Resources */,
 				689A3FC52014630A00FFF496 /* Assets.xcassets in Resources */,
 				689A3FC32014630A00FFF496 /* Main.storyboard in Resources */,
 			);
@@ -289,6 +304,7 @@
 				68410AED201485D0003FA3B7 /* DataManager.swift in Sources */,
 				68410AE720147603003FA3B7 /* AlertManager.swift in Sources */,
 				68410AE520147568003FA3B7 /* PermissionManager.swift in Sources */,
+				683F10E6201807DF003A2F7F /* City.swift in Sources */,
 				689A3FD8201470B800FFF496 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
