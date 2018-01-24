@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+struct BaseModel: Convertable {
+    
+
+    func toJSONDictionary() -> [String : Any] {
+        return JSONDictionaryConverter.getJSONDicationaryFromObject(self)
+    }
+}
