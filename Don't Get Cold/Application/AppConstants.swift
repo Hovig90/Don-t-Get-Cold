@@ -65,6 +65,8 @@ struct AppConstants {
         case VisibilityDayIcon
         case VisibilityNightIcon
         case WindIcon
+        case SunsetIcon
+        case SunriseIcon
     }
 }
 
