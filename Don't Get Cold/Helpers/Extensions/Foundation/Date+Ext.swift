@@ -18,7 +18,8 @@ extension Date {
         case regularDateHour = "yyyy/MM/dd HH"
         case day = "dd"
         case hour = "HH"
-        case time = "HH:mm:ss"
+        case timeLong = "HH:mm:ss"
+        case timeShort = "HH:mm"
         case yearMonth = "yyyy/MM"
     }
     

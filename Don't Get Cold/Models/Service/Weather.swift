@@ -85,7 +85,7 @@ struct SystemData: ServiceObjectSerializable {
     
     init?(response: HTTPURLResponse?, representation: Any) {
         guard let representation = representation as? [String : Any] else {
-            return
+            return nil
         }
         
         self.type = representation[AppConstants.Encoding.type.rawValue] as? Int
