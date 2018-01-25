@@ -75,6 +75,28 @@ struct Wind: ServiceObjectSerializable {
     }
 }
 
+struct SystemData: ServiceObjectSerializable {
+    let type: Int?
+    let id: Int?
+    let message: Double?
+    let country: String?
+    let sunrise: Int?
+    let sunset: Int?
+    
+    init?(response: HTTPURLResponse?, representation: Any) {
+        guard let representation = representation as? [String : Any] else {
+            return
+        }
+        
+        self.type = representation[AppConstants.Encoding.type.rawValue] as? Int
+        self.id = representation[AppConstants.Encoding.id.rawValue] as? Int
+        self.message = representation[AppConstants.Encoding.message.rawValue] as? Double
+        self.country = representation[AppConstants.Encoding.country.rawValue] as? String
+        self.sunrise = representation[AppConstants.Encoding.sunrise.rawValue] as? Int
+        self.sunset = representation[AppConstants.Encoding.sunset.rawValue] as? Int
+    }
+}
+
 struct Weather: ServiceObjectSerializable {
     
     var coord: Coordinate?
@@ -88,6 +110,7 @@ struct Weather: ServiceObjectSerializable {
     var id: Int?
     var name: String?
     var cod: Int?
+    var sys: SystemData?
     
     init?(response: HTTPURLResponse?, representation: Any) {
         guard let representation = representation as? [String : Any] else {
@@ -111,5 +134,6 @@ struct Weather: ServiceObjectSerializable {
         self.id = representation[AppConstants.Encoding.id.rawValue] as? Int
         self.name = representation[AppConstants.Encoding.name.rawValue] as? String
         self.cod = representation[AppConstants.Encoding.cod.rawValue] as? Int
+        self.sys = SystemData(response: response, representation: representation[AppConstants.Encoding.sys.rawValue] as Any)
     }
 }

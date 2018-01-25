@@ -37,7 +37,12 @@ struct AppConstants {
         case temp_max
         case speed
         case deg
+        case sys
         case country
+        case type
+        case message
+        case sunset
+        case sunrise
     }
     
     enum Images: String {
