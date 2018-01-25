@@ -56,6 +56,7 @@ class WeatherViewController: UIViewController {
 
     //MARK: Members
     var citiess: [City] = []
+    //var weatherForecastDataModel: ForecastTempreture
     var weatherDataModel: CurrentWeather? {
         didSet {
         
@@ -99,14 +100,25 @@ class WeatherViewController: UIViewController {
                 return
             }
             
-            
             DispatchQueue.main.async {
                 self.weatherDataModel = CurrentWeather(withWeather: weather!)
                 self.tableView.reloadData()
                 self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
             }
+            
+            DispatchQueue.global(qos: .default).async {
+                DataManager.getForecastData(withCityName: "toronto", cityID: nil, units: .metric, andCount: 3) { (forecast, error) in
+                    guard error == nil else {
+                        return
+                    }
+                    print("hye")
+                }
+            }
+            
+            
         }
-        PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
+        
+    PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             
         }
         LocationManager.shared.configure(withDelegate: self)

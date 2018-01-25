@@ -22,25 +22,6 @@ struct Coordinate: ServiceObjectSerializable {
     }
 }
 
-struct WeatherData: ServiceObjectSerializable {
-    
-    var id: Int?
-    var main: String?
-    var description: String?
-    var icon: String?
-    
-    init?(response: HTTPURLResponse?, representation: Any) {
-        guard let representation = representation as? [String : Any] else {
-            return nil
-        }
-        
-        self.id = representation[AppConstants.Encoding.id.rawValue] as? Int
-        self.main = representation[AppConstants.Encoding.main.rawValue] as? String
-        self.description = representation[AppConstants.Encoding.description.rawValue] as? String
-        self.icon = representation[AppConstants.Encoding.description.rawValue] as? String
-    }
-}
-
 struct Tempreture: ServiceObjectSerializable {
     var temp: Double?
     var pressure: Int?

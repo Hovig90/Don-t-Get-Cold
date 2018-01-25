@@ -12,6 +12,7 @@ struct AppConstants {
     
     static let WeatherApiKey = "bbcf61f77b09ced0996ff61969903587"
     static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
+    static let forecastDailyUrl = BaseUrl + "forecast/daily"
     
     enum Encoding: String {
         case weather
@@ -43,6 +44,17 @@ struct AppConstants {
         case message
         case sunset
         case sunrise
+        case population
+        case min
+        case max
+        case eve
+        case night
+        case morn
+        case day
+        case snow
+        case city
+        case list
+        case cnt
     }
     
     enum Images: String {
