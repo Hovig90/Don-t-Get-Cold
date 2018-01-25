@@ -39,6 +39,28 @@ struct AppConstants {
         case deg
         case country
     }
+    
+    enum Images: String {
+        case ArrowUp
+        case ArrowDown
+        case CelsiusIcon
+        case ClearSkyDayIcon
+        case ClearSkyNightIcon
+        case CloudIcon
+        case FewCloudsDayIcon
+        case FewCloudsNightIcon
+        case HumidityIcon
+        case MenuIcon
+        case MistIcon
+        case PressureIcon
+        case RainDayIcon
+        case RainNightIcon
+        case SnowIcon
+        case ThunderstormIcon
+        case VisibilityDayIcon
+        case VisibilityNightIcon
+        case WindIcon
+    }
 }
 
 

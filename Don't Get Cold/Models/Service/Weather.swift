@@ -43,7 +43,7 @@ struct WeatherData: ServiceObjectSerializable {
 
 struct Tempreture: ServiceObjectSerializable {
     var temp: Double?
-    var pressure: Double?
+    var pressure: Int?
     var humidity: Double?
     var temp_min: Double?
     var temp_max: Double?
@@ -54,7 +54,7 @@ struct Tempreture: ServiceObjectSerializable {
         }
         
         self.temp = representation[AppConstants.Encoding.temp.rawValue] as? Double
-        self.pressure = representation[AppConstants.Encoding.pressure.rawValue] as? Double
+        self.pressure = representation[AppConstants.Encoding.pressure.rawValue] as? Int
         self.humidity = representation[AppConstants.Encoding.humidity.rawValue] as? Double
         self.temp_min = representation[AppConstants.Encoding.temp_min.rawValue] as? Double
         self.temp_max = representation[AppConstants.Encoding.temp_max.rawValue] as? Double

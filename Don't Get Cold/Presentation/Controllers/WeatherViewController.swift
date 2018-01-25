@@ -15,10 +15,72 @@ extension WeatherViewController : CLLocationManagerDelegate {
     }
 }
 
+extension WeatherViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y < 0 {
+            return
+        }
+        let diff = abs(scrollView.contentSize.height - scrollView.bounds.height) / (10 * 2)
+        let alphaPercent = (abs(scrollView.contentOffset.y) / diff) * 0.1
+        
+        
+        //self.weatherImageView.alpha = 1 - alphaPercent
+    }
+}
+
+extension WeatherViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(weatherInfoDataTableViewCellHeight)
+    }
+}
+
+extension WeatherViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoTableViewCell", for: indexPath) as! WeatherInfoTableViewCell
+        
+        let weatherData = self.weatherDataModel!.weatherInfoData[indexPath.row]
+        cell.weatherInfoImageView.image = UIImage(named: weatherData.image!)
+        cell.weatherInfoDataType.text = weatherData.type
+        cell.weatherInfoDataValue.text = weatherData.value
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.weatherDataModel?.weatherInfoData.count ?? 0
+    }
+}
+
 class WeatherViewController: UIViewController {
 
     //MARK: Members
     var citiess: [City] = []
+    var weatherDataModel: CurrentWeather? {
+        didSet {
+        
+            self.cityLabel.text = weatherDataModel?.cityName
+            self.weatherDescriptionLabel.text = weatherDataModel?.temperatureSummary
+            self.dateTimeLabel.text = weatherDataModel?.date
+            self.tempretureLabel.text = weatherDataModel?.temperature
+            self.tempMaxLabel.text = weatherDataModel?.tempMax
+            self.tempMinLabel.text = weatherDataModel?.tempMin
+        }
+    }
+    let weatherInfoDataTableViewCellHeight = 50
+    
+    //MARK: Outlets
+    @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var tempretureUnitLabel: UIImageView!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var weatherDescriptionLabel: UILabel!
+    @IBOutlet weak var tempretureLabel: UILabel!
+    @IBOutlet weak var tempMaxLabel: UILabel!
+    @IBOutlet weak var tempMinLabel: UILabel!
+    @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     //MARK: Overrides
     override func viewDidLoad() {
@@ -30,17 +92,33 @@ class WeatherViewController: UIViewController {
                 self.citiess = cities
             }
         }
-    
+        tableViewHeightConstraint.constant = 0
+        tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
         DataManager.getCurrentWeatherData(withCityName: "toronto", cityID: nil, units: .metric) { (weather, error) in
             guard error == nil else {
                 return
             }
             
             
+            DispatchQueue.main.async {
+                self.weatherDataModel = CurrentWeather(withWeather: weather!)
+                self.tableView.reloadData()
+                self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
+            }
         }
         PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             
         }
         LocationManager.shared.configure(withDelegate: self)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    //MARK: Actions
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        
+    }
+    
 }

@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+struct WeatherInfoDataModel {
+    var image: String?
+    var type: String?
+    var value: String?
+}
