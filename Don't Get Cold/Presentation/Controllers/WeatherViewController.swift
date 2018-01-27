@@ -52,6 +52,30 @@ extension WeatherViewController : UITableViewDataSource {
     }
 }
 
+extension WeatherViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
+    
+    
+}
+
+extension WeatherViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
+        
+        cell.weatherForecastTopLabel.text = "Mon"
+        cell.weatherForecastImageView.image = UIImage(named: AppConstants.Images.FewCloudsDayIcon.rawValue)
+        cell.weatherForecastBottomLabel.text = "28"
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+}
+
 class WeatherViewController: UIViewController {
 
     //MARK: Members
@@ -73,6 +97,7 @@ class WeatherViewController: UIViewController {
     //MARK: Outlets
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var tempretureUnitLabel: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
@@ -95,6 +120,8 @@ class WeatherViewController: UIViewController {
         }
         tableViewHeightConstraint.constant = 0
         tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
+        collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
+        
         DataManager.getCurrentWeatherData(withCityName: "toronto", cityID: nil, units: .metric) { (weather, error) in
             guard error == nil else {
                 return
