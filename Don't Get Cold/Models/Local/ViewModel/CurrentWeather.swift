@@ -16,7 +16,7 @@ struct CurrentWeather {
     var tempMin: String?
     var tempMax: String?
     var temperatureSummary: String?
-    var weatherInfoData: [WeatherInfoDataModel] = []
+    var weatherInfoData: [WeatherInfoViewModel] = []
     var date: String?
     var sunrise: String?
     var sunset: String?
@@ -31,13 +31,13 @@ struct CurrentWeather {
         sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
         sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
         weatherInfoData = [
-            WeatherInfoDataModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise),
-            WeatherInfoDataModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset),
-            WeatherInfoDataModel(image: AppConstants.Images.CloudIcon.rawValue, type: "Cloudiness", value: String(weather.clouds!["all"]!) + " %"),
-            WeatherInfoDataModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(weather.visibility! / 1000) + " km"),
-            WeatherInfoDataModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(weather.wind!.speed!) + " mps"),
-            WeatherInfoDataModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(weather.main!.pressure!) + " hPa"),
-            WeatherInfoDataModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(weather.main!.humidity!) + " %")
+            WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise),
+            WeatherInfoViewModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset),
+            WeatherInfoViewModel(image: AppConstants.Images.CloudIcon.rawValue, type: "Cloudiness", value: String(weather.clouds!["all"]!) + " %"),
+            WeatherInfoViewModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(weather.visibility! / 1000) + " km"),
+            WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(weather.wind!.speed!) + " mps"),
+            WeatherInfoViewModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(weather.main!.pressure!) + " hPa"),
+            WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(weather.main!.humidity!) + " %")
         ]
     }
     

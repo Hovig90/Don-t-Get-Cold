@@ -12,7 +12,8 @@ extension Date {
     
     enum DateFormatStyle: String {
         case fullDay = "EEEE, dd"
-        case weekDayPlusFullDate = "EEEE, dd MMM yy"
+        case weekdayShort = "EEE"
+        case weekdayPlusFullDate = "EEEE, dd MMM yy"
         case fullDateTime = "yyyy/MM/dd HH:mm:ss"
         case regularDate = "yyyy/MM/dd"
         case regularDateHour = "yyyy/MM/dd HH"
@@ -35,6 +36,7 @@ extension Date {
     
     func convertDateToString(withFormatterStyle style: DateFormatStyle) -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateFormat = style.rawValue
         return dateFormatter.string(from: self)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct WeatherInfoDataModel {
+struct WeatherInfoViewModel {
     var image: String?
     var type: String?
     var value: String?

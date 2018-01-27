@@ -64,15 +64,16 @@ extension WeatherViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
         
-        cell.weatherForecastTopLabel.text = "Mon"
+        let dailyForecast = weatherForecastViewModel?.dailyForecast[indexPath.row]
+        cell.weatherForecastTopLabel.text = dailyForecast?.forecastDate
         cell.weatherForecastImageView.image = UIImage(named: AppConstants.Images.FewCloudsDayIcon.rawValue)
-        cell.weatherForecastBottomLabel.text = "28"
+        cell.weatherForecastBottomLabel.text = dailyForecast?.forecastTempreture
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 5// weatherForecastViewModel!.dailyForecast.count ?? 0
     }
 }
 
@@ -92,6 +93,9 @@ class WeatherViewController: UIViewController {
             self.tempMinLabel.text = weatherDataModel?.tempMin
         }
     }
+    var weatherForecastViewModel: ForecastViewModel?
+    
+    
     let weatherInfoDataTableViewCellHeight = 50
     
     //MARK: Outlets
@@ -134,11 +138,18 @@ class WeatherViewController: UIViewController {
             }
             
             DispatchQueue.global(qos: .default).async {
-                DataManager.getForecastData(withCityName: "toronto", cityID: nil, units: .metric, andCount: 3) { (forecast, error) in
+                DataManager.getForecastData(withCityName: "toronto", cityID: nil, units: .metric, andCount: 5) { (forecast, error) in
                     guard error == nil else {
                         return
                     }
-                    print("hye")
+                    
+                    if let forecast = forecast {
+                        self.weatherForecastViewModel = ForecastViewModel(withForecast: forecast)
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                    
                 }
             }
             
