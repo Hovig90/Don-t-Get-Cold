@@ -31,7 +31,7 @@
                     <color key="textColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wind" translatesAutoresizingMaskIntoConstraints="NO" id="jGE-8s-7Av">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jGE-8s-7Av">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="ea2-60-6C2"/>
@@ -64,7 +64,4 @@
             <point key="canvasLocation" x="15.5" y="0.0"/>
         </view>
     </objects>
-    <resources>
-        <image name="wind" width="47" height="45"/>
-    </resources>
 </document>
