@@ -73,7 +73,7 @@ extension WeatherViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5// weatherForecastViewModel!.dailyForecast.count ?? 0
+        return self.weatherForecastViewModel?.dailyForecast.count ?? 0
     }
 }
 
@@ -138,7 +138,7 @@ class WeatherViewController: UIViewController {
             }
             
             DispatchQueue.global(qos: .default).async {
-                DataManager.getForecastData(withCityName: "toronto", cityID: nil, units: .metric, andCount: 5) { (forecast, error) in
+                DataManager.getForecastData(withCityName: "toronto", cityID: nil, units: .metric, andCount: 6) { (forecast, error) in
                     guard error == nil else {
                         return
                     }

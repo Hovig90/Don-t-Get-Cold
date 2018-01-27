@@ -40,4 +40,13 @@ extension Date {
         dateFormatter.dateFormat = style.rawValue
         return dateFormatter.string(from: self)
     }
+    
+    func compare(toDate: Date, withFormat format: DateFormatStyle = .fullDay) -> Bool {//Add Comparison
+        let date = self.convertDateToString(withFormatterStyle: format)
+        let toDate = toDate.convertDateToString(withFormatterStyle: format)
+        if date == toDate {
+            return true
+        }
+        return false
+    }
 }

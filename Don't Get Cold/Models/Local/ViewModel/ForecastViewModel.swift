@@ -14,7 +14,9 @@ struct ForecastViewModel {
     init(withForecast forecast: Forecast) {
         if let forecastList = forecast.list {
             for forecast in forecastList {
-                dailyForecast.append(DailyForecastViewModel(withForecast: forecast))
+                if let dailyForecastViewModel = DailyForecastViewModel(withForecast: forecast) {
+                    dailyForecast.append(dailyForecastViewModel)
+                }
             }
         }
     }
@@ -25,7 +27,11 @@ struct DailyForecastViewModel {
     var forecastImage: String?
     var forecastTempreture: String?
     
-    init(withForecast forecast: DailyForecast) {
+    init?(withForecast forecast: DailyForecast) {
+        guard Date().compare(toDate: Date(withUNIXDate: Double(forecast.dt!)), withFormat: .regularDate) == false else {
+            return nil
+        }
+        
         forecastDate = Date(withUNIXDate: Double(forecast.dt!)).convertDateToString(withFormatterStyle: .weekdayShort)
         forecastTempreture = String(Int(forecast.temp!.eve!))
     }
