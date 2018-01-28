@@ -64,10 +64,12 @@ extension WeatherViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
         
-        let dailyForecast = weatherForecastViewModel?.dailyForecast[indexPath.row]
-        cell.weatherForecastTopLabel.text = dailyForecast?.forecastDate
-        cell.weatherForecastImageView.image = UIImage(named: AppConstants.Images.FewCloudsDayIcon.rawValue)
-        cell.weatherForecastBottomLabel.text = dailyForecast?.forecastTempreture
+        if let dailyForecast = weatherForecastViewModel?.dailyForecast[indexPath.row] {
+            cell.weatherForecastTopLabel.text = dailyForecast.forecastDate
+            cell.weatherForecastImageView.image = UIImage(named: dailyForecast.forecastImage!)
+            cell.weatherForecastBottomLabel.text = dailyForecast.forecastTempreture
+        }
+        
         
         return cell
     }
@@ -91,6 +93,7 @@ class WeatherViewController: UIViewController {
             self.tempretureLabel.text = weatherDataModel?.temperature
             self.tempMaxLabel.text = weatherDataModel?.tempMax
             self.tempMinLabel.text = weatherDataModel?.tempMin
+            self.weatherImageView.image = UIImage(named: weatherDataModel!.weatherIcon!)
         }
     }
     var weatherForecastViewModel: ForecastViewModel?
@@ -115,7 +118,6 @@ class WeatherViewController: UIViewController {
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         DataManager.getCities { (cities) in
             if let cities = cities {
@@ -126,7 +128,7 @@ class WeatherViewController: UIViewController {
         tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
         collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
         
-        DataManager.getCurrentWeatherData(withCityName: "toronto", cityID: nil, units: .metric) { (weather, error) in
+        DataManager.getCurrentWeatherData(withCityName: "yerevan", cityID: nil, units: .metric) { (weather, error) in
             guard error == nil else {
                 return
             }
@@ -138,7 +140,7 @@ class WeatherViewController: UIViewController {
             }
             
             DispatchQueue.global(qos: .default).async {
-                DataManager.getForecastData(withCityName: "toronto", cityID: nil, units: .metric, andCount: 6) { (forecast, error) in
+                DataManager.getForecastData(withCityName: "yerevan", cityID: nil, units: .metric, andCount: 16) { (forecast, error) in
                     guard error == nil else {
                         return
                     }

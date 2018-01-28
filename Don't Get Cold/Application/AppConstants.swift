@@ -60,25 +60,37 @@ struct AppConstants {
     enum Images: String {
         case ArrowUp
         case ArrowDown
+        case BrokenCloudsIcon
         case CelsiusIcon
         case ClearSkyDayIcon
         case ClearSkyNightIcon
         case CloudIcon
+        case DrizzleThunderstormIcon
         case FewCloudsDayIcon
         case FewCloudsNightIcon
+        case FreezingRainIcon
+        case FreezingShowerIcon
+        case HeavyRainIcon
+        case HeavyShowerIcon
+        case HeavySnowHailIcon
         case HumidityIcon
         case MenuIcon
         case MistIcon
         case PressureIcon
+        case RaggedThunderstormIcon
         case RainDayIcon
         case RainNightIcon
+        case ShowerDayIcon
+        case ShowerNightIcon
+        case ShowerThunderstormIcon
+        case SnowHailIcon
         case SnowIcon
+        case SunsetIcon
+        case SunriseIcon
         case ThunderstormIcon
         case VisibilityDayIcon
         case VisibilityNightIcon
         case WindIcon
-        case SunsetIcon
-        case SunriseIcon
     }
 }
 

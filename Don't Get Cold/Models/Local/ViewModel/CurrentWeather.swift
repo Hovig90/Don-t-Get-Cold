@@ -30,6 +30,7 @@ struct CurrentWeather {
         date = Date(withUNIXDate: Double(weather.dt!)).convertDateToString(withFormatterStyle: .fullDay)
         sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
         sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
+        weatherIcon = WeatherIcon(rawValue: (nil, nil, weather.weather!.first!.id!))?.get(.day)
         weatherInfoData = [
             WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise),
             WeatherInfoViewModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset),
@@ -39,11 +40,5 @@ struct CurrentWeather {
             WeatherInfoViewModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(weather.main!.pressure!) + " hPa"),
             WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(weather.main!.humidity!) + " %")
         ]
-    }
-    
-    //MARK: Private
-    private func getWeatherIcon(withCode code: Int) -> String {
-        
-        return ""
     }
 }
