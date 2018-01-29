@@ -8,11 +8,17 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
 extension WeatherViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
+            if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
+                self.requestWeatherData(forCity: locality + "," + counrtyCode)
+            }
+        }
     }
+    
 }
 
 extension WeatherViewController : UIScrollViewDelegate {
@@ -54,7 +60,7 @@ extension WeatherViewController : UITableViewDataSource {
 
 extension WeatherViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: 60, height: 100)
     }
     
     
@@ -97,7 +103,7 @@ class WeatherViewController: UIViewController {
         }
     }
     var weatherForecastViewModel: ForecastViewModel?
-    
+    var coordinates: Coordinate?
     
     let weatherInfoDataTableViewCellHeight = 50
     
@@ -122,41 +128,21 @@ class WeatherViewController: UIViewController {
         DataManager.getCities { (cities) in
             if let cities = cities {
                 self.citiess = cities
+                
+                let x = self.citiess.filter({ (city) -> Bool in
+                    if (city.coord?.lon)! == self.coordinates?.lon && (city.coord?.lat)! == self.coordinates?.lat {
+                        return true
+                    }
+                    return false
+                })
+                print(x)
             }
         }
         tableViewHeightConstraint.constant = 0
         tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
         collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
         
-        DataManager.getCurrentWeatherData(withCityName: "yerevan", cityID: nil, units: .metric) { (weather, error) in
-            guard error == nil else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.weatherDataModel = CurrentWeather(withWeather: weather!)
-                self.tableView.reloadData()
-                self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
-            }
-            
-            DispatchQueue.global(qos: .default).async {
-                DataManager.getForecastData(withCityName: "yerevan", cityID: nil, units: .metric, andCount: 16) { (forecast, error) in
-                    guard error == nil else {
-                        return
-                    }
-                    
-                    if let forecast = forecast {
-                        self.weatherForecastViewModel = ForecastViewModel(withForecast: forecast)
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    }
-                    
-                }
-            }
-            
-            
-        }
+        
         
     PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             
@@ -171,6 +157,37 @@ class WeatherViewController: UIViewController {
     //MARK: Actions
     @IBAction func menuButtonTapped(_ sender: Any) {
         
+    }
+    
+    //MARK: Private
+    private func requestWeatherData(forCity city: String) {
+        DataManager.getCurrentWeatherData(withCityName: city, cityID: nil, units: .metric) { (weather, error) in
+            guard error == nil else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.weatherDataModel = CurrentWeather(withWeather: weather!)
+                self.tableView.reloadData()
+                self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
+            }
+            
+            DispatchQueue.global(qos: .default).async {
+                DataManager.getForecastData(withCityName: city, cityID: nil, units: .metric, andCount: 16) { (forecast, error) in
+                    guard error == nil else {
+                        return
+                    }
+                    
+                    if let forecast = forecast {
+                        self.weatherForecastViewModel = ForecastViewModel(withForecast: forecast)
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                    
+                }
+            }
+        }
     }
     
 }
