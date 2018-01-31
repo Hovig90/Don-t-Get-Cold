@@ -30,15 +30,51 @@ struct CurrentWeather {
         date = Date(withUNIXDate: Double(weather.dt!)).convertDateToString(withFormatterStyle: .fullDay)
         sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
         sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
-        weatherIcon = WeatherIcon(rawValue: (nil, nil, weather.weather!.first!.id!))?.get(.day)
-        weatherInfoData = [
-            WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise),
-            WeatherInfoViewModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset),
-            WeatherInfoViewModel(image: AppConstants.Images.CloudIcon.rawValue, type: "Cloudiness", value: String(weather.clouds!["all"]!) + " %"),
-            WeatherInfoViewModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(weather.visibility! / 1000) + " km"),
-            WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(weather.wind!.speed!) + " mps"),
-            WeatherInfoViewModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(weather.main!.pressure!) + " hPa"),
-            WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(weather.main!.humidity!) + " %")
-        ]
+
+        if isNight(sunrise: sunrise!, sunset: sunset!) {
+            weatherIcon = WeatherIcon(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.night)
+        } else {
+            weatherIcon = WeatherIcon(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.day)
+        }
+        
+        if let sunrise = sunrise {
+            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise))
+        }
+        if let sunset = sunset {
+            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset))
+        }
+        if let clouds = weather.clouds, let cloudiness = clouds["all"]  {
+            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.CloudIcon.rawValue, type: "Cloudiness", value: String(cloudiness) + " %"))
+        }
+        if let visibility = weather.visibility {
+            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(visibility / 1000) + " km"))
+        }
+        if let wind = weather.wind, let speed = wind.speed {
+            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(speed) + " mps"))
+        }
+        if let main = weather.main {
+            if let pressure = main.pressure {
+                weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(pressure) + " hPa"))
+            }
+            if let humidity = main.humidity {
+                weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(humidity) + " %"))
+            }
+        }
+    }
+    
+    //Mark: Private
+    private func isNight(sunrise: String, sunset: String) -> Bool {
+        guard let sunrise = Double(sunrise.replacingOccurrences(of: ":", with: ".")),
+            let sunset = Double(sunset.replacingOccurrences(of: ":", with: ".")),
+            let currentTime = Double(Date().convertDateToString(withFormatterStyle: .timeShort)
+                .replacingOccurrences(of: ":", with: ".")) else {
+            fatalError("time passed is not in the correct format.")
+        }
+        
+        if currentTime >= sunrise && currentTime < sunset {
+            return false
+        } else {
+            return true
+        }
     }
 }

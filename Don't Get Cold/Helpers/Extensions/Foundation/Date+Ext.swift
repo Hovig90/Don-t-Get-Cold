@@ -19,6 +19,7 @@ extension Date {
         case regularDateHour = "yyyy/MM/dd HH"
         case day = "dd"
         case hour = "HH"
+        case minute = "mm"
         case timeLong = "HH:mm:ss"
         case timeShort = "HH:mm"
         case yearMonth = "yyyy/MM"
@@ -36,7 +37,6 @@ extension Date {
     
     func convertDateToString(withFormatterStyle style: DateFormatStyle) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateFormat = style.rawValue
         return dateFormatter.string(from: self)
     }

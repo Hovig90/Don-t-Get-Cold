@@ -8,17 +8,18 @@
 
 import UIKit
 import CoreLocation
-import MapKit
 
 extension WeatherViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        CLGeocoder().geocodeAddressString("Aleppo,SY") { (pl, error) in
+            print(error)
+        }
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
                 self.requestWeatherData(forCity: locality + "," + counrtyCode)
             }
         }
     }
-    
 }
 
 extension WeatherViewController : UIScrollViewDelegate {
@@ -99,7 +100,9 @@ class WeatherViewController: UIViewController {
             self.tempretureLabel.text = weatherDataModel?.temperature
             self.tempMaxLabel.text = weatherDataModel?.tempMax
             self.tempMinLabel.text = weatherDataModel?.tempMin
-            self.weatherImageView.image = UIImage(named: weatherDataModel!.weatherIcon!)
+            if let icon = weatherDataModel!.weatherIcon {
+                self.weatherImageView.image = UIImage(named: icon)
+            }
         }
     }
     var weatherForecastViewModel: ForecastViewModel?
@@ -184,7 +187,6 @@ class WeatherViewController: UIViewController {
                             self.collectionView.reloadData()
                         }
                     }
-                    
                 }
             }
         }
