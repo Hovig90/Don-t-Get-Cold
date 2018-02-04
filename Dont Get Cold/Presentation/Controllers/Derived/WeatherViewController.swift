@@ -7,20 +7,6 @@
 //
 
 import UIKit
-import CoreLocation
-
-extension WeatherViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().geocodeAddressString("Aleppo,SY") { (pl, error) in
-            print(error)
-        }
-        CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
-            if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
-                self.requestWeatherData(forCity: locality + "," + counrtyCode)
-            }
-        }
-    }
-}
 
 extension WeatherViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -86,25 +72,12 @@ extension WeatherViewController : UICollectionViewDataSource {
     }
 }
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: BaseViewController {
 
     //MARK: Members
     var citiess: [City] = []
     //var weatherForecastDataModel: ForecastTempreture
-    var weatherDataModel: CurrentWeather? {
-        didSet {
-        
-            self.cityLabel.text = weatherDataModel?.cityName
-            self.weatherDescriptionLabel.text = weatherDataModel?.temperatureSummary
-            self.dateTimeLabel.text = weatherDataModel?.date
-            self.tempretureLabel.text = weatherDataModel?.temperature
-            self.tempMaxLabel.text = weatherDataModel?.tempMax
-            self.tempMinLabel.text = weatherDataModel?.tempMin
-            if let icon = weatherDataModel!.weatherIcon {
-                self.weatherImageView.image = UIImage(named: icon)
-            }
-        }
-    }
+    var weatherDataModel: CurrentWeather?
     var weatherForecastViewModel: ForecastViewModel?
     var coordinates: Coordinate?
     
@@ -127,69 +100,46 @@ class WeatherViewController: UIViewController {
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DataManager.getCities { (cities) in
-            if let cities = cities {
-                self.citiess = cities
-                
-                let x = self.citiess.filter({ (city) -> Bool in
-                    if (city.coord?.lon)! == self.coordinates?.lon && (city.coord?.lat)! == self.coordinates?.lat {
-                        return true
-                    }
-                    return false
-                })
-                print(x)
-            }
-        }
+    
+        updateView()
         tableViewHeightConstraint.constant = 0
         tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
         collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
+        self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
         
-        
-        
-    PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
-            
-        }
-        LocationManager.shared.configure(withDelegate: self)
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    //MARK: Actions
-    @IBAction func menuButtonTapped(_ sender: Any) {
-        
-    }
-    
-    //MARK: Private
-    private func requestWeatherData(forCity city: String) {
-        DataManager.getCurrentWeatherData(withCityName: city, cityID: nil, units: .metric) { (weather, error) in
-            guard error == nil else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.weatherDataModel = CurrentWeather(withWeather: weather!)
-                self.tableView.reloadData()
-                self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
-            }
-            
-            DispatchQueue.global(qos: .default).async {
-                DataManager.getForecastData(withCityName: city, cityID: nil, units: .metric, andCount: 16) { (forecast, error) in
-                    guard error == nil else {
-                        return
-                    }
-                    
-                    if let forecast = forecast {
-                        self.weatherForecastViewModel = ForecastViewModel(withForecast: forecast)
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
+        DispatchQueue.global(qos: .default).async {
+            DataManager.getForecastData(withCityName: self.weatherDataModel?.cityName, cityID: nil, units: .metric, andCount: 16) { (forecast, error) in
+                guard error == nil else {
+                    return
+                }
+                
+                if let forecast = forecast {
+                    self.weatherForecastViewModel = ForecastViewModel(withForecast: forecast)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
                     }
                 }
             }
         }
     }
     
+    //MARK: Actions
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: Private
+    private func updateView() {
+        if let weatherData = weatherDataModel {
+            self.cityLabel.text = weatherData.cityName
+            self.weatherDescriptionLabel.text = weatherData.temperatureSummary
+            self.dateTimeLabel.text = weatherData.date
+            self.tempretureLabel.text = weatherData.temperature
+            self.tempMaxLabel.text = weatherData.tempMax
+            self.tempMinLabel.text = weatherData.tempMin
+            if let icon = weatherData.weatherIcon {
+                self.weatherImageView.image = UIImage(named: icon)
+            }
+        }
+    }
 }

@@ -22,8 +22,8 @@ class WeatherTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
-        backgroundImageView.cornerRadius(20)
-        cornerRadiusView.layerShadow(withColor: UIColor(), opacity: 0.8, offset: CGSize(width: 0, height: 0), radius: 3, path: nil)
+        backgroundImageView.cornerRadius(15)
+        cornerRadiusView.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.2), opacity: 0.8, offset: CGSize(width: 0, height: 0), radius: 3, path: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
