@@ -67,4 +67,18 @@ extension UIView {
         
         return snapshot
     }
+    
+    func addBlur(withStyle style: UIBlurEffectStyle) {
+        if !UIAccessibilityIsReduceTransparencyEnabled() {
+            let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: style))
+            
+            blurEffectView.frame = self.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            self.addSubview(blurEffectView)
+            self.sendSubview(toBack: blurEffectView)
+        } else {
+            self.backgroundColor = .black
+        }
+    }
 }

@@ -9,11 +9,20 @@
 import UIKit
 import CoreLocation
 
+extension MainViewController : WeatherFooterTableViewCellDelegate {
+    func openAddCityModelViewController() {
+        if let addCityModalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCityModalViewController") as? AddCityModalViewController {
+            addCityModalViewController.modalPresentationStyle = .overCurrentContext
+            self.present(addCityModalViewController, animated: true, completion: nil)
+        }
+    }
+}
+
 extension MainViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        CLGeocoder().geocodeAddressString("Aleppo,SY") { (pl, error) in
-//            print(error)
-//        }
+        //        CLGeocoder().geocodeAddressString("Aleppo,SY") { (pl, error) in
+        //            print(error)
+        //        }
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
                 self.requestWeatherData(forCity: locality + "," + counrtyCode, isCurrent: true)
@@ -32,6 +41,18 @@ extension MainViewController : UITableViewDelegate {
             weatherViewController.weatherDataModel = selectedCities[indexPath.row]
             self.navigationController?.pushViewController(weatherViewController, animated: true)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherFooterTableViewCell") as? WeatherFooterTableViewCell
+        
+        cell?.delegate = self
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 60
     }
 }
 
@@ -53,7 +74,7 @@ extension MainViewController : UITableViewDataSource {
 }
 
 class MainViewController: BaseViewController {
-
+    
     //MARK: Members
     var selectedCities: [CurrentWeather] =  []
     
@@ -63,23 +84,23 @@ class MainViewController: BaseViewController {
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        /*DataManager.getCities { (cities) in
-         if let cities = cities {
-         self.citiess = cities
-         
-         let x = self.citiess.filter({ (city) -> Bool in
-         if (city.coord?.lon)! == self.coordinates?.lon && (city.coord?.lat)! == self.coordinates?.lat {
-         return true
-         }
-         return false
-         })
-         print(x)
-         }
-         }
-         */
+        
+        DataManager.getCities { (cities) in
+            if let cities = cities {
+                self.citiess = cities
+                
+                let x = self.citiess.filter({ (city) -> Bool in
+                    if (city.coord?.lon)! == self.coordinates?.lon && (city.coord?.lat)! == self.coordinates?.lat {
+                        return true
+                    }
+                    return false
+                })
+            }
+        }
+        
         
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
+        tableView.register(UINib(nibName: "WeatherFooterTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherFooterTableViewCell")
         tableView.separatorStyle = .none
         
         PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
