@@ -35,6 +35,13 @@ enum WeatherIcon: RawRepresentable {
     case HeavySnowHail
     case SnowHail
     case Mist
+    case Fog
+    case SandStorm
+    case Storm
+    case Hot
+    case Cold
+    case Windy
+    case Hail
     
     var rawValue: WeatherIconTuple {
         switch self {
@@ -56,12 +63,19 @@ enum WeatherIcon: RawRepresentable {
         case .HeavySnowHail: return (.HeavySnowHailIcon, .HeavySnowHailIcon, 612)
         case .SnowHail: return (.SnowHailIcon, .SnowHailIcon, 611)
         case .Mist: return (.MistIcon, .MistIcon, 701)
+        case .Fog: return (.FogIcon, .FogIcon, 711)
+        case .SandStorm: return (.SandStormIcon, .SandStormIcon, 731)
+        case .Storm: return (.StormIcon, .StormIcon, 771)
+        case .Hot: return (.HotThermometer, .HotThermometer, 904)
+        case .Cold: return (.ColdThermometer, .ColdThermometer, 903)
+        case .Windy: return (.WindIcon, .WindIcon, 905)
+        case .Hail: return (.HailIcon, .HailIcon, 906)
         }
     }
     
     init?(rawValue: WeatherIconTuple) {
         switch rawValue {
-        case (_, _, 800): self = .ClearSky
+        case (_, _, 800), (_, _, 951), (_, _, 952), (_, _, 953): self = .ClearSky
         case (_, _, 801): self = .FewClouds
         case (_, _, 802): self = .Cloudy
         case (_, _, 803), (_, _, 804): self = .BrokenClouds
@@ -79,7 +93,16 @@ enum WeatherIcon: RawRepresentable {
         case (_, _, 612): self = .HeavySnowHail
         case (_, _, 611): self = .SnowHail
         case (_, _, 701): self = .Mist
-        default: return nil
+        case (_, _, 711), (_, _, 721), (_, _, 741): self = .Fog
+        case (_, _, 731), (_, _, 751), (_, _, 761), (_, _, 762): self = .SandStorm
+        case (_, _, 771), (_, _, 781), (_, _, 900), (_, _, 901), (_, _, 902), 
+             (_, _, 957), (_, _, 958), (_, _, 959), (_, _, 960), (_, _, 961),
+             (_, _, 962): self = .Storm
+        case (_, _, 903): self = .Cold
+        case (_, _, 904): self = .Hot
+        case (_, _, 905), (_, _, 954), (_, _, 955), (_, _, 956): self = .Windy
+        case (_, _, 906): self = .Hail
+        default: self = .ClearSky
         }
     }
     

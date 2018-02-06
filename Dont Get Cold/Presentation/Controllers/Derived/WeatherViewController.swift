@@ -75,7 +75,6 @@ extension WeatherViewController : UICollectionViewDataSource {
 class WeatherViewController: BaseViewController {
 
     //MARK: Members
-    var citiess: [City] = []
     //var weatherForecastDataModel: ForecastTempreture
     var weatherDataModel: CurrentWeather?
     var weatherForecastViewModel: ForecastViewModel?

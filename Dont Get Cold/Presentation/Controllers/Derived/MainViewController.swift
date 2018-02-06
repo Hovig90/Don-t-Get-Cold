@@ -9,10 +9,18 @@
 import UIKit
 import CoreLocation
 
-extension MainViewController : WeatherFooterTableViewCellDelegate {
+extension MainViewController: AddCityModalViewControllerDelegate {
+    func update(withNewCity city: City) {
+        requestWeatherData(forCity: city.name + "," + city.country)
+    }
+}
+
+extension MainViewController: WeatherFooterTableViewCellDelegate {
     func openAddCityModelViewController() {
         if let addCityModalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCityModalViewController") as? AddCityModalViewController {
             addCityModalViewController.modalPresentationStyle = .overCurrentContext
+            addCityModalViewController.cities = cities
+            addCityModalViewController.delegate = self
             self.present(addCityModalViewController, animated: true, completion: nil)
         }
     }
@@ -20,9 +28,6 @@ extension MainViewController : WeatherFooterTableViewCellDelegate {
 
 extension MainViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        CLGeocoder().geocodeAddressString("Aleppo,SY") { (pl, error) in
-        //            print(error)
-        //        }
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
                 self.requestWeatherData(forCity: locality + "," + counrtyCode, isCurrent: true)
@@ -77,6 +82,7 @@ class MainViewController: BaseViewController {
     
     //MARK: Members
     var selectedCities: [CurrentWeather] =  []
+    var cities: [City] = []
     
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -87,14 +93,7 @@ class MainViewController: BaseViewController {
         
         DataManager.getCities { (cities) in
             if let cities = cities {
-                self.citiess = cities
-                
-                let x = self.citiess.filter({ (city) -> Bool in
-                    if (city.coord?.lon)! == self.coordinates?.lon && (city.coord?.lat)! == self.coordinates?.lat {
-                        return true
-                    }
-                    return false
-                })
+                self.cities = cities
             }
         }
         

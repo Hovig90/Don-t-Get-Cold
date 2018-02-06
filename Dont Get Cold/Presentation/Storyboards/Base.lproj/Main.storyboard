@@ -313,22 +313,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqY-xZ-JZM">
-                                <rect key="frame" x="305" y="20" width="54" height="30"/>
-                                <state key="normal" title="Dismiss"/>
+                            <searchBar contentMode="redraw" barStyle="black" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0J-t2-hRe">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <color key="tintColor" red="0.41960784309999999" green="0.41568627450000001" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="search"/>
                                 <connections>
-                                    <action selector="dismissButtonTapped:" destination="5oV-kf-5ge" eventType="touchUpInside" id="efP-bn-96j"/>
+                                    <outlet property="delegate" destination="5oV-kf-5ge" id="kxU-oO-IfO"/>
                                 </connections>
-                            </button>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P4l-ZT-csT">
+                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CityCell" textLabel="tEP-Qy-sdv" style="IBUITableViewCellStyleDefault" id="8Pv-NB-SHi">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Pv-NB-SHi" id="J2l-xj-iKX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tEP-Qy-sdv">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5oV-kf-5ge" id="reG-AR-Z6p"/>
+                                    <outlet property="delegate" destination="5oV-kf-5ge" id="S18-iC-QaC"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="jCR-io-aFV" firstAttribute="bottom" secondItem="qqY-xZ-JZM" secondAttribute="bottom" constant="617" id="9kg-J8-enY"/>
-                            <constraint firstItem="jCR-io-aFV" firstAttribute="trailing" secondItem="qqY-xZ-JZM" secondAttribute="trailing" constant="16" id="Rz2-ty-CfJ"/>
-                            <constraint firstItem="qqY-xZ-JZM" firstAttribute="top" secondItem="jCR-io-aFV" secondAttribute="top" id="vxg-XL-U9E"/>
+                            <constraint firstItem="jCR-io-aFV" firstAttribute="trailing" secondItem="P4l-ZT-csT" secondAttribute="trailing" id="5XP-Gn-6WW"/>
+                            <constraint firstItem="jCR-io-aFV" firstAttribute="bottom" secondItem="P4l-ZT-csT" secondAttribute="bottom" id="Hs0-ql-iSS"/>
+                            <constraint firstItem="P4l-ZT-csT" firstAttribute="top" secondItem="S0J-t2-hRe" secondAttribute="bottom" id="J6T-Ya-6bn"/>
+                            <constraint firstItem="S0J-t2-hRe" firstAttribute="top" secondItem="jCR-io-aFV" secondAttribute="top" id="akA-NO-yHi"/>
+                            <constraint firstItem="S0J-t2-hRe" firstAttribute="leading" secondItem="jCR-io-aFV" secondAttribute="leading" id="b9J-qt-ibF"/>
+                            <constraint firstItem="P4l-ZT-csT" firstAttribute="leading" secondItem="jCR-io-aFV" secondAttribute="leading" id="npf-G7-fAA"/>
+                            <constraint firstItem="S0J-t2-hRe" firstAttribute="trailing" secondItem="jCR-io-aFV" secondAttribute="trailing" id="qX6-L3-f11"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jCR-io-aFV"/>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="S0J-t2-hRe" id="DWu-28-GUe"/>
+                        <outlet property="tableView" destination="P4l-ZT-csT" id="HwO-Rq-eN0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WGO-G0-K8e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -65,14 +65,18 @@ struct AppConstants {
         case ClearSkyDayIcon
         case ClearSkyNightIcon
         case CloudIcon
+        case ColdThermometer
         case DrizzleThunderstormIcon
         case FewCloudsDayIcon
         case FewCloudsNightIcon
+        case FogIcon
         case FreezingRainIcon
         case FreezingShowerIcon
+        case HailIcon
         case HeavyRainIcon
         case HeavyShowerIcon
         case HeavySnowHailIcon
+        case HotThermometer
         case HumidityIcon
         case MenuIcon
         case MistIcon
@@ -80,11 +84,13 @@ struct AppConstants {
         case RaggedThunderstormIcon
         case RainDayIcon
         case RainNightIcon
+        case SandStormIcon
         case ShowerDayIcon
         case ShowerNightIcon
         case ShowerThunderstormIcon
         case SnowHailIcon
         case SnowIcon
+        case StormIcon
         case SunsetIcon
         case SunriseIcon
         case ThunderstormIcon
