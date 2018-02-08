@@ -13,6 +13,7 @@ struct CurrentWeather {
     var cityName: String?
     var temperature: String?
     var weatherIcon: String?
+    var weatherBackgroundImage: String?
     var tempMin: String?
     var tempMax: String?
     var temperatureSummary: String?
@@ -30,12 +31,16 @@ struct CurrentWeather {
         date = Date(withUNIXDate: Double(weather.dt!)).convertDateToString(withFormatterStyle: .fullDay)
         sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
         sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
-
-        if isNight(sunrise: sunrise!, sunset: sunset!) {
-            weatherIcon = WeatherIcon(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.night)
-        } else {
-            weatherIcon = WeatherIcon(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.day)
+        
+        
+        if let weatherId = weather.weather?.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
+            weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!) ? .night : .day)
         }
+        
+        
+        weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.night)
+        weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.day)
+        
         
         if let sunrise = sunrise {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise))
@@ -68,7 +73,7 @@ struct CurrentWeather {
             let sunset = Double(sunset.replacingOccurrences(of: ":", with: ".")),
             let currentTime = Double(Date().convertDateToString(withFormatterStyle: .timeShort)
                 .replacingOccurrences(of: ":", with: ".")) else {
-            fatalError("time passed is not in the correct format.")
+                    fatalError("time passed is not in the correct format.")
         }
         
         if currentTime >= sunrise && currentTime < sunset {

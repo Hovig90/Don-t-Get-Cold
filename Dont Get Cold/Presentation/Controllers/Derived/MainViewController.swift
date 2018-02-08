@@ -36,6 +36,16 @@ extension MainViewController : CLLocationManagerDelegate {
     }
 }
 
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        for i in 0..<selectedCities.count {
+            if let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? WeatherTableViewCell {
+                cell.parallaxForCell(onTableView: self.tableView, didScrollOnView: self.view)
+            }
+        }
+    }
+}
+
 extension MainViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
@@ -59,6 +69,10 @@ extension MainViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 60
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
 }
 
 extension MainViewController : UITableViewDataSource {
@@ -69,6 +83,10 @@ extension MainViewController : UITableViewDataSource {
         cell.cityNameLabel.text = weather.cityName
         cell.subTitleLabel.text = weather.temperatureSummary
         cell.tempLabel.text = weather.temperature
+        if let bgImage = weather.weatherBackgroundImage {
+            cell.backgroundImageView.image = UIImage(named: bgImage)
+        }
+        
         
         return cell
     }

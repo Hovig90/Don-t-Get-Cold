@@ -98,6 +98,107 @@ struct AppConstants {
         case VisibilityNightIcon
         case WindIcon
     }
+    
+    enum BackgroundImages: String {
+        case ClearDayBackground
+        case ClearNightBackground
+        case CloudyNightBackground
+        case HeavySnowDayBackground
+    }
+    
+    enum WeatherConditionCodes: Int {
+        //source: http://openweathermap.org/weather-conditions
+        //Thunder
+        case ThunderLightRain = 200//.
+        case ThunderRain = 201//.
+        case ThunderHeavyRain = 202//.
+        case LightThunder = 210//.
+        case Thunder = 211//.
+        case HeavyThunder = 212//.
+        case RaggedThunder = 221//.
+        case ThunderLightDrizzle = 230//.
+        case ThunderDrizzle = 231//.
+        case ThunderHeavyDrizzle = 232//.
+        
+        //Drizzle
+        case LightDrizzle = 300//.
+        case Drizzle = 301//.
+        case HeavyDrizzle = 302//.
+        case LightDrizzleRain = 310//.
+        case DrizzleRain = 311//.
+        case HeavyDrizzleRain = 312//.
+        case ShowerRainDrizzle = 313//.
+        case HeavyShowerRainDrizzle = 314//.
+        case ShowerDrizzle = 321//.
+        
+        //Rain
+        case LightRain = 500//.
+        case ModerateRain = 501//.
+        case HeavyRain = 502//.
+        case VeryHeavyRain = 503//.
+        case ExtremeRain = 504//.
+        case FreezingRain = 511//.
+        case LightShowerRain = 520//.
+        case ShowerRain = 521//.
+        case HeavyShowerRain = 522//.
+        case RaggedShowerRain = 531//.
+        
+        //Snow
+        case LightSnow = 600//.
+        case Snow = 601//.
+        case HeavySnow = 602//.
+        case Sleet = 611//.
+        case ShowerSleet = 612//.
+        case LightRainSnow = 615//.
+        case RainSnow = 616//.
+        case LightShowerSnow = 620//.
+        case ShowerSnow = 621//.
+        case HeavyShowerSnow = 622//.
+        
+        //Atmosphere
+        case Mist = 701//.
+        case Smoke = 711//.
+        case Haze = 721//.
+        case SandDust = 731//.
+        case Fog = 741//.
+        case Sand = 751//.
+        case Dust = 761//.
+        case VolcanicAsh = 762//.
+        case Squalls = 771//.
+        case Tornado = 781//.
+        
+        //Clear Sky
+        case ClearSky = 800//.
+        
+        //Clouds
+        case FewClouds = 801//.
+        case ScatteredClouds = 802//.
+        case BrokenClouds = 803//.
+        case OvercastClouds = 804//.
+        
+        //Extreme
+        case ExtremeTornado = 900//.
+        case TropicalStorm = 901//.
+        case ExtremeHurricane = 902//.
+        case ExtremeCold = 903//.
+        case ExtremeHot = 904//.
+        case ExtremeWind = 905//.
+        case ExtremeHail = 906//.
+        
+        //Extra
+        case Calm = 951//.
+        case LightBreeze = 952//.
+        case GentleBreeze = 953//.
+        case ModerateBreeze = 954//.
+        case FreshBreeze = 955//.
+        case StrongBreeze = 956//.
+        case HighWind = 957//.
+        case Gale = 958//.
+        case SevereGale = 959//.
+        case Storm = 960//.
+        case ViolentStorm = 961//.
+        case Hurricane = 962//.
+    }
 }
 
 

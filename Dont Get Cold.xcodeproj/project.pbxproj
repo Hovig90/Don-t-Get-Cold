@@ -39,6 +39,8 @@
 		68460BFB2026BAAE000CA2E8 /* WeatherFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BFA2026BAAE000CA2E8 /* WeatherFooterTableViewCell.swift */; };
 		68460BFD2026BAC1000CA2E8 /* WeatherFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68460BFC2026BAC1000CA2E8 /* WeatherFooterTableViewCell.xib */; };
 		68460C002026C0DB000CA2E8 /* AddCityModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BFF2026C0DB000CA2E8 /* AddCityModalViewController.swift */; };
+		68460C02202981BF000CA2E8 /* Backgrounds.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68460C01202981BF000CA2E8 /* Backgrounds.xcassets */; };
+		68460C0520298370000CA2E8 /* WeatherBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460C0420298370000CA2E8 /* WeatherBackgroundImage.swift */; };
 		6851D42220154FD300B5B68B /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D42120154FD300B5B68B /* AppConstants.swift */; };
 		6851D4262015549F00B5B68B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D4252015549F00B5B68B /* Weather.swift */; };
 		6851D4292016E99200B5B68B /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D4282016E99200B5B68B /* BaseModel.swift */; };
@@ -86,6 +88,8 @@
 		68460BFA2026BAAE000CA2E8 /* WeatherFooterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFooterTableViewCell.swift; sourceTree = "<group>"; };
 		68460BFC2026BAC1000CA2E8 /* WeatherFooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherFooterTableViewCell.xib; sourceTree = "<group>"; };
 		68460BFF2026C0DB000CA2E8 /* AddCityModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityModalViewController.swift; sourceTree = "<group>"; };
+		68460C01202981BF000CA2E8 /* Backgrounds.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Backgrounds.xcassets; sourceTree = "<group>"; };
+		68460C0420298370000CA2E8 /* WeatherBackgroundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherBackgroundImage.swift; sourceTree = "<group>"; };
 		6851D42120154FD300B5B68B /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		6851D4252015549F00B5B68B /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		6851D4282016E99200B5B68B /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -197,7 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				683F10E5201807DF003A2F7F /* City.swift */,
-				683F110C201D4545003A2F7F /* WeatherIcon.swift */,
+				68460C032029834D000CA2E8 /* Images */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -288,6 +292,15 @@
 				68460BFF2026C0DB000CA2E8 /* AddCityModalViewController.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		68460C032029834D000CA2E8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				683F110C201D4545003A2F7F /* WeatherIcon.swift */,
+				68460C0420298370000CA2E8 /* WeatherBackgroundImage.swift */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		6851D4232015528D00B5B68B /* Models */ = {
@@ -400,6 +413,7 @@
 				68007F6D2025AED2006DD710 /* Images */,
 				683F10E120180757003A2F7F /* city.list.json */,
 				689A3FC42014630A00FFF496 /* Assets.xcassets */,
+				68460C01202981BF000CA2E8 /* Backgrounds.xcassets */,
 				689A3FC92014630A00FFF496 /* Info.plist */,
 			);
 			path = Support;
@@ -510,6 +524,7 @@
 				683F1107201AA932003A2F7F /* WeatherForecastCollectionViewCell.xib in Resources */,
 				683F10F020184076003A2F7F /* WeatherInfoView.xib in Resources */,
 				683F10F620195FB2003A2F7F /* WeatherInfoTableViewCell.xib in Resources */,
+				68460C02202981BF000CA2E8 /* Backgrounds.xcassets in Resources */,
 				68460BFD2026BAC1000CA2E8 /* WeatherFooterTableViewCell.xib in Resources */,
 				68460BE82026A0D9000CA2E8 /* WeatherTableViewCell.xib in Resources */,
 				689A3FC32014630A00FFF496 /* Main.storyboard in Resources */,
@@ -539,6 +554,7 @@
 				683F1106201AA932003A2F7F /* WeatherForecastCollectionViewCell.swift in Sources */,
 				68460BEE2026A5E9000CA2E8 /* CornerRadiusView.swift in Sources */,
 				683F10FC201A0DEF003A2F7F /* Date+Ext.swift in Sources */,
+				68460C0520298370000CA2E8 /* WeatherBackgroundImage.swift in Sources */,
 				683F10F8201963AA003A2F7F /* CurrentWeather.swift in Sources */,
 				683F110D201D4545003A2F7F /* WeatherIcon.swift in Sources */,
 				68007F7120267C10006DD710 /* MainViewController.swift in Sources */,

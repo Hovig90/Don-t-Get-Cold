@@ -33,7 +33,10 @@ struct DailyForecastViewModel {
         }
         
         forecastDate = Date(withUNIXDate: Double(forecast.dt!)).convertDateToString(withFormatterStyle: .weekdayShort)
-        forecastImage = WeatherIcon(rawValue: (nil, nil, forecast.weather!.first!.id!))?.get(.day)
+        if let weatherId = forecast.weather!.first!.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
+            forecastImage = WeatherIcon(rawValue: (nil, nil, code))?.get(.day)
+        }
+        
         forecastTempreture = String(Int(forecast.temp!.day!))
     }
 }

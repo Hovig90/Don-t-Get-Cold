@@ -25,11 +25,9 @@ extension AddCityModalViewController: UISearchBarDelegate {
         }
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        if let searchedText = searchBar.text {
-            self.searchedData = cities.filter { $0.name.contains(searchedText) }
-            self.tableView.reloadData()
-        }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchedData = cities.filter { $0.name.contains(searchText) }
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -38,8 +36,10 @@ extension AddCityModalViewController: UISearchBarDelegate {
     }
 }
 
-extension AddCityModalViewController: UISearchDisplayDelegate {
-    
+extension AddCityModalViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.searchBar.resignFirstResponder()
+    }
 }
 
 extension AddCityModalViewController: UITableViewDelegate {

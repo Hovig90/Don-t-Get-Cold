@@ -83,6 +83,7 @@ class WeatherViewController: BaseViewController {
     let weatherInfoDataTableViewCellHeight = 50
     
     //MARK: Outlets
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -138,6 +139,9 @@ class WeatherViewController: BaseViewController {
             self.tempMinLabel.text = weatherData.tempMin
             if let icon = weatherData.weatherIcon {
                 self.weatherImageView.image = UIImage(named: icon)
+            }
+            if let bgImage = weatherData.weatherBackgroundImage {
+                self.backgroundImageView.image = UIImage(named: bgImage)
             }
         }
     }
