@@ -102,8 +102,24 @@ struct AppConstants {
     enum BackgroundImages: String {
         case ClearDayBackground
         case ClearNightBackground
+        
+        case CloudyDayBackground
         case CloudyNightBackground
+        
         case HeavySnowDayBackground
+        case HeavySnowNightBackground
+        
+        case FewCloudsDayBackground
+        case FewCloudsNightBackground
+        
+        case RainyDayBackground
+        case RainyNightBackground
+        
+        case ThunderDayBackground
+        case ThunderNightBackground
+        
+        case FoggyDayBackground
+        case FoggyNightBackground
     }
     
     enum WeatherConditionCodes: Int {
@@ -133,7 +149,7 @@ struct AppConstants {
         
         //Rain
         case LightRain = 500//.
-        case ModerateRain = 501//.
+        case Rain = 501//.
         case HeavyRain = 502//.
         case VeryHeavyRain = 503//.
         case ExtremeRain = 504//.
@@ -159,13 +175,13 @@ struct AppConstants {
         case Mist = 701//.
         case Smoke = 711//.
         case Haze = 721//.
-        case SandDust = 731//.
+        case SandDust = 731//. -
         case Fog = 741//.
-        case Sand = 751//.
-        case Dust = 761//.
-        case VolcanicAsh = 762//.
-        case Squalls = 771//.
-        case Tornado = 781//.
+        case Sand = 751//. -
+        case Dust = 761//. -
+        case VolcanicAsh = 762//. -
+        case Squalls = 771//. -
+        case Tornado = 781//. -
         
         //Clear Sky
         case ClearSky = 800//.
@@ -177,27 +193,27 @@ struct AppConstants {
         case OvercastClouds = 804//.
         
         //Extreme
-        case ExtremeTornado = 900//.
-        case TropicalStorm = 901//.
-        case ExtremeHurricane = 902//.
+        case ExtremeTornado = 900//. -
+        case TropicalStorm = 901//. -
+        case ExtremeHurricane = 902//. -
         case ExtremeCold = 903//.
-        case ExtremeHot = 904//.
+        case ExtremeHot = 904//. -
         case ExtremeWind = 905//.
         case ExtremeHail = 906//.
         
         //Extra
-        case Calm = 951//.
-        case LightBreeze = 952//.
-        case GentleBreeze = 953//.
-        case ModerateBreeze = 954//.
-        case FreshBreeze = 955//.
-        case StrongBreeze = 956//.
-        case HighWind = 957//.
-        case Gale = 958//.
-        case SevereGale = 959//.
-        case Storm = 960//.
-        case ViolentStorm = 961//.
-        case Hurricane = 962//.
+        case Calm = 951//. -
+        case LightBreeze = 952//. -
+        case GentleBreeze = 953//. -
+        case ModerateBreeze = 954//. -
+        case FreshBreeze = 955//. -
+        case StrongBreeze = 956//. -
+        case HighWind = 957//. -
+        case Gale = 958//. -
+        case SevereGale = 959//. -
+        case Storm = 960//. -
+        case ViolentStorm = 961//. -
+        case Hurricane = 962//. -
     }
 }
 

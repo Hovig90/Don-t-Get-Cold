@@ -91,7 +91,7 @@ enum WeatherIcon: RawRepresentable, WeatherImageProtocol {
              (_, _, .ThunderHeavyDrizzle): self = .DrizzleThunderstorm
         case (_, _, .ThunderRain), (_, _, .ThunderHeavyRain): self = .ShowerThunderstorm
         case (_, _, .LightDrizzle), (_, _, .Drizzle), (_, _, .DrizzleRain),
-             (_, _, .LightDrizzleRain), (_, _, .LightRain), (_, _, .ModerateRain): self = .Rain
+             (_, _, .LightDrizzleRain), (_, _, .LightRain), (_, _, .Rain): self = .Rain
         case (_, _, .ShowerRainDrizzle), (_, _, .ShowerDrizzle), (_, _, .ExtremeRain),
              (_, _, .LightShowerRain), (_, _, .ShowerRain): self = .ShowerRain
         case (_, _, .HeavyDrizzle), (_, _, .HeavyDrizzleRain), (_, _, .HeavyRain),

@@ -32,15 +32,10 @@ struct CurrentWeather {
         sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
         sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
         
-        
         if let weatherId = weather.weather?.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
             weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!) ? .night : .day)
+            weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!) ? .night : .day)
         }
-        
-        
-        weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.night)
-        weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, (weather.weather?.first?.id!)!))!.get(.day)
-        
         
         if let sunrise = sunrise {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise))
