@@ -9,12 +9,23 @@
 import UIKit
 import CoreLocation
 
+//MARK: WeatherTableViewCellDelegate
+extension MainViewController: WeatherTableViewCellDelegate {
+    func deleteCell(_ cell: WeatherTableViewCell, completion: (() -> Void)) {
+        self.selectedCities.remove(at: (tableView.indexPath(for: cell)?.row)!)
+        tableView.deleteRows(at: [tableView.indexPath(for: cell)!], with: .none)
+        completion()
+    }
+}
+
+//MARK: AddCityModalViewControllerDelegate
 extension MainViewController: AddCityModalViewControllerDelegate {
     func update(withNewCity city: City) {
         requestWeatherData(forCity: city.name + "," + city.country)
     }
 }
 
+//MARK: WeatherFooterTableViewCellDelegate
 extension MainViewController: WeatherFooterTableViewCellDelegate {
     func openAddCityModelViewController() {
         if let addCityModalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCityModalViewController") as? AddCityModalViewController {
@@ -46,6 +57,7 @@ extension MainViewController: UIScrollViewDelegate {
     }
 }
 
+//MARK: UITableViewDelegate
 extension MainViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
@@ -75,6 +87,7 @@ extension MainViewController : UITableViewDelegate {
     }
 }
 
+//MARK: UITableViewDataSource
 extension MainViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
@@ -83,6 +96,7 @@ extension MainViewController : UITableViewDataSource {
         cell.cityNameLabel.text = weather.cityName
         cell.subTitleLabel.text = weather.temperatureSummary
         cell.tempLabel.text = weather.temperature
+        cell.delegate = self
         if let bgImage = weather.weatherBackgroundImage {
             cell.backgroundImageView.image = UIImage(named: bgImage)
         }
