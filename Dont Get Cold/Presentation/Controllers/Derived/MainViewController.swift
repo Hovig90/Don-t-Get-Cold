@@ -104,11 +104,11 @@ extension MainViewController : UITableViewDataSource {
         cell.delegate = self
         if let bgImage = weather.weatherBackgroundImage {
             cell.backgroundImageView.image = UIImage(named: bgImage)
+            //cell.parallaxForCell(onTableView: tableView, didScrollOnView: self.view)
         }
         
         cell.isDeletable = indexPath.row == 0 ? false : true
-        
-        
+
         return cell
     }
     
@@ -117,7 +117,7 @@ extension MainViewController : UITableViewDataSource {
     }
 }
 
-class MainViewController: BaseViewController {
+class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     //MARK: Members
     var selectedCities: [CurrentWeather] =  []
@@ -136,7 +136,7 @@ class MainViewController: BaseViewController {
             }
         }
         
-        //CacheManager.cache.remove(forKey: .city)
+
         if let savedCities = CacheManager.cache.get(forKey: .city) as? [City] {
             requestWeatherData(forCities: savedCities)
         }
@@ -150,6 +150,8 @@ class MainViewController: BaseViewController {
         }
         LocationManager.shared.configure(withDelegate: self)
         
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     //MARK: Private
