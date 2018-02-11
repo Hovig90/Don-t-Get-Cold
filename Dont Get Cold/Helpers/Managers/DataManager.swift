@@ -18,12 +18,32 @@ class DataManager {
     }
     
     //MARK: Public
-    static func getCurrentWeatherData(withCityName city: String?, cityID id: String?, units: Units, completion: @escaping (Weather?, Error?) -> Void) {
-        DataManager.getCurrentWeatherData(withParameter: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)", completion: completion)
+    static func getCurrentWeatherData(_ uid: Int? = nil, withCityName city: String?, cityID id: String?, units: Units, completion: @escaping (Int?, Weather?, Error?) -> Void) {
+        DataManager.getCurrentWeatherData(uid, withParameter: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)", completion: completion)
+    }
+    
+    static func getCurrentWeatherData(forCities cities: [City], completion: @escaping ([Weather]?, Error?) -> Void) {
+        var currentWeatherForSelectedCities: [Weather] = []
+        
+        
+        while currentWeatherForSelectedCities.count != cities.count {
+            getCurrentWeatherData(withCityName: nil, cityID: String(cities.first!.id), units: .metric) { (uid, weather, error) in
+                guard error == nil, let weather = weather else {
+                    return completion(nil, error)
+                }
+                
+                currentWeatherForSelectedCities.append(weather)
+                if currentWeatherForSelectedCities.count == cities.count {
+                    completion(currentWeatherForSelectedCities, nil)
+                }
+            }
+        }
+        
+        
     }
     
     static func getForecastData(withCityName city: String?, cityID id: String?, units: Units, andCount cnt: Int, completion: @escaping (Forecast?, Error?) -> Void) {
-        RequestManager.request(withURL: AppConstants.forecastDailyUrl, parameters: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)&cnt=\(cnt)") { (data, responce, error) in
+        RequestManager.request(withURL: AppConstants.forecastDailyUrl, parameters: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)&cnt=\(cnt)") { (uid, data, responce, error) in
             guard error == nil, let data = data?.convertToDictionary() else {
                 completion(nil, error)
                 return
@@ -54,14 +74,14 @@ class DataManager {
     }
     
     //MARK: Private
-    private static func getCurrentWeatherData(withParameter param: String, completion: @escaping (Weather?, Error?) -> Void) {
-        RequestManager.request(withURL: AppConstants.BaseUrl + AppConstants.Encoding.weather.rawValue, parameters: param) { (data, responce, error) in
+    private static func getCurrentWeatherData(_ uid: Int? = nil, withParameter param: String, completion: @escaping (Int?, Weather?, Error?) -> Void) {
+        RequestManager.request(uid, withURL: AppConstants.BaseUrl + AppConstants.Encoding.weather.rawValue, parameters: param) { (uid, data, responce, error) in
             guard error == nil, let data = data?.convertToDictionary() else {
-                completion(nil, error)
+                completion(uid, nil, error)
                 return
             }
             
-            completion(Weather(response: nil, representation: data), nil)
+            completion(uid, Weather(response: nil, representation: data), nil)
         }
     }
 }

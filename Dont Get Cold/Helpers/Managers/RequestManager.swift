@@ -14,14 +14,14 @@ class RequestManager {
     static let session = URLSession(configuration: .default)
     static var dataTask: URLSessionDataTask?
     
-    static func request(withURL url: String, parameters: String, compeletion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        dataTask?.cancel()
+    static func request(_ uid: Int? = nil, withURL url: String, parameters: String, compeletion: @escaping (Int?, Data?, URLResponse?, Error?) -> Void) {
+        //dataTask?.cancel()
         if var urlComponents = URLComponents(string: url) {
             urlComponents.query = parameters
             guard let url = urlComponents.url else { return }
             
             dataTask = session.dataTask(with: url, completionHandler: { (data, responce, error) in
-                compeletion(data, responce, error)
+                compeletion(uid, data, responce, error)
             })
         }
         dataTask?.resume()

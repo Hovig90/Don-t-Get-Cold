@@ -16,6 +16,7 @@ class WeatherTableViewCell: UITableViewCell {
 
     //MARK: Members
     weak var delegate: WeatherTableViewCellDelegate?
+    var isDeletable: Bool = true
     
     //MARK: Outlets
     @IBOutlet weak var cityNameLabel: UILabel!
@@ -36,8 +37,7 @@ class WeatherTableViewCell: UITableViewCell {
         subTitleLabel.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
         tempLabel.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
         
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(moveCell(_:)))
-        self.cornerRadiusView.addGestureRecognizer(pan)
+        self.cornerRadiusView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(moveCell(_:))))
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -50,6 +50,9 @@ class WeatherTableViewCell: UITableViewCell {
     func parallaxForCell(onTableView tableView: UITableView, didScrollOnView view: UIView) {
         let rectInSuperView = tableView.convert(self.frame, to: view)
     
+        if rectInSuperView.origin.y > UIScreen.height() {
+            return
+        }
         let distanceFromCenter = view.frame.height / 2 - rectInSuperView.minY
         let difference = self.backgroundImageView.frame.height - self.frame.height
         let move = (distanceFromCenter / view.frame.height) * difference
@@ -61,6 +64,8 @@ class WeatherTableViewCell: UITableViewCell {
     
     //MARK: Private
     @objc func moveCell(_ sender: UIPanGestureRecognizer) {
+        if !isDeletable { return }
+        
         let originalLocation = self.center
         
         switch sender.state {
@@ -73,7 +78,7 @@ class WeatherTableViewCell: UITableViewCell {
             
         case .cancelled: print("Cancelled")
         case .ended:
-            if self.cornerRadiusView.frame.origin.x - (16 * 2) < (-UIScreen.width() / 3) * 2 {
+            if self.cornerRadiusView.frame.origin.x - (16 * 2) < (-UIScreen.width() / 2)  {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.cornerRadiusView.center = CGPoint(x: -UIScreen.width(), y: self.cornerRadiusView.center.y)
                     self.cornerRadiusView.alpha = 0

@@ -28,11 +28,19 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RainFrame00.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Hhh-M8-fJK">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="173.5"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9KN-G0-SSY">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="173.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Hhh-M8-fJK" firstAttribute="top" secondItem="aWp-YM-zga" secondAttribute="top" id="7eR-zh-y0H"/>
+                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="bottom" secondItem="Hhh-M8-fJK" secondAttribute="bottom" id="B4l-FT-cAY"/>
+                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="top" secondItem="Hhh-M8-fJK" secondAttribute="top" id="ViI-jl-DPT"/>
+                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="trailing" secondItem="Hhh-M8-fJK" secondAttribute="trailing" id="g15-qz-Ndb"/>
                                     <constraint firstAttribute="trailing" secondItem="Hhh-M8-fJK" secondAttribute="trailing" id="hDK-sw-ts8"/>
+                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="leading" secondItem="Hhh-M8-fJK" secondAttribute="leading" id="iy1-Oo-Ble"/>
                                     <constraint firstItem="Hhh-M8-fJK" firstAttribute="leading" secondItem="aWp-YM-zga" secondAttribute="leading" id="sQz-PB-UdR"/>
                                     <constraint firstAttribute="bottom" secondItem="Hhh-M8-fJK" secondAttribute="bottom" constant="-70" id="vYA-ad-Wzb"/>
                                 </constraints>

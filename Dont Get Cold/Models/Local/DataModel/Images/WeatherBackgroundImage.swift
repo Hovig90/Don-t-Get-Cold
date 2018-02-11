@@ -36,7 +36,7 @@ enum WeatherBackgroundImage: RawRepresentable {
         case .FewClouds: return (.FewCloudsDayBackground, .FewCloudsNightBackground, .FewClouds)
         case .Cloudy: return (.CloudyDayBackground, .CloudyNightBackground, .OvercastClouds)
         case .Snow: return (.HeavySnowDayBackground, .CloudyDayBackground, .Snow)
-        case .Rain: return (.RainyDayBackground, .RainyNightBackground, .Rain)
+        case .Rain: return (.RainyDayBackground, .RainyDayBackground, .Rain)
         case .Thunderstorm: return (.ThunderDayBackground, .ThunderNightBackground, .Thunder)
         case .Fog: return (.FoggyDayBackground, .FoggyNightBackground, .Fog)
         }

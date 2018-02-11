@@ -12,7 +12,9 @@ import CoreLocation
 //MARK: WeatherTableViewCellDelegate
 extension MainViewController: WeatherTableViewCellDelegate {
     func deleteCell(_ cell: WeatherTableViewCell, completion: (() -> Void)) {
-        self.selectedCities.remove(at: (tableView.indexPath(for: cell)?.row)!)
+        let index = (tableView.indexPath(for: cell)?.row)!
+        CacheManager.cache.remove(objectAt: index, forKey: .city)
+        self.selectedCities.remove(at: index)
         tableView.deleteRows(at: [tableView.indexPath(for: cell)!], with: .none)
         completion()
     }
@@ -21,6 +23,7 @@ extension MainViewController: WeatherTableViewCellDelegate {
 //MARK: AddCityModalViewControllerDelegate
 extension MainViewController: AddCityModalViewControllerDelegate {
     func update(withNewCity city: City) {
+        CacheManager.cache.append(city, forKey: .city)
         requestWeatherData(forCity: city.name + "," + city.country)
     }
 }
@@ -37,10 +40,12 @@ extension MainViewController: WeatherFooterTableViewCellDelegate {
     }
 }
 
+//MARK: CLLocationManagerDelegate
 extension MainViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
+                CacheManager.cache.replace(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .city)
                 self.requestWeatherData(forCity: locality + "," + counrtyCode, isCurrent: true)
             }
         }
@@ -49,8 +54,8 @@ extension MainViewController : CLLocationManagerDelegate {
 
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        for i in 0..<selectedCities.count {
-            if let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? WeatherTableViewCell {
+        for cell in self.tableView.visibleCells {
+            if let cell = cell as? WeatherTableViewCell {
                 cell.parallaxForCell(onTableView: self.tableView, didScrollOnView: self.view)
             }
         }
@@ -101,6 +106,8 @@ extension MainViewController : UITableViewDataSource {
             cell.backgroundImageView.image = UIImage(named: bgImage)
         }
         
+        cell.isDeletable = indexPath.row == 0 ? false : true
+        
         
         return cell
     }
@@ -129,6 +136,10 @@ class MainViewController: BaseViewController {
             }
         }
         
+        //CacheManager.cache.remove(forKey: .city)
+        if let savedCities = CacheManager.cache.get(forKey: .city) as? [City] {
+            requestWeatherData(forCities: savedCities)
+        }
         
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
         tableView.register(UINib(nibName: "WeatherFooterTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherFooterTableViewCell")
@@ -143,15 +154,42 @@ class MainViewController: BaseViewController {
     
     //MARK: Private
     private func requestWeatherData(forCity city: String, isCurrent: Bool = false) {
-        DataManager.getCurrentWeatherData(withCityName: city, cityID: nil, units: .metric) { (weather, error) in
+        DataManager.getCurrentWeatherData(withCityName: city, cityID: nil, units: .metric) { (uid, weather, error) in
             guard error == nil else {
                 return
             }
             
             DispatchQueue.main.async {
-                isCurrent ? self.selectedCities.replace(at: 0, withElement: CurrentWeather(withWeather: weather!)) : self.selectedCities.append(CurrentWeather(withWeather: weather!))
-                self.tableView.reloadData()
+                if isCurrent {
+                    self.selectedCities.replace(at: 0, withElement: CurrentWeather(withWeather: weather!))
+                    self.tableView!.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
+                } else {
+                    self.selectedCities.append(CurrentWeather(withWeather: weather!))
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func requestWeatherData(forCities cities: [City]) {
+        var weatherResultArray = Array<Any>(repeating: 0, count: cities.count)
+        
+        for city in cities {
+            DataManager.getCurrentWeatherData(cities.index(of: city), withCityName: city.name + "," + city.country, cityID: nil, units: .metric) { (uid, weather, error) in
+                guard error == nil, let uid = uid else {
+                    return
+                }
                 
+                weatherResultArray.replace(at: uid, withElement: CurrentWeather(withWeather: weather!))
+                
+                DispatchQueue.main.async {
+                    if weatherResultArray.count == cities.count {
+                        if let weatherResultArray = weatherResultArray as? [CurrentWeather] {
+                            self.selectedCities = weatherResultArray
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
             }
         }
     }

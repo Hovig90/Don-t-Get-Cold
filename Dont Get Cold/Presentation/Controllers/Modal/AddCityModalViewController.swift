@@ -16,17 +16,13 @@ protocol AddCityModalViewControllerDelegate: NSObjectProtocol {
 extension AddCityModalViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchedText = searchBar.text {
-            self.searchedData = cities.filter { $0.name.contains(searchedText) }
+            self.searchedData = cities.filter { $0.name.starts(with: searchedText) }
             self.tableView.reloadData()
-            
-            CLGeocoder().geocodeAddressString("Aleppo") { (pl, error) in
-                //print(error)
-            }
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchedData = cities.filter { $0.name.contains(searchText) }
+        self.searchedData = cities.filter { $0.name.starts(with: searchText) }
         self.tableView.reloadData()
     }
     
