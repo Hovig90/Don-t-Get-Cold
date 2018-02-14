@@ -182,7 +182,9 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
             
             DispatchQueue.main.async {
                 if isCurrent {
-                    self.selectedCities.replace(at: 0, withElement: CurrentWeather(withWeather: weather!))
+                    let currentCity = CurrentWeather(withWeather: weather!)
+                    currentCity.cityTimeZone = TimeZone.current
+                    self.selectedCities.replace(at: 0, withElement: currentCity)
                     self.tableView!.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
                 } else {
                     DispatchQueue.global(qos: .default).async {
