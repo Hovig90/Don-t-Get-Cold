@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct CurrentWeather {
+class CurrentWeather {
     
+    var weather: Weather?
     var cityName: String?
     var temperature: String?
     var weatherIcon: String?
@@ -21,21 +22,22 @@ struct CurrentWeather {
     var date: String?
     var sunrise: String?
     var sunset: String?
+    var cityTimeZone: TimeZone? {
+        willSet {
+            self.updateDate(withTimeZone: newValue)
+        }
+    }
     
     init(withWeather weather: Weather) {
+        self.weather = weather
         cityName = weather.name
         temperatureSummary = weather.weather?.first?.description
         temperature = String(Int(weather.main!.temp!))
         tempMin = String(Int(weather.main!.temp_min!))
         tempMax = String(Int(weather.main!.temp_max!))
-        date = Date(withUNIXDate: Double(weather.dt!)).convertDateToString(withFormatterStyle: .fullDay)
+        //date = Date(withUNIXDate: Double(weather.dt!)).convertDateToString(withFormatterStyle: .fullDay)
         sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
         sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
-        
-        if let weatherId = weather.weather?.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
-            weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!) ? .night : .day)
-            weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!) ? .night : .day)
-        }
         
         if let sunrise = sunrise {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise))
@@ -50,7 +52,7 @@ struct CurrentWeather {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(visibility / 1000) + " km"))
         }
         if let wind = weather.wind, let speed = wind.speed {
-            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(speed) + " mps"))
+            weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(speed) + (SettingsManager.shared.check(measurementUnit: .metric) ? " mps" : " mph")))
         }
         if let main = weather.main {
             if let pressure = main.pressure {
@@ -63,10 +65,25 @@ struct CurrentWeather {
     }
     
     //Mark: Private
-    private func isNight(sunrise: String, sunset: String) -> Bool {
+    private func updateDate(withTimeZone timeZone: TimeZone?) {
+        if let timeZone = timeZone {
+            self.sunrise = Date(withUNIXDate: Double(weather!.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone)
+            self.weatherInfoData[0].value = self.sunrise
+            self.sunset = Date(withUNIXDate: Double(weather!.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone)
+            self.weatherInfoData[1].value = self.sunset
+            self.date = Date(withUNIXDate: Double(weather!.dt!)).convertDateToString(withFormatterStyle: .fullDay, timeZone: timeZone)
+            
+            if let weatherId = weather!.weather?.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
+                weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+                weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+            }
+        }
+    }
+    
+    private func isNight(sunrise: String, sunset: String, timeZone: TimeZone? = nil) -> Bool {
         guard let sunrise = Double(sunrise.replacingOccurrences(of: ":", with: ".")),
             let sunset = Double(sunset.replacingOccurrences(of: ":", with: ".")),
-            let currentTime = Double(Date().convertDateToString(withFormatterStyle: .timeShort)
+            let currentTime = Double(Date().convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone ?? TimeZone.current)
                 .replacingOccurrences(of: ":", with: ".")) else {
                     fatalError("time passed is not in the correct format.")
         }

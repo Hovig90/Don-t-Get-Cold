@@ -16,6 +16,11 @@ class WeatherTableViewCell: UITableViewCell {
 
     //MARK: Members
     weak var delegate: WeatherTableViewCellDelegate?
+    var dataModel: CurrentWeather? {
+        didSet {
+            updateView()
+        }
+    }
     var isDeletable: Bool = true
     
     //MARK: Outlets
@@ -25,6 +30,7 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var cornerRadiusView: UIView!
     @IBOutlet weak var backgroundImageViewContainerView: UIView!
+    @IBOutlet weak var measurementUnitImageView: UIImageView!
     
     //MARK: Overrides
     override func awakeFromNib() {
@@ -32,11 +38,11 @@ class WeatherTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         backgroundImageViewContainerView.cornerRadius(15)
-        cornerRadiusView.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.2), opacity: 0.8, offset: CGSize(width: 0, height: 0), radius: 3, path: nil)
-        cityNameLabel.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
-        subTitleLabel.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
-        tempLabel.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
-        
+        cornerRadiusView.regularShadow()
+        cityNameLabel.regularShadow()
+        subTitleLabel.regularShadow()
+        tempLabel.regularShadow()
+        measurementUnitImageView.regularShadow()
         self.cornerRadiusView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(moveCell(_:))))
     }
 
@@ -45,7 +51,6 @@ class WeatherTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
     
     func parallaxForCell(onTableView tableView: UITableView, didScrollOnView view: UIView) {
         let rectInSuperView = tableView.convert(self.frame, to: view)
@@ -63,13 +68,25 @@ class WeatherTableViewCell: UITableViewCell {
     }
     
     //MARK: Private
-    @objc func moveCell(_ sender: UIPanGestureRecognizer) {
+    private func updateView() {
+        if let weather = dataModel {
+            self.cityNameLabel.text = weather.cityName
+            self.subTitleLabel.text = weather.temperatureSummary
+            self.tempLabel.text = weather.temperature
+            if let bgImage = weather.weatherBackgroundImage {
+                self.backgroundImageView.image = UIImage(named: bgImage)
+            }
+            self.measurementUnitImageView.image = UIImage(named: SettingsManager.shared.check(measurementUnit: .metric) ? .CelsiusIcon : .Fahrenheit)
+        }
+    }
+    
+    @objc private func moveCell(_ sender: UIPanGestureRecognizer) {
         if !isDeletable { return }
         
         let originalLocation = self.center
         
         switch sender.state {
-        case .began, .changed://self.bounds.origin.x -
+        case .began, .changed:
             if sender.translation(in: self).x < 0 {
                 let newCenter = CGPoint(x: originalLocation.x + sender.translation(in: self).x, y: self.cornerRadiusView.center.y)
                 self.cornerRadiusView.center = newCenter

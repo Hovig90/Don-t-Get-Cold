@@ -10,6 +10,15 @@ import UIKit
 
 protocol WeatherFooterTableViewCellDelegate: NSObjectProtocol {
     func openAddCityModelViewController()
+    func reloadViewControllerWithUpdatedMeasurementUnit()
+}
+
+extension WeatherFooterTableViewCell: UnitMeasurementContainerDelegate {
+    func didChangeMeasurementUnit() {
+        if let delegate = delegate {
+            delegate.reloadViewControllerWithUpdatedMeasurementUnit()
+        }
+    }
 }
 
 class WeatherFooterTableViewCell: UITableViewHeaderFooterView {

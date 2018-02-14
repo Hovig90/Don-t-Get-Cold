@@ -82,3 +82,9 @@ extension UIView {
         }
     }
 }
+
+extension UIView {
+    func regularShadow() {
+        layerShadow(withColor: UIColor(hex: 0x000000, alpha: 1), opacity: 0.8, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
+    }
+}

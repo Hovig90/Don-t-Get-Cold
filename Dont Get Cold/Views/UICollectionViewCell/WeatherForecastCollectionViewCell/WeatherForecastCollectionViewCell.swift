@@ -14,11 +14,15 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var weatherForecastTopLabel: UILabel!
     @IBOutlet weak var weatherForecastImageView: UIImageView!
     @IBOutlet weak var weatherForecastBottomLabel: UILabel!
+    @IBOutlet weak var backgroundAlphaView: UIView!
     
     //MARK: Overrides
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        weatherForecastTopLabel.regularShadow()
+        weatherForecastImageView.regularShadow()
+        weatherForecastBottomLabel.regularShadow()
     }
 
 }

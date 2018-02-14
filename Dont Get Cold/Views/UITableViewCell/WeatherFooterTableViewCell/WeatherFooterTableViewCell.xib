@@ -19,17 +19,30 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asD-VY-Qmy">
-                        <rect key="frame" x="16" y="22" width="22" height="22"/>
+                        <rect key="frame" x="16" y="23" width="22" height="22"/>
                         <color key="tintColor" red="0.41960784313725491" green="0.41568627450980389" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <action selector="addButtonTapped:" destination="-1" eventType="touchUpInside" id="qEa-FJ-wfz"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzL-Rf-bQn" customClass="UnitMeasurementContainerView" customModule="Dont_Get_Cold" customModuleProvider="target">
+                        <rect key="frame" x="267" y="8" width="92" height="51.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="51.5" placeholder="YES" id="QVd-Qd-YIB"/>
+                            <constraint firstAttribute="width" constant="92" placeholder="YES" id="gyY-TY-eXl"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="delegate" destination="aTu-pB-MSp" id="AmO-Bp-21R"/>
+                        </connections>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="yzL-Rf-bQn" secondAttribute="trailing" constant="16" id="Lxp-do-Q7a"/>
                     <constraint firstItem="asD-VY-Qmy" firstAttribute="centerY" secondItem="Glq-gT-FCa" secondAttribute="centerY" id="Uiv-RE-b9Z"/>
                     <constraint firstItem="asD-VY-Qmy" firstAttribute="leading" secondItem="Glq-gT-FCa" secondAttribute="leading" constant="16" id="buY-fc-1lh"/>
+                    <constraint firstItem="yzL-Rf-bQn" firstAttribute="centerY" secondItem="asD-VY-Qmy" secondAttribute="centerY" id="gTz-3O-A2M"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="-141.5" y="10"/>

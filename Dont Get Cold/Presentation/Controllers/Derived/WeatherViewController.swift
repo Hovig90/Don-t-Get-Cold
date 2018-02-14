@@ -8,23 +8,25 @@
 
 import UIKit
 
-extension WeatherViewController : UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        if scrollView.contentOffset.y < 0 {
-            return
-        }
-        let diff = abs(scrollView.contentSize.height - scrollView.bounds.height) / (10 * 2)
-        let alphaPercent = (abs(scrollView.contentOffset.y) / diff) * 0.1
-        
-        
-        //self.weatherImageView.alpha = 1 - alphaPercent
-    }
-}
-
 extension WeatherViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(weatherInfoDataTableViewCellHeight)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherInfoSectionHeaderTableViewCell") as? WeatherInfoSectionHeaderTableViewCell
+        
+        cell?.dataModel = self.weatherDataModel
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
 }
 
@@ -47,10 +49,16 @@ extension WeatherViewController : UITableViewDataSource {
 
 extension WeatherViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 60, height: 100)
+        return CGSize(width: 80, height: 100)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }
 
 extension WeatherViewController : UICollectionViewDataSource {
@@ -62,7 +70,7 @@ extension WeatherViewController : UICollectionViewDataSource {
             cell.weatherForecastImageView.image = UIImage(named: dailyForecast.forecastImage!)
             cell.weatherForecastBottomLabel.text = dailyForecast.forecastTempreture
         }
-        
+        cell.backgroundAlphaView.backgroundColor = UIColor(hex: 0x000000, alpha: indexPath.row % 2 == 0 ? 0.3 : 0.0 )
         
         return cell
     }
@@ -79,36 +87,24 @@ class WeatherViewController: BaseViewController {
     var weatherDataModel: CurrentWeather?
     var weatherForecastViewModel: ForecastViewModel?
     var coordinates: Coordinate?
-    
     let weatherInfoDataTableViewCellHeight = 50
     
     //MARK: Outlets
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var dateTimeLabel: UILabel!
-    @IBOutlet weak var tempretureUnitLabel: UIImageView!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var weatherDescriptionLabel: UILabel!
-    @IBOutlet weak var tempretureLabel: UILabel!
-    @IBOutlet weak var tempMaxLabel: UILabel!
-    @IBOutlet weak var tempMinLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        updateView()
-        tableViewHeightConstraint.constant = 0
         tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
+        tableView.register(UINib(nibName: "WeatherInfoSectionHeaderTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherInfoSectionHeaderTableViewCell")
+        
         collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
-        self.tableViewHeightConstraint.constant = CGFloat(self.weatherInfoDataTableViewCellHeight * (self.weatherDataModel?.weatherInfoData.count)!)
         
         DispatchQueue.global(qos: .default).async {
-            DataManager.getForecastData(withCityName: self.weatherDataModel?.cityName, cityID: nil, units: .metric, andCount: 16) { (forecast, error) in
+            DataManager.getForecastData(withCityName: self.weatherDataModel?.cityName, cityID: nil, andCount: 16) { (forecast, error) in
                 guard error == nil else {
                     return
                 }
@@ -126,23 +122,5 @@ class WeatherViewController: BaseViewController {
     //MARK: Actions
     @IBAction func menuButtonTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-    }
-    
-    //MARK: Private
-    private func updateView() {
-        if let weatherData = weatherDataModel {
-            self.cityLabel.text = weatherData.cityName
-            self.weatherDescriptionLabel.text = weatherData.temperatureSummary
-            self.dateTimeLabel.text = weatherData.date
-            self.tempretureLabel.text = weatherData.temperature
-            self.tempMaxLabel.text = weatherData.tempMax
-            self.tempMinLabel.text = weatherData.tempMin
-            if let icon = weatherData.weatherIcon {
-                self.weatherImageView.image = UIImage(named: icon)
-            }
-            if let bgImage = weatherData.weatherBackgroundImage {
-                self.backgroundImageView.image = UIImage(named: bgImage)
-            }
-        }
     }
 }

@@ -10,16 +10,9 @@ import Foundation
 
 class DataManager {
     
-    //MARK: Members
-    enum Units: String {
-        case metric
-        case imperial
-        case kelvin
-    }
-    
     //MARK: Public
-    static func getCurrentWeatherData(_ uid: Int? = nil, withCityName city: String?, cityID id: String?, units: Units, completion: @escaping (Int?, Weather?, Error?) -> Void) {
-        DataManager.getCurrentWeatherData(uid, withParameter: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)", completion: completion)
+    static func getCurrentWeatherData(_ uid: Int? = nil, withCityName city: String?, cityID id: String?, completion: @escaping (Int?, Weather?, Error?) -> Void) {
+        DataManager.getCurrentWeatherData(uid, withParameter: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&units=\(SettingsManager.shared.measurementUnit.rawValue)&id=\(id ?? "0")", completion: completion)
     }
     
     static func getCurrentWeatherData(forCities cities: [City], completion: @escaping ([Weather]?, Error?) -> Void) {
@@ -27,7 +20,7 @@ class DataManager {
         
         
         while currentWeatherForSelectedCities.count != cities.count {
-            getCurrentWeatherData(withCityName: nil, cityID: String(cities.first!.id), units: .metric) { (uid, weather, error) in
+            getCurrentWeatherData(withCityName: nil, cityID: String(cities.first!.id)) { (uid, weather, error) in
                 guard error == nil, let weather = weather else {
                     return completion(nil, error)
                 }
@@ -42,8 +35,8 @@ class DataManager {
         
     }
     
-    static func getForecastData(withCityName city: String?, cityID id: String?, units: Units, andCount cnt: Int, completion: @escaping (Forecast?, Error?) -> Void) {
-        RequestManager.request(withURL: AppConstants.forecastDailyUrl, parameters: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(units.rawValue)&cnt=\(cnt)") { (uid, data, responce, error) in
+    static func getForecastData(withCityName city: String?, cityID id: String?, andCount cnt: Int, completion: @escaping (Forecast?, Error?) -> Void) {
+        RequestManager.request(withURL: AppConstants.forecastDailyUrl, parameters: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(SettingsManager.shared.measurementUnit.rawValue)&cnt=\(cnt)") { (uid, data, responce, error) in
             guard error == nil, let data = data?.convertToDictionary() else {
                 completion(nil, error)
                 return

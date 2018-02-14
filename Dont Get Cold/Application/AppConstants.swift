@@ -14,6 +14,10 @@ struct AppConstants {
     static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
     static let forecastDailyUrl = BaseUrl + "forecast/daily"
     
+    enum Colors: Int {
+        case AppGray = 0x6B6A6A
+    }
+    
     enum Encoding: String {
         case weather
         case forecast
@@ -57,6 +61,11 @@ struct AppConstants {
         case cnt
     }
     
+    enum CachingKey: String {
+        case cities
+        case measurementUnit
+    }
+    
     enum Images: String {
         case ArrowUp
         case ArrowDown
@@ -67,6 +76,7 @@ struct AppConstants {
         case CloudIcon
         case ColdThermometer
         case DrizzleThunderstormIcon
+        case Fahrenheit
         case FewCloudsDayIcon
         case FewCloudsNightIcon
         case FogIcon

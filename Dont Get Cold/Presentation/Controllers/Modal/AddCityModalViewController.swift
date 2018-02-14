@@ -22,8 +22,12 @@ extension AddCityModalViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchedData = cities.filter { $0.name.starts(with: searchText) }
-        self.tableView.reloadData()
+        DispatchQueue.global(qos: .default).async {
+            self.searchedData = self.cities.filter { $0.name.starts(with: searchText) }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

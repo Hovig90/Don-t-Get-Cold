@@ -17,7 +17,7 @@ class LocationManager: CLLocationManager {
     //MARK: Overrides
     private override init() {
         super.init()
-
+        
         self.pausesLocationUpdatesAutomatically = false
         self.distanceFilter = kCLDistanceFilterNone
         self.desiredAccuracy = kCLLocationAccuracyKilometer
@@ -33,5 +33,17 @@ class LocationManager: CLLocationManager {
         self.delegate = delegate
         self.startUpdatingLocation()
     }
-    
+}
+
+extension LocationManager {
+    func getTimeZone(_ uid: Int? = nil, forCity city: String, completion: @escaping ((Int?, TimeZone) -> Void)) {
+        CLGeocoder().geocodeAddressString(city) { (pl, error) in
+            guard error == nil, let timezone = pl?.first!.timeZone else {
+                completion(uid, TimeZone.current)
+                return
+            }
+            
+            completion(uid, timezone)
+        }
+    }
 }

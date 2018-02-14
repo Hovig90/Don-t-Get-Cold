@@ -14,19 +14,19 @@ class CacheManager {
     
     private init() { }
     
-    func set(_ obj: AnyObject, forKey key: AppConstants.Encoding) {
+    func set(_ obj: AnyObject, forKey key: AppConstants.CachingKey) {
         UserDefaults.save(object: obj, forKey: key)
     }
     
-    func get(forKey key: AppConstants.Encoding) -> AnyObject? {
+    func get(forKey key: AppConstants.CachingKey) -> AnyObject? {
         return UserDefaults.get(objectForKey: key)
     }
     
-    func remove(forKey key: AppConstants.Encoding) {
+    func remove(forKey key: AppConstants.CachingKey) {
         UserDefaults.remove(objectForKey: key)
     }
     
-    func append(_ obj: AnyObject, forKey key: AppConstants.Encoding) {
+    func append(_ obj: AnyObject, forKey key: AppConstants.CachingKey) {
         if var cachedArray = get(forKey: key) as? [AnyObject] {
             cachedArray.append(obj)
             set(cachedArray as AnyObject, forKey: key)
@@ -36,30 +36,30 @@ class CacheManager {
         }
     }
     
-    func insert(_ obj: AnyObject, at index: Int, forKey key: AppConstants.Encoding) {
-        if var cachedArray = get(forKey: .city) as? [AnyObject] {
+    func insert(_ obj: AnyObject, at index: Int, forKey key: AppConstants.CachingKey) {
+        if var cachedArray = get(forKey: key) as? [AnyObject] {
             cachedArray.insert(obj, at: index)
-            set(cachedArray as AnyObject, forKey: .city)
+            set(cachedArray as AnyObject, forKey: key)
         } else {
             print("Caching: The requested array object with the key '\(key.rawValue)' has not been cached yet, the app will attempt to save the object.")
             set([obj] as AnyObject, forKey: key)
         }
     }
     
-    func replace(_ obj: AnyObject, at index: Int, forKey key: AppConstants.Encoding) {
-        if var cachedArray = get(forKey: .city) as? [AnyObject] {
+    func replace(_ obj: AnyObject, at index: Int, forKey key: AppConstants.CachingKey) {
+        if var cachedArray = get(forKey: key) as? [AnyObject] {
             cachedArray.replace(at: index, withElement: obj)
-            set(cachedArray as AnyObject, forKey: .city)
+            set(cachedArray as AnyObject, forKey: key)
         } else {
             print("Caching: The requested array object with the key '\(key.rawValue)' has not been cached yet, the app will attempt to save the object.")
             set([obj] as AnyObject, forKey: key)
         }
     }
     
-    func remove(objectAt index: Int, forKey key: AppConstants.Encoding) {
-        if var cachedArray = get(forKey: .city) as? [AnyObject] {
+    func remove(objectAt index: Int, forKey key: AppConstants.CachingKey) {
+        if var cachedArray = get(forKey: key) as? [AnyObject] {
             cachedArray.remove(at: index)
-            set(cachedArray as AnyObject, forKey: .city)
+            set(cachedArray as AnyObject, forKey: key)
         } else {
             print("Caching: Attempted to remove an object from cached array with the key '\(key.rawValue)' that has not been cached yet.")
         }

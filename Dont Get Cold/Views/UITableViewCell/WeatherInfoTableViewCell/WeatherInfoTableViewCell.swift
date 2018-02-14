@@ -19,9 +19,9 @@ class WeatherInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        weatherInfoImageView.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
-        weatherInfoDataType.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
-        weatherInfoDataValue.layerShadow(withColor: UIColor(hex: 0x000000, alpha: 0.6), opacity: 0.6, offset: CGSize(width: 2, height: 2), radius: 3, path: nil)
+        weatherInfoImageView.regularShadow()
+        weatherInfoDataType.regularShadow()
+        weatherInfoDataValue.regularShadow()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

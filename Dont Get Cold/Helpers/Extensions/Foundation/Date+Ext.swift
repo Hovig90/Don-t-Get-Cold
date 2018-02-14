@@ -29,14 +29,16 @@ extension Date {
         self = Date(timeIntervalSince1970: unix)
     }
     
-    func convertDateToString(withFormatterStyle style: DateFormatter.Style) -> String {
+    func convertDateToString(withFormatterStyle style: DateFormatter.Style, timeZone: TimeZone = TimeZone.current) -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = timeZone
         dateFormatter.dateStyle = style
         return dateFormatter.string(from: self)
     }
     
-    func convertDateToString(withFormatterStyle style: DateFormatStyle) -> String {
+    func convertDateToString(withFormatterStyle style: DateFormatStyle, timeZone: TimeZone = TimeZone.current) -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = timeZone
         dateFormatter.dateFormat = style.rawValue
         return dateFormatter.string(from: self)
     }
