@@ -8,7 +8,8 @@
 
 import UIKit
 
-extension WeatherViewController : UITableViewDelegate {
+//MARK: UITableViewDelegate
+extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(weatherInfoDataTableViewCellHeight)
     }
@@ -30,7 +31,8 @@ extension WeatherViewController : UITableViewDelegate {
     }
 }
 
-extension WeatherViewController : UITableViewDataSource {
+//MARK: UITableViewDataSource
+extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoTableViewCell", for: indexPath) as! WeatherInfoTableViewCell
         
@@ -47,7 +49,8 @@ extension WeatherViewController : UITableViewDataSource {
     }
 }
 
-extension WeatherViewController : UICollectionViewDelegateFlowLayout {
+//MARK: UICollectionViewDelegateFlowLayout
+extension WeatherViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 100)
     }
@@ -61,7 +64,8 @@ extension WeatherViewController : UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension WeatherViewController : UICollectionViewDataSource {
+//MARK: UICollectionViewDataSource
+extension WeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
         
@@ -81,13 +85,13 @@ extension WeatherViewController : UICollectionViewDataSource {
 }
 
 class WeatherViewController: BaseViewController {
-
+    
     //MARK: Members
-    //var weatherForecastDataModel: ForecastTempreture
     var weatherDataModel: CurrentWeather?
     var weatherForecastViewModel: ForecastViewModel?
     var coordinates: Coordinate?
     let weatherInfoDataTableViewCellHeight = 50
+    let timer = Timer()
     
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -97,12 +101,38 @@ class WeatherViewController: BaseViewController {
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
         tableView.register(UINib(nibName: "WeatherInfoSectionHeaderTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherInfoSectionHeaderTableViewCell")
-        
         collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
         
+        let timer = Timer(fireAt: Date(timeInterval: TimeInterval(60 - Int(Date().convertDateToString(withFormatterStyle: .seconds))!), since: Date()), interval: 60, target: self, selector: #selector(reloadWeatherViewController), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: .defaultRunLoopMode)
+        
+        getForecast()
+    }
+    
+    //MARK: Actions
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        timer.invalidate()
+        navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: Private
+    @objc private func reloadWeatherViewController() {
+        DataManager.getCurrentWeatherData(withCityName: self.weatherDataModel?.fullName, cityID: nil) { (uid, weather, error) in
+            guard error == nil else {
+                return
+            }
+        
+            DispatchQueue.main.async {
+                self.weatherDataModel?.updateData(weather!)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    private func getForecast() {
         DispatchQueue.global(qos: .default).async {
             DataManager.getForecastData(withCityName: self.weatherDataModel?.cityName, cityID: nil, andCount: 16) { (forecast, error) in
                 guard error == nil else {
@@ -117,10 +147,5 @@ class WeatherViewController: BaseViewController {
                 }
             }
         }
-    }
-    
-    //MARK: Actions
-    @IBAction func menuButtonTapped(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
     }
 }

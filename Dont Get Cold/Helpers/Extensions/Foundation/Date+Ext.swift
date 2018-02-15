@@ -12,7 +12,9 @@ extension Date {
     
     enum DateFormatStyle: String {
         case fullDay = "EEEE, dd"
+        case fullDayWithTime = "EEEE, dd HH:mm"
         case weekdayShort = "EEE"
+        case weekdayShortWithDayAndTime = "EEE dd, HH:mm"
         case weekdayPlusFullDate = "EEEE, dd MMM yy"
         case fullDateTime = "yyyy/MM/dd HH:mm:ss"
         case regularDate = "yyyy/MM/dd"
@@ -20,6 +22,7 @@ extension Date {
         case day = "dd"
         case hour = "HH"
         case minute = "mm"
+        case seconds = "ss"
         case timeLong = "HH:mm:ss"
         case timeShort = "HH:mm"
         case yearMonth = "yyyy/MM"

@@ -132,7 +132,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
                 self.cities = cities
             }
         }
-
+        
         reloadViewController(withLoadedTimeZones: false)
         
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
@@ -154,12 +154,12 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
             if withLoadedTimeZones {
                 self.requestWeatherData(forSavedCities: savedCities, andTimesZones: self.timeZones)
             } else {
-                DispatchQueue.global(qos: .default).async {
+                //DispatchQueue.global(qos: .default).async {
                     self.getTimeZones(forCities: savedCities, completion: { (timeZones) in
                         self.timeZones = timeZones
                         self.requestWeatherData(forSavedCities: savedCities, andTimesZones: timeZones)
                     })
-                }
+                //}
             }
         }
     }
@@ -187,17 +187,15 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
                     self.selectedCities.replace(at: 0, withElement: currentCity)
                     self.tableView!.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
                 } else {
-                    DispatchQueue.global(qos: .default).async {
+                    LocationManager.shared.getTimeZone(forCity: city, completion: { (_, timeZone) in
                         DispatchQueue.main.async {
-                            LocationManager.shared.getTimeZone(forCity: city, completion: { (_, timeZone) in
-                                let newCity = CurrentWeather(withWeather: weather!)
-                                newCity.cityTimeZone = timeZone
-                                self.timeZones.append(timeZone)
-                                self.selectedCities.append(newCity)
-                                self.tableView.reloadData()
-                            })
+                            let newCity = CurrentWeather(withWeather: weather!)
+                            newCity.cityTimeZone = timeZone
+                            self.timeZones.append(timeZone)
+                            self.selectedCities.append(newCity)
+                            self.tableView.reloadData()
                         }
-                    }
+                    })
                 }
             }
         }
