@@ -15,7 +15,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="WeatherTableViewCell" customModule="Dont_Get_Cold" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -28,19 +28,11 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hhh-M8-fJK">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="173.5"/>
                                     </imageView>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9KN-G0-SSY">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="173.5"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Hhh-M8-fJK" firstAttribute="top" secondItem="aWp-YM-zga" secondAttribute="top" id="7eR-zh-y0H"/>
-                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="bottom" secondItem="Hhh-M8-fJK" secondAttribute="bottom" id="B4l-FT-cAY"/>
-                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="top" secondItem="Hhh-M8-fJK" secondAttribute="top" id="ViI-jl-DPT"/>
-                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="trailing" secondItem="Hhh-M8-fJK" secondAttribute="trailing" id="g15-qz-Ndb"/>
                                     <constraint firstAttribute="trailing" secondItem="Hhh-M8-fJK" secondAttribute="trailing" id="hDK-sw-ts8"/>
-                                    <constraint firstItem="9KN-G0-SSY" firstAttribute="leading" secondItem="Hhh-M8-fJK" secondAttribute="leading" id="iy1-Oo-Ble"/>
                                     <constraint firstItem="Hhh-M8-fJK" firstAttribute="leading" secondItem="aWp-YM-zga" secondAttribute="leading" id="sQz-PB-UdR"/>
                                     <constraint firstAttribute="bottom" secondItem="Hhh-M8-fJK" secondAttribute="bottom" constant="-70" id="vYA-ad-Wzb"/>
                                 </constraints>
@@ -102,7 +94,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="0vv-dr-6Lb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="8hi-XY-Qaf"/>
                     <constraint firstAttribute="bottom" secondItem="0vv-dr-6Lb" secondAttribute="bottom" constant="8" id="R5j-GI-fzj"/>
@@ -110,7 +102,7 @@
                     <constraint firstItem="0vv-dr-6Lb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="jc3-gA-tkJ"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="backgroundImageView" destination="Hhh-M8-fJK" id="05c-Au-nwx"/>

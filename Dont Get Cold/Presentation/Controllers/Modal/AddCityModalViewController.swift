@@ -42,6 +42,7 @@ extension AddCityModalViewController: UIScrollViewDelegate {
     }
 }
 
+//MARK: UITableViewDelegate
 extension AddCityModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let delegate = delegate {
@@ -56,6 +57,7 @@ extension AddCityModalViewController: UITableViewDelegate {
     }
 }
 
+//MARK: UITableViewDataSource
 extension AddCityModalViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()

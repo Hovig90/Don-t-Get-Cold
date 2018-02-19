@@ -112,6 +112,12 @@ class WeatherViewController: BaseViewController {
         getForecast()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        timer.invalidate()
+        
+        super.viewWillDisappear(animated)
+    }
+    
     //MARK: Actions
     @IBAction func menuButtonTapped(_ sender: Any) {
         timer.invalidate()

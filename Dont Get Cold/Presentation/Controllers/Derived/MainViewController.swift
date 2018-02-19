@@ -12,8 +12,10 @@ import CoreLocation
 //MARK: AddCityModalViewControllerDelegate
 extension MainViewController: AddCityModalViewControllerDelegate {
     func update(withNewCity city: City) {
-        CacheManager.cache.append(city, forKey: .cities)
-        requestWeatherData(forCity: city.name + "," + city.country)
+        if !CacheManager.cache.contains(city, forKey: .cities) {
+            CacheManager.cache.append(city, forKey: .cities)
+            requestWeatherData(forCity: city.name + "," + city.country)
+        }
     }
 }
 

@@ -40,6 +40,12 @@ class City: NSObject, Convertable, NSCoding {
         self.init(with: id, name: name, country: country, coord: coord)
     }
     
+    override var description: String {
+        get {
+            return name + "," + country
+        }
+    }
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.id, forKey: .id)
         aCoder.encode(self.name, forKey: .name)

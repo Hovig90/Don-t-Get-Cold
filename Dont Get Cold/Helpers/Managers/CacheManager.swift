@@ -64,4 +64,15 @@ class CacheManager {
             print("Caching: Attempted to remove an object from cached array with the key '\(key.rawValue)' that has not been cached yet.")
         }
     }
+    
+    func contains(_ obj: AnyObject, forKey key: AppConstants.CachingKey) -> Bool {
+        if let cachedArray = get(forKey: key) as? [AnyObject] {
+            return cachedArray.contains {
+                return $0.description.isEqual(obj.description)
+            }
+        } else {
+            print("Caching: The requested array object with the key '\(key.rawValue)' has not been cached yet.")
+            return false
+        }
+    }
 }

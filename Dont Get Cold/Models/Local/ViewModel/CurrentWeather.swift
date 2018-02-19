@@ -22,7 +22,7 @@ class CurrentWeather {
     var date: String?
     var sunrise: String?
     var sunset: String?
-    var cityTimeZone: TimeZone? {
+    var cityTimeZone: TimeZone = TimeZone.current {
         willSet {
             self.updateDate(withTimeZone: newValue)
         }
