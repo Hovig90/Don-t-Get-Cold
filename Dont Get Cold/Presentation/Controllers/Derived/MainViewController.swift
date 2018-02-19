@@ -9,17 +9,6 @@
 import UIKit
 import CoreLocation
 
-//MARK: WeatherTableViewCellDelegate
-extension MainViewController: WeatherTableViewCellDelegate {
-    func deleteCell(_ cell: WeatherTableViewCell, completion: (() -> Void)) {
-        let index = (tableView.indexPath(for: cell)?.row)!
-        CacheManager.cache.remove(objectAt: index, forKey: .cities)
-        self.selectedCities.remove(at: index)
-        tableView.deleteRows(at: [tableView.indexPath(for: cell)!], with: .none)
-        completion()
-    }
-}
-
 //MARK: AddCityModalViewControllerDelegate
 extension MainViewController: AddCityModalViewControllerDelegate {
     func update(withNewCity city: City) {
@@ -94,6 +83,21 @@ extension MainViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 { return false }
+        
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let rowAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            self.deleteCell(tableView.cellForRow(at: indexPath)!)
+        }
+        rowAction.backgroundColor = UIColor(hex: 0x333333)
+        
+        return [rowAction]
+    }
 }
 
 //MARK: UITableViewDataSource
@@ -102,7 +106,6 @@ extension MainViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         
         cell.dataModel = selectedCities[indexPath.row]
-        cell.delegate = self
         cell.isDeletable = indexPath.row == 0 ? false : true
         
         return cell
@@ -242,6 +245,15 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
             for i in 0..<currentWeather.count {
                 currentWeather[i].cityTimeZone = timeZones[i]
             }
+        }
+    }
+    
+    private func deleteCell(_ cell: UITableViewCell) {
+        let index = (tableView.indexPath(for: cell)?.row)!
+        CacheManager.cache.remove(objectAt: index, forKey: .cities)
+        self.selectedCities.remove(at: index)
+        DispatchQueue.main.async {
+            self.tableView.deleteRows(at: [self.tableView.indexPath(for: cell)!], with: .automatic)
         }
     }
 }

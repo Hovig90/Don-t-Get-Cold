@@ -8,14 +8,9 @@
 
 import UIKit
 
-protocol WeatherTableViewCellDelegate: NSObjectProtocol {
-    func deleteCell(_ cell: WeatherTableViewCell, completion: (() -> Void))
-}
-
 class WeatherTableViewCell: UITableViewCell {
 
     //MARK: Members
-    weak var delegate: WeatherTableViewCellDelegate?
     var dataModel: CurrentWeather? {
         didSet {
             updateView()
@@ -43,9 +38,8 @@ class WeatherTableViewCell: UITableViewCell {
         subTitleLabel.regularShadow()
         tempLabel.regularShadow()
         measurementUnitImageView.regularShadow()
-        self.cornerRadiusView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(moveCell(_:))))
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -78,49 +72,5 @@ class WeatherTableViewCell: UITableViewCell {
             }
             self.measurementUnitImageView.image = UIImage(named: SettingsManager.shared.check(measurementUnit: .metric) ? .CelsiusIcon : .Fahrenheit)
         }
-    }
-    
-    @objc private func moveCell(_ sender: UIPanGestureRecognizer) {
-        if !isDeletable { return }
-        
-        let originalLocation = self.center
-        
-        switch sender.state {
-        case .began, .changed:
-            if sender.translation(in: self).x < 0 {
-                let newCenter = CGPoint(x: originalLocation.x + sender.translation(in: self).x, y: self.cornerRadiusView.center.y)
-                self.cornerRadiusView.center = newCenter
-                self.cornerRadiusView.alpha = (self.cornerRadiusView.frame.origin.x + self.cornerRadiusView.bounds.width) / (UIScreen.width())
-            }
-            
-        case .cancelled: print("Cancelled")
-        case .ended:
-            if self.cornerRadiusView.frame.origin.x - (16 * 2) < (-UIScreen.width() / 2)  {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.cornerRadiusView.center = CGPoint(x: -UIScreen.width(), y: self.cornerRadiusView.center.y)
-                    self.cornerRadiusView.alpha = 0
-                }, completion: { (finished) in
-                    if finished {
-                        if let delegate = self.delegate {
-                            delegate.deleteCell(self, completion: {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                                    self.cornerRadiusView.center = CGPoint(x: originalLocation.x, y: self.cornerRadiusView.center.y)
-                                    self.cornerRadiusView.alpha = 1
-                                })
-                            })
-                        }
-                    }
-                })
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.cornerRadiusView.center = CGPoint(x: originalLocation.x, y: self.cornerRadiusView.center.y)
-                    self.cornerRadiusView.alpha = 1
-                })
-            }
-        case .failed: print("Failed")
-        case .possible: print("Possible")
-        default: break
-        }
-        
     }
 }

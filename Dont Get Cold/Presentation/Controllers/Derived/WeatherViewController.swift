@@ -91,7 +91,7 @@ class WeatherViewController: BaseViewController {
     var weatherForecastViewModel: ForecastViewModel?
     var coordinates: Coordinate?
     let weatherInfoDataTableViewCellHeight = 50
-    let timer = Timer()
+    var timer = Timer()
     
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -106,7 +106,7 @@ class WeatherViewController: BaseViewController {
         tableView.register(UINib(nibName: "WeatherInfoSectionHeaderTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherInfoSectionHeaderTableViewCell")
         collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
         
-        let timer = Timer(fireAt: Date(timeInterval: TimeInterval(60 - Int(Date().convertDateToString(withFormatterStyle: .seconds))!), since: Date()), interval: 60, target: self, selector: #selector(reloadWeatherViewController), userInfo: nil, repeats: true)
+        timer = Timer(fireAt: Date(timeInterval: TimeInterval(60 - Int(Date().convertDateToString(withFormatterStyle: .seconds))!), since: Date()), interval: 60, target: self, selector: #selector(reloadWeatherViewController), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: .defaultRunLoopMode)
         
         getForecast()
