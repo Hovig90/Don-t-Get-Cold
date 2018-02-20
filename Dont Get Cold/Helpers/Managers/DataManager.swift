@@ -31,8 +31,6 @@ class DataManager {
                 }
             }
         }
-        
-        
     }
     
     static func getForecastData(withCityName city: String?, cityID id: String?, andCount cnt: Int, completion: @escaping (Forecast?, Error?) -> Void) {
@@ -47,7 +45,7 @@ class DataManager {
     }
     
     static func getCities(completion: @escaping (([City]?) -> Void))  {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .default).async {
             let url = Bundle.main.url(forResource: "city.list", withExtension: ".json")
             if let url = url {
                 do {

@@ -59,6 +59,20 @@ extension MainViewController: UIScrollViewDelegate {
 
 //MARK: UITableViewDelegate
 extension MainViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? WeatherTableViewCell {
+            cell.parallaxForCell(onTableView: tableView, didScrollOnView: self.view)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        for cell in self.tableView.visibleCells {
+            if let cell = cell as? WeatherTableViewCell {
+                cell.parallaxForCell(onTableView: self.tableView, didScrollOnView: self.view)
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
@@ -110,6 +124,7 @@ extension MainViewController : UITableViewDataSource {
         cell.dataModel = selectedCities[indexPath.row]
         cell.isDeletable = indexPath.row == 0 ? false : true
         
+        
         return cell
     }
     
@@ -135,6 +150,11 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         DataManager.getCities { (cities) in
             if let cities = cities {
                 self.cities = cities
+                DispatchQueue.main.async {
+                    if let presentedViewController = self.presentedViewController as? AddCityModalViewController {
+                        presentedViewController.cities = cities
+                    }
+                }
             }
         }
         
@@ -159,12 +179,10 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
             if withLoadedTimeZones {
                 self.requestWeatherData(forSavedCities: savedCities, andTimesZones: self.timeZones)
             } else {
-                //DispatchQueue.global(qos: .default).async {
-                    self.getTimeZones(forCities: savedCities, completion: { (timeZones) in
-                        self.timeZones = timeZones
-                        self.requestWeatherData(forSavedCities: savedCities, andTimesZones: timeZones)
-                    })
-                //}
+                self.getTimeZones(forCities: savedCities, completion: { (timeZones) in
+                    self.timeZones = timeZones
+                    self.requestWeatherData(forSavedCities: savedCities, andTimesZones: timeZones)
+                })
             }
         }
     }
