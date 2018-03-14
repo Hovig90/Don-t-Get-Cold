@@ -38,31 +38,46 @@ class CurrentWeather {
         self.weather = weather
         cityName = weather.name
         temperatureSummary = weather.weather?.first?.description
-        temperature = String(Int(weather.main!.temp!))
-        tempMin = String(Int(weather.main!.temp_min!))
-        tempMax = String(Int(weather.main!.temp_max!))
-        sunrise = Date(withUNIXDate: Double(weather.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort)
-        sunset = Date(withUNIXDate: Double(weather.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort)
+        
+        temperature = stringFromDouble(weather.main?.temp)
+        tempMin = stringFromDouble(weather.main?.temp)
+        tempMax = stringFromDouble(weather.main?.temp)
+        
+        if let sys = weather.sys {
+            if let sysSunrise = sys.sunrise {
+                sunrise = Date(withUNIXDate: Double(sysSunrise)).convertDateToString(withFormatterStyle: .timeShort)
+            }
+            
+            if let sysSunset = sys.sunset {
+                sunset = Date(withUNIXDate: Double(sysSunset)).convertDateToString(withFormatterStyle: .timeShort)
+            }
+        }
         
         if let sunrise = sunrise {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise))
         }
+        
         if let sunset = sunset {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset))
         }
+        
         if let clouds = weather.clouds, let cloudiness = clouds["all"]  {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.CloudIcon.rawValue, type: "Cloudiness", value: String(cloudiness) + " %"))
         }
+        
         if let visibility = weather.visibility {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(visibility / 1000) + " km"))
         }
+        
         if let wind = weather.wind, let speed = wind.speed {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(speed) + (SettingsManager.shared.check(measurementUnit: .metric) ? " mps" : " mph")))
         }
+        
         if let main = weather.main {
             if let pressure = main.pressure {
                 weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(pressure) + " hPa"))
             }
+            
             if let humidity = main.humidity {
                 weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(humidity) + " %"))
             }
@@ -71,9 +86,9 @@ class CurrentWeather {
     
     func updateData(_ data: Weather) {
         temperatureSummary = data.weather?.first?.description
-        temperature = String(Int(data.main!.temp!))
-        tempMin = String(Int(data.main!.temp_min!))
-        tempMax = String(Int(data.main!.temp_max!))
+        temperature = stringFromDouble(data.main?.temp)
+        tempMin = stringFromDouble(data.main?.temp)
+        tempMax = stringFromDouble(data.main?.temp)
         
         updateDate(withTimeZone: self.cityTimeZone)
         
@@ -81,22 +96,28 @@ class CurrentWeather {
         if let sunrise = sunrise {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunriseIcon.rawValue, type: "Sunrise", value: sunrise))
         }
+        
         if let sunset = sunset {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.SunsetIcon.rawValue, type: "Sunset", value: sunset))
         }
+        
         if let clouds = data.clouds, let cloudiness = clouds["all"]  {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.CloudIcon.rawValue, type: "Cloudiness", value: String(cloudiness) + " %"))
         }
+        
         if let visibility = data.visibility {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.VisibilityDayIcon.rawValue, type: "Visibility", value: String(visibility / 1000) + " km"))
         }
+        
         if let wind = data.wind, let speed = wind.speed {
             weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.WindIcon.rawValue, type: "Wind", value: String(speed) + (SettingsManager.shared.check(measurementUnit: .metric) ? " mps" : " mph")))
         }
+        
         if let main = data.main {
             if let pressure = main.pressure {
                 weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.PressureIcon.rawValue, type: "Pressure", value: String(pressure) + " hPa"))
             }
+            
             if let humidity = main.humidity {
                 weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(humidity) + " %"))
             }
@@ -106,16 +127,23 @@ class CurrentWeather {
     //Mark: Private
     private func updateDate(withTimeZone timeZone: TimeZone?) {
         if let timeZone = timeZone {
-            self.sunrise = Date(withUNIXDate: Double(weather!.sys!.sunrise!)).convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone)
-            self.weatherInfoData[0].value = self.sunrise
-            self.sunset = Date(withUNIXDate: Double(weather!.sys!.sunset!)).convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone)
-            self.weatherInfoData[1].value = self.sunset
-            self.date = Date().convertDateToString(withFormatterStyle: .weekdayShortWithDayAndTime, timeZone: timeZone)
-            
-            if let weatherId = weather!.weather?.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
-                weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
-                weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+            if let weather = weather, let sys = weather.sys {
+                if let sunrise = sys.sunrise {
+                    self.sunrise = Date(withUNIXDate: Double(sunrise)).convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone)
+                    self.weatherInfoData[0].value = self.sunrise
+                }
+                
+                if let sunset = sys.sunset {
+                    self.sunset = Date(withUNIXDate: Double(sunset)).convertDateToString(withFormatterStyle: .timeShort, timeZone: timeZone)
+                    self.weatherInfoData[1].value = self.sunset
+                }
+                
+                if let weatherInfo = weather.weather, let weatherId = weatherInfo.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
+                    weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+                    weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+                }
             }
+            self.date = Date().convertDateToString(withFormatterStyle: .weekdayShortWithDayAndTime, timeZone: timeZone)
         }
     }
     
@@ -132,5 +160,13 @@ class CurrentWeather {
         } else {
             return true
         }
+    }
+
+    private func stringFromDouble(_ d: Double?) -> String {
+        guard let doubleNumber = d else {
+            return "NIA"
+        }
+        
+        return String(Int(doubleNumber))
     }
 }
