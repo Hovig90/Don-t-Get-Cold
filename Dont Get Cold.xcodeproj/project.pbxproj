@@ -177,6 +177,8 @@
 		68A3C283205CA98300537787 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		68A3C285205CA98300537787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68A3C2BD205CC93200537787 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		68A3C2BF205D0A8A00537787 /* Dont Get Cold.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dont Get Cold.entitlements"; sourceTree = "<group>"; };
+		68A3C2C0205D0B7900537787 /* Dont Get Cold Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dont Get Cold Widget.entitlements"; sourceTree = "<group>"; };
 		68AFD7C7203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoSectionHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		68AFD7C9203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherInfoSectionHeaderTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -454,6 +456,7 @@
 		689A3FBC2014630A00FFF496 /* Dont Get Cold */ = {
 			isa = PBXGroup;
 			children = (
+				68A3C2BF205D0A8A00537787 /* Dont Get Cold.entitlements */,
 				689A3FCF20146B1C00FFF496 /* Application */,
 				689A3FD020146B2600FFF496 /* Presentation */,
 				683F10EB20183FE7003A2F7F /* Views */,
@@ -539,6 +542,7 @@
 		68A3C27F205CA98300537787 /* Dont Get Cold Widget */ = {
 			isa = PBXGroup;
 			children = (
+				68A3C2C0205D0B7900537787 /* Dont Get Cold Widget.entitlements */,
 				68A3C280205CA98300537787 /* TodayViewController.swift */,
 				68A3C282205CA98300537787 /* MainInterface.storyboard */,
 				68A3C285205CA98300537787 /* Info.plist */,
@@ -615,10 +619,20 @@
 					689A3FB92014630A00FFF496 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					68A3C27B205CA98300537787 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -905,6 +919,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold/Dont Get Cold.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hovig Kousherian (DMKJ6937U8)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
@@ -924,6 +939,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold/Dont Get Cold.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hovig Kousherian (3F7NZ8Q9YA)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
@@ -941,6 +957,7 @@
 		68A3C289205CA98300537787 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold Widget/Dont Get Cold Widget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hovig Kousherian (DMKJ6937U8)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
@@ -960,6 +977,7 @@
 		68A3C28A205CA98300537787 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold Widget/Dont Get Cold Widget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hovig Kousherian (3F7NZ8Q9YA)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
