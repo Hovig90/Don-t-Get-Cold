@@ -17,14 +17,34 @@
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RyJ-ys-1mA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="M4Y-Lb-cyx" id="0Cf-Ti-NNw"/>
+                                    <outlet property="delegate" destination="M4Y-Lb-cyx" id="ugH-hN-iKm"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="RyJ-ys-1mA" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="MdO-Bj-AE8"/>
+                            <constraint firstItem="RyJ-ys-1mA" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" id="b3t-z5-Z4R"/>
+                            <constraint firstItem="RyJ-ys-1mA" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="ghv-M0-g4y"/>
+                            <constraint firstItem="RyJ-ys-1mA" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="meZ-bI-XpO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="110"/>
+                    <connections>
+                        <outlet property="tableView" destination="RyJ-ys-1mA" id="zgT-i1-xvt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="33.600000000000001" y="32.383808095952027"/>
         </scene>
     </scenes>
 </document>
