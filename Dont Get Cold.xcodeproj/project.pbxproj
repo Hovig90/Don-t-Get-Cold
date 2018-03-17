@@ -57,9 +57,37 @@
 		689A3FC82014630A00FFF496 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 689A3FC62014630A00FFF496 /* LaunchScreen.storyboard */; };
 		689A3FD620146BDD00FFF496 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A3FD520146BDD00FFF496 /* WeatherViewController.swift */; };
 		689A3FD8201470B800FFF496 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A3FD7201470B800FFF496 /* LocationManager.swift */; };
+		68A3C27E205CA98300537787 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68A3C27D205CA98300537787 /* NotificationCenter.framework */; };
+		68A3C281205CA98300537787 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3C280205CA98300537787 /* TodayViewController.swift */; };
+		68A3C284205CA98300537787 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A3C282205CA98300537787 /* MainInterface.storyboard */; };
+		68A3C288205CA98300537787 /* Dont Get Cold Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		68AFD7C8203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AFD7C7203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift */; };
 		68AFD7CA203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AFD7C9203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		68A3C286205CA98300537787 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 689A3FB22014630A00FFF496 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68A3C27B205CA98300537787;
+			remoteInfo = "Dont Get Cold Widget";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		68A3C28C205CA98300537787 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				68A3C288205CA98300537787 /* Dont Get Cold Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29CA459553934180FEDC7BA7 /* Pods_Dont_Get_Cold.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dont_Get_Cold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +143,11 @@
 		689A3FC92014630A00FFF496 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689A3FD520146BDD00FFF496 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		689A3FD7201470B800FFF496 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Dont Get Cold Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68A3C27D205CA98300537787 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		68A3C280205CA98300537787 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		68A3C283205CA98300537787 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		68A3C285205CA98300537787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68AFD7C7203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoSectionHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		68AFD7C9203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherInfoSectionHeaderTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +160,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68A3C279205CA98300537787 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A3C27E205CA98300537787 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -134,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				29CA459553934180FEDC7BA7 /* Pods_Dont_Get_Cold.framework */,
+				68A3C27D205CA98300537787 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -364,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				689A3FBC2014630A00FFF496 /* Dont Get Cold */,
+				68A3C27F205CA98300537787 /* Dont Get Cold Widget */,
 				689A3FBB2014630A00FFF496 /* Products */,
 				CC480F9898A62D5C07E1423C /* Pods */,
 				13B684CCB329B5B766D2810B /* Frameworks */,
@@ -374,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				689A3FBA2014630A00FFF496 /* Dont Get Cold.app */,
+				68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,6 +507,16 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		68A3C27F205CA98300537787 /* Dont Get Cold Widget */ = {
+			isa = PBXGroup;
+			children = (
+				68A3C280205CA98300537787 /* TodayViewController.swift */,
+				68A3C282205CA98300537787 /* MainInterface.storyboard */,
+				68A3C285205CA98300537787 /* Info.plist */,
+			);
+			path = "Dont Get Cold Widget";
+			sourceTree = "<group>";
+		};
 		68AFD7C62030168D0036BE31 /* WeatherInfoSectionHeaderTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,15 +543,34 @@
 				689A3FB62014630A00FFF496 /* Sources */,
 				689A3FB72014630A00FFF496 /* Frameworks */,
 				689A3FB82014630A00FFF496 /* Resources */,
+				68A3C28C205CA98300537787 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				68A3C287205CA98300537787 /* PBXTargetDependency */,
 			);
 			name = "Dont Get Cold";
 			productName = "Don't Get Cold";
 			productReference = 689A3FBA2014630A00FFF496 /* Dont Get Cold.app */;
 			productType = "com.apple.product-type.application";
+		};
+		68A3C27B205CA98300537787 /* Dont Get Cold Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68A3C28B205CA98300537787 /* Build configuration list for PBXNativeTarget "Dont Get Cold Widget" */;
+			buildPhases = (
+				68A3C278205CA98300537787 /* Sources */,
+				68A3C279205CA98300537787 /* Frameworks */,
+				68A3C27A205CA98300537787 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dont Get Cold Widget";
+			productName = "Dont Get Cold Widget";
+			productReference = 68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -510,6 +583,10 @@
 				ORGANIZATIONNAME = "Hovig Kousherian";
 				TargetAttributes = {
 					689A3FB92014630A00FFF496 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					68A3C27B205CA98300537787 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
 					};
@@ -529,6 +606,7 @@
 			projectRoot = "";
 			targets = (
 				689A3FB92014630A00FFF496 /* Dont Get Cold */,
+				68A3C27B205CA98300537787 /* Dont Get Cold Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -549,6 +627,14 @@
 				6870BBB02031039B0050E5EF /* UnitMeasurementView.xib in Resources */,
 				68460BE82026A0D9000CA2E8 /* WeatherTableViewCell.xib in Resources */,
 				689A3FC32014630A00FFF496 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68A3C27A205CA98300537787 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A3C284205CA98300537787 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,7 +689,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68A3C278205CA98300537787 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A3C281205CA98300537787 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		68A3C287205CA98300537787 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68A3C27B205CA98300537787 /* Dont Get Cold Widget */;
+			targetProxy = 68A3C286205CA98300537787 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		689A3FC12014630A00FFF496 /* Main.storyboard */ = {
@@ -620,6 +722,14 @@
 				689A3FC72014630A00FFF496 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		68A3C282205CA98300537787 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				68A3C283205CA98300537787 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -735,6 +845,7 @@
 		689A3FCD2014630A00FFF496 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hovig Kousherian (DMKJ6937U8)";
 				CODE_SIGN_STYLE = Manual;
@@ -753,6 +864,7 @@
 		689A3FCE2014630A00FFF496 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hovig Kousherian (3F7NZ8Q9YA)";
 				CODE_SIGN_STYLE = Manual;
@@ -763,6 +875,44 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1eca0802-2194-4aec-9dd3-bdfe1391eb0c";
 				PROVISIONING_PROFILE_SPECIFIER = "Dont Get Cold (Distribution)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		68A3C289205CA98300537787 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hovig Kousherian (DMKJ6937U8)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
+				INFOPLIST_FILE = "Dont Get Cold Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hovigkousherian.Dont-Get-Cold.Dont-Get-Cold-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ab73d3ef-1550-468f-a97d-0d7558cc54af";
+				PROVISIONING_PROFILE_SPECIFIER = "Dont Get Cold - Widget (Development)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		68A3C28A205CA98300537787 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hovig Kousherian (3F7NZ8Q9YA)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
+				INFOPLIST_FILE = "Dont Get Cold Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hovigkousherian.Dont-Get-Cold.Dont-Get-Cold-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "460bd6c9-0e84-4137-8989-51e0c192fe35";
+				PROVISIONING_PROFILE_SPECIFIER = "Dont Get Cold - Widget (Distribution)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -785,6 +935,15 @@
 			buildConfigurations = (
 				689A3FCD2014630A00FFF496 /* Debug */,
 				689A3FCE2014630A00FFF496 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68A3C28B205CA98300537787 /* Build configuration list for PBXNativeTarget "Dont Get Cold Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68A3C289205CA98300537787 /* Debug */,
+				68A3C28A205CA98300537787 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
