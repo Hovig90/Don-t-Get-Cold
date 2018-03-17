@@ -48,5 +48,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIApplicationShortcutWidget</key>
+	<string>com.hovigkousherian.Dont-Get-Cold.Dont-Get-Cold-Widget</string>
 </dict>
 </plist>
