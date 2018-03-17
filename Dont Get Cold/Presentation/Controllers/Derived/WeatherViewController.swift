@@ -36,11 +36,13 @@ extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoTableViewCell", for: indexPath) as! WeatherInfoTableViewCell
         
-        let weatherData = self.weatherDataModel!.weatherInfoData[indexPath.row]
-        cell.weatherInfoImageView.image = UIImage(named: weatherData.image!)
-        cell.weatherInfoDataType.text = weatherData.type
-        cell.weatherInfoDataValue.text = weatherData.value
-        
+        if let weatherData = self.weatherDataModel?.weatherInfoData[indexPath.row] {
+            if let weatherDataImage = weatherData.image {
+                cell.weatherInfoImageView.image = UIImage(named: weatherDataImage)
+            }
+            cell.weatherInfoDataType.text = weatherData.type
+            cell.weatherInfoDataValue.text = weatherData.value
+        }
         return cell
     }
     
@@ -71,7 +73,9 @@ extension WeatherViewController: UICollectionViewDataSource {
         
         if let dailyForecast = weatherForecastViewModel?.dailyForecast[indexPath.row] {
             cell.weatherForecastTopLabel.text = dailyForecast.forecastDate
-            cell.weatherForecastImageView.image = UIImage(named: dailyForecast.forecastImage!)
+            if let forecastImage = dailyForecast.forecastImage {
+                cell.weatherForecastImageView.image = UIImage(named: forecastImage)
+            }
             cell.weatherForecastBottomLabel.text = dailyForecast.forecastTempreture
         }
         cell.backgroundAlphaView.backgroundColor = UIColor(hex: 0x000000, alpha: indexPath.row % 2 == 0 ? 0.3 : 0.0 )
@@ -132,8 +136,10 @@ class WeatherViewController: BaseViewController {
             }
         
             DispatchQueue.main.async {
-                self.weatherDataModel?.updateData(weather!)
-                self.tableView.reloadData()
+                if let weather = weather {
+                    self.weatherDataModel?.updateData(weather)
+                    self.tableView.reloadData()
+                }
             }
         }
     }

@@ -108,7 +108,9 @@ extension MainViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let rowAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.deleteCell(tableView.cellForRow(at: indexPath)!)
+            if let deletableCell = tableView.cellForRow(at: indexPath) {
+                self.deleteCell(deletableCell)
+            }
         }
         rowAction.backgroundColor = UIColor(hex: 0x333333)
         
@@ -199,20 +201,20 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     private func requestWeatherData(forCity city: String, isCurrent: Bool = false) {
         DataManager.getCurrentWeatherData(withCityName: city, cityID: nil) { (uid, weather, error) in
-            guard error == nil else {
+            guard error == nil, let weather = weather else {
                 return
             }
             
             DispatchQueue.main.async {
                 if isCurrent {
-                    let currentCity = CurrentWeather(withWeather: weather!)
+                    let currentCity = CurrentWeather(withWeather: weather)
                     currentCity.cityTimeZone = TimeZone.current
                     self.selectedCities.replace(at: 0, withElement: currentCity)
-                    self.tableView!.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
+                    self.tableView.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
                 } else {
                     LocationManager.shared.getTimeZone(forCity: city, completion: { (_, timeZone) in
                         DispatchQueue.main.async {
-                            let newCity = CurrentWeather(withWeather: weather!)
+                            let newCity = CurrentWeather(withWeather: weather)
                             newCity.cityTimeZone = timeZone
                             self.timeZones.append(timeZone)
                             self.selectedCities.append(newCity)
@@ -246,9 +248,9 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         
         for city in cities {
             DataManager.getCurrentWeatherData(cities.index(of: city), withCityName: city.name + "," + city.country, cityID: nil) { (uid, weather, error) in
-                guard error == nil, let uid = uid else { return }
+                guard error == nil, let uid = uid, let weather = weather else { return }
                 
-                weatherResultArray.replace(at: uid, withElement: CurrentWeather(withWeather: weather!))
+                weatherResultArray.replace(at: uid, withElement: CurrentWeather(withWeather: weather))
                 DispatchQueue.main.async {
                     if weatherResultArray.count == cities.count {
                         if let weatherResultArray = weatherResultArray as? [CurrentWeather] {
@@ -269,11 +271,12 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     }
     
     private func deleteCell(_ cell: UITableViewCell) {
-        let index = (tableView.indexPath(for: cell)?.row)!
-        CacheManager.cache.remove(objectAt: index, forKey: .cities)
-        self.selectedCities.remove(at: index)
-        DispatchQueue.main.async {
-            self.tableView.deleteRows(at: [self.tableView.indexPath(for: cell)!], with: .automatic)
+        if let indexPath = tableView.indexPath(for: cell) {
+            CacheManager.cache.remove(objectAt: indexPath.row, forKey: .cities)
+            self.selectedCities.remove(at: indexPath.row)
+            DispatchQueue.main.async {
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
     }
 }
