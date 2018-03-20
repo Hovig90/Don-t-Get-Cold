@@ -171,12 +171,6 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
-    
     //MARK: Public
     func openAddCityModalViewController() {
         if let addCityModalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCityModalViewController") as? AddCityModalViewController {

@@ -13,6 +13,7 @@ struct AppConstants {
     static let WeatherApiKey = "bbcf61f77b09ced0996ff61969903587"
     static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
     static let forecastDailyUrl = BaseUrl + "forecast/daily"
+    static let extensionURLScheme = "main-screen:"
     
     static let tableViewRefreshControl = 0o444
     

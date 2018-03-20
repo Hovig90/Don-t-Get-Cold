@@ -59,7 +59,7 @@ extension TodayViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        extensionContext?.open(URL(string: "main-screen:")!, completionHandler: { (success) in
+        extensionContext?.open(URL(string: AppConstants.extensionURLScheme)!, completionHandler: { (success) in
             if !success {
                 fatalError("Crash: Couldn't launch app from widget.")
             }
