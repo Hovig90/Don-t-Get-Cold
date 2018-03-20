@@ -166,6 +166,8 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         tableView.register(UINib(nibName: "WeatherFooterTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherFooterTableViewCell")
         tableView.separatorStyle = .none
         
+        tableView.activateRefreshControl(self, action: #selector(reloadViewController(withLoadedTimeZones:)))
+        
         PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             
         }
@@ -176,7 +178,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     }
     
     //MARK: Private
-    fileprivate func reloadViewController(withLoadedTimeZones: Bool) {
+    @objc fileprivate func reloadViewController(withLoadedTimeZones: Bool) {
         if let savedCities = CacheManager.cache.get(forKey: .cities) as? [City] {
             if withLoadedTimeZones {
                 self.requestWeatherData(forSavedCities: savedCities, andTimesZones: self.timeZones)
@@ -248,12 +250,18 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         
         for city in cities {
             DataManager.getCurrentWeatherData(cities.index(of: city), withCityName: city.name + "," + city.country, cityID: nil) { (uid, weather, error) in
-                guard error == nil, let uid = uid, let weather = weather else { return }
+                guard error == nil, let uid = uid, let weather = weather else {
+                    if self.tableView.isRefreshing() {
+                        self.tableView.endRefreshing()
+                    }
+                    return
+                }
                 
                 weatherResultArray.replace(at: uid, withElement: CurrentWeather(withWeather: weather))
                 DispatchQueue.main.async {
                     if weatherResultArray.count == cities.count {
                         if let weatherResultArray = weatherResultArray as? [CurrentWeather] {
+                            self.tableView.endRefreshing()
                             completion(weatherResultArray)
                         }
                     }
