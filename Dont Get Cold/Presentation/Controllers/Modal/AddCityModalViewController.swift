@@ -90,6 +90,7 @@ class AddCityModalViewController: UIViewController {
                 self.searchBar.isUserInteractionEnabled = true
                 self.searchBar.becomeFirstResponder()
                 tableView.reloadData()
+                self.tableView.activityIndicator(loadingInProgress: false)
             }
         }
     }
@@ -106,10 +107,15 @@ class AddCityModalViewController: UIViewController {
 
         self.view.addBlur(withStyle: .dark)
         self.tableView.separatorStyle = .none
+        
         if cities.count > 0 {
             self.searchBar.becomeFirstResponder()
             self.searchBar.isUserInteractionEnabled = true
+            self.tableView.activityIndicator(loadingInProgress: false)
         } else {
+            var center = UIScreen.center()
+            center.y -= searchBar.bounds.height
+            self.tableView.activityIndicator(center: center, loadingInProgress: true)
             self.searchBar.isUserInteractionEnabled = false
         }
         

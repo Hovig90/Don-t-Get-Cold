@@ -233,7 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				68460BEB2026A5CD000CA2E8 /* UIView */,
-				6845ED3B2060CA8C0009540C /* UITableView */,
 				683F1102201AA7EB003A2F7F /* UICollectionViewCell */,
 				683F10F120195F35003A2F7F /* UITableViewCell */,
 			);
@@ -317,21 +316,6 @@
 				6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */,
 			);
 			path = UIKit;
-			sourceTree = "<group>";
-		};
-		6845ED3B2060CA8C0009540C /* UITableView */ = {
-			isa = PBXGroup;
-			children = (
-				6845ED3C2060CAA50009540C /* New Group */,
-			);
-			path = UITableView;
-			sourceTree = "<group>";
-		};
-		6845ED3C2060CAA50009540C /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		6845ED4420616F6B0009540C /* Shortcut */ = {

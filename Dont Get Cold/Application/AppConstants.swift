@@ -16,6 +16,7 @@ struct AppConstants {
     static let extensionURLScheme = "main-screen:"
     
     static let tableViewRefreshControl = 0o444
+    static let tableViewActivityIndicatorView = 0o333
     
     enum Colors: Int {
         case AppGray = 0x6B6A6A
