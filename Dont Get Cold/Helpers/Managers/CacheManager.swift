@@ -15,10 +15,18 @@ class CacheManager {
     private init() { }
     
     func set(_ obj: AnyObject, forKey key: AppConstants.CachingKey) {
+        if key.rawValue == "cities" {
+            NSKeyedArchiver.setClassName("City", for: City.self)
+        }
+        
         UserDefaults.save(object: obj, forKey: key)
     }
     
     func get(forKey key: AppConstants.CachingKey) -> AnyObject? {
+        if key.rawValue == "cities" {
+            NSKeyedUnarchiver.setClass(City.self, forClassName: "City")
+        }
+       
         return UserDefaults.get(objectForKey: key)
     }
     

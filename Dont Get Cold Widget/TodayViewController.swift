@@ -15,7 +15,7 @@ extension TodayViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
-                CacheManager.cache.replace(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+            
                 self.fetchWeatherData(forCity: locality + "," + counrtyCode)
             }
         }
@@ -55,6 +55,14 @@ extension TodayViewController : UITableViewDataSource {
 extension TodayViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        extensionContext?.open(URL(string: "main-screen:")!, completionHandler: { (success) in
+            if !success {
+                print("Failed")
+            }
+        })
     }
 }
 
