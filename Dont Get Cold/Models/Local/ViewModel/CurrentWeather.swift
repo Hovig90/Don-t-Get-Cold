@@ -141,6 +141,8 @@ class CurrentWeather {
                 if let weatherInfo = weather.weather, let weatherId = weatherInfo.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
                     weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                     weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+                } else {
+                    weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, .ClearSky))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                 }
             }
             self.date = Date().convertDateToString(withFormatterStyle: .weekdayShortWithDayAndTime, timeZone: timeZone)

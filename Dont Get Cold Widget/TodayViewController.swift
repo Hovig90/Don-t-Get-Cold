@@ -38,6 +38,7 @@ extension TodayViewController : NCWidgetProviding {
 extension TodayViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+        cell.backgroundImageViewContainerView.backgroundColor = UIColor.clear
         
         if let city = currentCity {
             cell.dataModel = city
@@ -98,7 +99,10 @@ class TodayViewController: UIViewController {
             DispatchQueue.main.async {
                 self.currentCity = CurrentWeather(withWeather: weather)
                 self.currentCity?.cityTimeZone = TimeZone.current
-                self.tableView.reloadData()
+                //self.tableView.reloadData()
+                if let currentCityCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WeatherTableViewCell {
+                    currentCityCell.dataModel = self.currentCity
+                }
             }
         }
     }
