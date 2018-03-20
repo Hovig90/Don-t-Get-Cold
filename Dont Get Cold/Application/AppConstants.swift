@@ -14,6 +14,8 @@ struct AppConstants {
     static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
     static let forecastDailyUrl = BaseUrl + "forecast/daily"
     
+    static let tableViewRefreshControl = 0o444
+    
     enum Colors: Int {
         case AppGray = 0x6B6A6A
     }
