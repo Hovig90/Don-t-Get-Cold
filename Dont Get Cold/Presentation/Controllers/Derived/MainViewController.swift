@@ -15,6 +15,7 @@ extension MainViewController: AddCityModalViewControllerDelegate {
         if !CacheManager.cache.contains(city, forKey: .cities) {
             CacheManager.cache.append(city, forKey: .cities)
             requestWeatherData(forCity: city.name + "," + city.country)
+            ShortcutManager.shared.didUpdateShortcuts()
         }
     }
 }
@@ -22,12 +23,7 @@ extension MainViewController: AddCityModalViewControllerDelegate {
 //MARK: WeatherFooterTableViewCellDelegate
 extension MainViewController: WeatherFooterTableViewCellDelegate {
     func openAddCityModelViewController() {
-        if let addCityModalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCityModalViewController") as? AddCityModalViewController {
-            addCityModalViewController.modalPresentationStyle = .overCurrentContext
-            addCityModalViewController.cities = cities
-            addCityModalViewController.delegate = self
-            self.present(addCityModalViewController, animated: true, completion: nil)
-        }
+        openAddCityModalViewController()
     }
     
     func reloadViewControllerWithUpdatedMeasurementUnit() {
@@ -78,10 +74,7 @@ extension MainViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let weatherViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController {
-            weatherViewController.weatherDataModel = selectedCities[indexPath.row]
-            self.navigationController?.pushViewController(weatherViewController, animated: true)
-        }
+        pushViewController(forSelectedCityIndexPathRow: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -110,6 +103,7 @@ extension MainViewController : UITableViewDelegate {
         let rowAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             if let deletableCell = tableView.cellForRow(at: indexPath) {
                 self.deleteCell(deletableCell)
+                ShortcutManager.shared.didUpdateShortcuts()
             }
         }
         rowAction.backgroundColor = UIColor(hex: 0x333333)
@@ -175,6 +169,29 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+    }
+    
+    //MARK: Public
+    func openAddCityModalViewController() {
+        if let addCityModalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCityModalViewController") as? AddCityModalViewController {
+            addCityModalViewController.modalPresentationStyle = .overCurrentContext
+            addCityModalViewController.cities = cities
+            addCityModalViewController.delegate = self
+            self.present(addCityModalViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func pushViewController(forSelectedCityIndexPathRow row: Int, animated: Bool = true) {
+        if let weatherViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController {
+            weatherViewController.weatherDataModel = selectedCities[row]
+            self.navigationController?.pushViewController(weatherViewController, animated: animated)
+        }
     }
     
     //MARK: Private

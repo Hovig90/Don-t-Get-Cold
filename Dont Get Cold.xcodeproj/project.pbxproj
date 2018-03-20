@@ -27,6 +27,9 @@
 		68410AEB2014765B003FA3B7 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */; };
 		68410AED201485D0003FA3B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEC201485D0003FA3B7 /* DataManager.swift */; };
 		6845ED3F2060CAD00009540C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED3E2060CAD00009540C /* UITableView+Ext.swift */; };
+		6845ED4120616DBC0009540C /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED4020616DBC0009540C /* ShortcutManager.swift */; };
+		6845ED4320616EFA0009540C /* UIApplicationShortcutItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */; };
+		6845ED4620616F7F0009540C /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED4520616F7F0009540C /* ShortcutItem.swift */; };
 		68460BE72026A0D9000CA2E8 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BE52026A0D9000CA2E8 /* WeatherTableViewCell.swift */; };
 		68460BE82026A0D9000CA2E8 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68460BE62026A0D9000CA2E8 /* WeatherTableViewCell.xib */; };
 		68460BEE2026A5E9000CA2E8 /* CornerRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BED2026A5E9000CA2E8 /* CornerRadiusView.swift */; };
@@ -140,6 +143,9 @@
 		68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		68410AEC201485D0003FA3B7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		6845ED3E2060CAD00009540C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		6845ED4020616DBC0009540C /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
+		6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplicationShortcutItem+Ext.swift"; sourceTree = "<group>"; };
+		6845ED4520616F7F0009540C /* ShortcutItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
 		68460BE52026A0D9000CA2E8 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		68460BE62026A0D9000CA2E8 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
 		68460BED2026A5E9000CA2E8 /* CornerRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusView.swift; sourceTree = "<group>"; };
@@ -218,6 +224,7 @@
 			children = (
 				683F1109201C6B37003A2F7F /* ViewModel */,
 				683F1108201C6B2B003A2F7F /* DataModel */,
+				6845ED4420616F6B0009540C /* Shortcut */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -307,6 +314,7 @@
 				68460BF12026A921000CA2E8 /* UIColor+Ext.swift */,
 				6870BBB120314FAE0050E5EF /* UIImage+Ext.swift */,
 				6845ED3E2060CAD00009540C /* UITableView+Ext.swift */,
+				6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -324,6 +332,14 @@
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		6845ED4420616F6B0009540C /* Shortcut */ = {
+			isa = PBXGroup;
+			children = (
+				6845ED4520616F7F0009540C /* ShortcutItem.swift */,
+			);
+			path = Shortcut;
 			sourceTree = "<group>";
 		};
 		68460BE42026A0B3000CA2E8 /* WeatherTableViewCell */ = {
@@ -554,6 +570,7 @@
 				68410AEC201485D0003FA3B7 /* DataManager.swift */,
 				683F10E920181B37003A2F7F /* RequestManager.swift */,
 				6870BBA72030FAC60050E5EF /* SettingsManager.swift */,
+				6845ED4020616DBC0009540C /* ShortcutManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -722,6 +739,7 @@
 				68460BF02026A648000CA2E8 /* UIView+Ext.swift in Sources */,
 				683F10FE201A2D47003A2F7F /* Forecast.swift in Sources */,
 				68460C0D202E51D9000CA2E8 /* NSCoder+Ext.swift in Sources */,
+				6845ED4320616EFA0009540C /* UIApplicationShortcutItem+Ext.swift in Sources */,
 				683F10FA20197278003A2F7F /* WeatherInfoViewModel.swift in Sources */,
 				6851D42F2016F03E00B5B68B /* Data+Ext.swift in Sources */,
 				68410AEB2014765B003FA3B7 /* UIAlertController+Ext.swift in Sources */,
@@ -738,6 +756,7 @@
 				683F110D201D4545003A2F7F /* WeatherIcon.swift in Sources */,
 				68007F7120267C10006DD710 /* MainViewController.swift in Sources */,
 				683F10F520195FB2003A2F7F /* WeatherInfoTableViewCell.swift in Sources */,
+				6845ED4620616F7F0009540C /* ShortcutItem.swift in Sources */,
 				6851D4262015549F00B5B68B /* Weather.swift in Sources */,
 				68410AED201485D0003FA3B7 /* DataManager.swift in Sources */,
 				68410AE720147603003FA3B7 /* AlertManager.swift in Sources */,
@@ -751,6 +770,7 @@
 				68460BE72026A0D9000CA2E8 /* WeatherTableViewCell.swift in Sources */,
 				68460BF42026B098000CA2E8 /* Array+Ext.swift in Sources */,
 				6845ED3F2060CAD00009540C /* UITableView+Ext.swift in Sources */,
+				6845ED4120616DBC0009540C /* ShortcutManager.swift in Sources */,
 				68460BF22026A921000CA2E8 /* UIColor+Ext.swift in Sources */,
 				689A3FD8201470B800FFF496 /* LocationManager.swift in Sources */,
 			);

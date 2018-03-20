@@ -15,8 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        application.shortcutItems = ShortcutManager.shared.shortcutItems()
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        if let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController {
+            navigationController.popToRootViewController(animated: false)
+            if shortcutItem.type == ShortcutType.add.rawValue || shortcutItem.type == ShortcutType.search.rawValue {
+                if let topViewController = navigationController.topViewController as? MainViewController {
+                    topViewController.openAddCityModalViewController()
+                }
+            } else if shortcutItem.type == "custom", let userInfo = shortcutItem.userInfo, let row = userInfo["row"] as? Int {
+                if let topViewController = navigationController.topViewController as? MainViewController {
+                    topViewController.pushViewController(forSelectedCityIndexPathRow: row, animated: false)
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
