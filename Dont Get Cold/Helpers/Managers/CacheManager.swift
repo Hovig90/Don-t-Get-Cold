@@ -15,10 +15,13 @@ class CacheManager {
     private init() { }
     
     func set(_ obj: AnyObject, forKey key: AppConstants.CachingKey) {
+
         UserDefaults.save(object: obj, forKey: key)
     }
     
     func get(forKey key: AppConstants.CachingKey) -> AnyObject? {
+
+       
         return UserDefaults.get(objectForKey: key)
     }
     

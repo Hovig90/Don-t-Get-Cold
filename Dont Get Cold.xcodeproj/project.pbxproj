@@ -26,6 +26,10 @@
 		68410AE720147603003FA3B7 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AE620147602003FA3B7 /* AlertManager.swift */; };
 		68410AEB2014765B003FA3B7 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */; };
 		68410AED201485D0003FA3B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEC201485D0003FA3B7 /* DataManager.swift */; };
+		6845ED3F2060CAD00009540C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED3E2060CAD00009540C /* UITableView+Ext.swift */; };
+		6845ED4120616DBC0009540C /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED4020616DBC0009540C /* ShortcutManager.swift */; };
+		6845ED4320616EFA0009540C /* UIApplicationShortcutItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */; };
+		6845ED4620616F7F0009540C /* ShortcutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845ED4520616F7F0009540C /* ShortcutItem.swift */; };
 		68460BE72026A0D9000CA2E8 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BE52026A0D9000CA2E8 /* WeatherTableViewCell.swift */; };
 		68460BE82026A0D9000CA2E8 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68460BE62026A0D9000CA2E8 /* WeatherTableViewCell.xib */; };
 		68460BEE2026A5E9000CA2E8 /* CornerRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BED2026A5E9000CA2E8 /* CornerRadiusView.swift */; };
@@ -57,9 +61,65 @@
 		689A3FC82014630A00FFF496 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 689A3FC62014630A00FFF496 /* LaunchScreen.storyboard */; };
 		689A3FD620146BDD00FFF496 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A3FD520146BDD00FFF496 /* WeatherViewController.swift */; };
 		689A3FD8201470B800FFF496 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A3FD7201470B800FFF496 /* LocationManager.swift */; };
+		68A3C27E205CA98300537787 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68A3C27D205CA98300537787 /* NotificationCenter.framework */; };
+		68A3C281205CA98300537787 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A3C280205CA98300537787 /* TodayViewController.swift */; };
+		68A3C284205CA98300537787 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A3C282205CA98300537787 /* MainInterface.storyboard */; };
+		68A3C288205CA98300537787 /* Dont Get Cold Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		68A3C2A1205CBF1500537787 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BE52026A0D9000CA2E8 /* WeatherTableViewCell.swift */; };
+		68A3C2A2205CBF2200537787 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68460BE62026A0D9000CA2E8 /* WeatherTableViewCell.xib */; };
+		68A3C2A3205CBF6200537787 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BEF2026A648000CA2E8 /* UIView+Ext.swift */; };
+		68A3C2A4205CBF7600537787 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BF12026A921000CA2E8 /* UIColor+Ext.swift */; };
+		68A3C2A5205CBF8000537787 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D42120154FD300B5B68B /* AppConstants.swift */; };
+		68A3C2A6205CBF9200537787 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10F7201963AA003A2F7F /* CurrentWeather.swift */; };
+		68A3C2A7205CBFA400537787 /* UIScreen+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460C06202C096A000CA2E8 /* UIScreen+Ext.swift */; };
+		68A3C2A8205CBFAD00537787 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870BBB120314FAE0050E5EF /* UIImage+Ext.swift */; };
+		68A3C2A9205CBFBA00537787 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D4252015549F00B5B68B /* Weather.swift */; };
+		68A3C2AA205CBFC600537787 /* WeatherInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10F920197278003A2F7F /* WeatherInfoViewModel.swift */; };
+		68A3C2AB205CBFD100537787 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10FB201A0DEF003A2F7F /* Date+Ext.swift */; };
+		68A3C2AC205CBFE300537787 /* JSONConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D42B2016E9F600B5B68B /* JSONConvertable.swift */; };
+		68A3C2AD205CBFED00537787 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F1100201A336C003A2F7F /* WeatherData.swift */; };
+		68A3C2AE205CC00500537787 /* NSCoder+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460C0C202E51D9000CA2E8 /* NSCoder+Ext.swift */; };
+		68A3C2AF205CC01500537787 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870BBA72030FAC60050E5EF /* SettingsManager.swift */; };
+		68A3C2B0205CC02300537787 /* WeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F110C201D4545003A2F7F /* WeatherIcon.swift */; };
+		68A3C2B1205CC02C00537787 /* WeatherBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460C0420298370000CA2E8 /* WeatherBackgroundImage.swift */; };
+		68A3C2B2205CC03A00537787 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460C08202E4E8A000CA2E8 /* CacheManager.swift */; };
+		68A3C2B3205CC04900537787 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460C0A202E4E94000CA2E8 /* UserDefaults+Ext.swift */; };
+		68A3C2B4205CC07A00537787 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68460BF32026B098000CA2E8 /* Array+Ext.swift */; };
+		68A3C2B5205CC26900537787 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68410AEC201485D0003FA3B7 /* DataManager.swift */; };
+		68A3C2B6205CC26F00537787 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10E920181B37003A2F7F /* RequestManager.swift */; };
+		68A3C2B7205CC27F00537787 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10E5201807DF003A2F7F /* City.swift */; };
+		68A3C2B8205CC42100537787 /* Data+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851D42E2016F03E00B5B68B /* Data+Ext.swift */; };
+		68A3C2B9205CC42900537787 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F10FD201A2D47003A2F7F /* Forecast.swift */; };
+		68A3C2BB205CC6C800537787 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A3FD7201470B800FFF496 /* LocationManager.swift */; };
+		68A3C2BC205CC81900537787 /* Backgrounds.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68460C01202981BF000CA2E8 /* Backgrounds.xcassets */; };
+		68A3C2BE205CC93200537787 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68A3C2BD205CC93200537787 /* Assets.xcassets */; };
 		68AFD7C8203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AFD7C7203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift */; };
 		68AFD7CA203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AFD7C9203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		68A3C286205CA98300537787 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 689A3FB22014630A00FFF496 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68A3C27B205CA98300537787;
+			remoteInfo = "Dont Get Cold Widget";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		68A3C28C205CA98300537787 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				68A3C288205CA98300537787 /* Dont Get Cold Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29CA459553934180FEDC7BA7 /* Pods_Dont_Get_Cold.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dont_Get_Cold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +142,10 @@
 		68410AE620147602003FA3B7 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		68410AEA2014765B003FA3B7 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		68410AEC201485D0003FA3B7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		6845ED3E2060CAD00009540C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		6845ED4020616DBC0009540C /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
+		6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplicationShortcutItem+Ext.swift"; sourceTree = "<group>"; };
+		6845ED4520616F7F0009540C /* ShortcutItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutItem.swift; sourceTree = "<group>"; };
 		68460BE52026A0D9000CA2E8 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		68460BE62026A0D9000CA2E8 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
 		68460BED2026A5E9000CA2E8 /* CornerRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusView.swift; sourceTree = "<group>"; };
@@ -115,6 +179,14 @@
 		689A3FC92014630A00FFF496 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689A3FD520146BDD00FFF496 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		689A3FD7201470B800FFF496 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Dont Get Cold Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68A3C27D205CA98300537787 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		68A3C280205CA98300537787 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		68A3C283205CA98300537787 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		68A3C285205CA98300537787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68A3C2BD205CC93200537787 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		68A3C2BF205D0A8A00537787 /* Dont Get Cold.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dont Get Cold.entitlements"; sourceTree = "<group>"; };
+		68A3C2C0205D0B7900537787 /* Dont Get Cold Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Dont Get Cold Widget.entitlements"; sourceTree = "<group>"; };
 		68AFD7C7203017210036BE31 /* WeatherInfoSectionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoSectionHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		68AFD7C9203017360036BE31 /* WeatherInfoSectionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherInfoSectionHeaderTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +199,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68A3C279205CA98300537787 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A3C27E205CA98300537787 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -134,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				29CA459553934180FEDC7BA7 /* Pods_Dont_Get_Cold.framework */,
+				68A3C27D205CA98300537787 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -143,6 +224,7 @@
 			children = (
 				683F1109201C6B37003A2F7F /* ViewModel */,
 				683F1108201C6B2B003A2F7F /* DataModel */,
+				6845ED4420616F6B0009540C /* Shortcut */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -230,8 +312,18 @@
 				68460BEF2026A648000CA2E8 /* UIView+Ext.swift */,
 				68460BF12026A921000CA2E8 /* UIColor+Ext.swift */,
 				6870BBB120314FAE0050E5EF /* UIImage+Ext.swift */,
+				6845ED3E2060CAD00009540C /* UITableView+Ext.swift */,
+				6845ED4220616EFA0009540C /* UIApplicationShortcutItem+Ext.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		6845ED4420616F6B0009540C /* Shortcut */ = {
+			isa = PBXGroup;
+			children = (
+				6845ED4520616F7F0009540C /* ShortcutItem.swift */,
+			);
+			path = Shortcut;
 			sourceTree = "<group>";
 		};
 		68460BE42026A0B3000CA2E8 /* WeatherTableViewCell */ = {
@@ -364,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				689A3FBC2014630A00FFF496 /* Dont Get Cold */,
+				68A3C27F205CA98300537787 /* Dont Get Cold Widget */,
 				689A3FBB2014630A00FFF496 /* Products */,
 				CC480F9898A62D5C07E1423C /* Pods */,
 				13B684CCB329B5B766D2810B /* Frameworks */,
@@ -374,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				689A3FBA2014630A00FFF496 /* Dont Get Cold.app */,
+				68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -381,6 +475,7 @@
 		689A3FBC2014630A00FFF496 /* Dont Get Cold */ = {
 			isa = PBXGroup;
 			children = (
+				68A3C2BF205D0A8A00537787 /* Dont Get Cold.entitlements */,
 				689A3FCF20146B1C00FFF496 /* Application */,
 				689A3FD020146B2600FFF496 /* Presentation */,
 				683F10EB20183FE7003A2F7F /* Views */,
@@ -459,8 +554,21 @@
 				68410AEC201485D0003FA3B7 /* DataManager.swift */,
 				683F10E920181B37003A2F7F /* RequestManager.swift */,
 				6870BBA72030FAC60050E5EF /* SettingsManager.swift */,
+				6845ED4020616DBC0009540C /* ShortcutManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		68A3C27F205CA98300537787 /* Dont Get Cold Widget */ = {
+			isa = PBXGroup;
+			children = (
+				68A3C2C0205D0B7900537787 /* Dont Get Cold Widget.entitlements */,
+				68A3C280205CA98300537787 /* TodayViewController.swift */,
+				68A3C282205CA98300537787 /* MainInterface.storyboard */,
+				68A3C285205CA98300537787 /* Info.plist */,
+				68A3C2BD205CC93200537787 /* Assets.xcassets */,
+			);
+			path = "Dont Get Cold Widget";
 			sourceTree = "<group>";
 		};
 		68AFD7C62030168D0036BE31 /* WeatherInfoSectionHeaderTableViewCell */ = {
@@ -489,15 +597,34 @@
 				689A3FB62014630A00FFF496 /* Sources */,
 				689A3FB72014630A00FFF496 /* Frameworks */,
 				689A3FB82014630A00FFF496 /* Resources */,
+				68A3C28C205CA98300537787 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				68A3C287205CA98300537787 /* PBXTargetDependency */,
 			);
 			name = "Dont Get Cold";
 			productName = "Don't Get Cold";
 			productReference = 689A3FBA2014630A00FFF496 /* Dont Get Cold.app */;
 			productType = "com.apple.product-type.application";
+		};
+		68A3C27B205CA98300537787 /* Dont Get Cold Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68A3C28B205CA98300537787 /* Build configuration list for PBXNativeTarget "Dont Get Cold Widget" */;
+			buildPhases = (
+				68A3C278205CA98300537787 /* Sources */,
+				68A3C279205CA98300537787 /* Frameworks */,
+				68A3C27A205CA98300537787 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dont Get Cold Widget";
+			productName = "Dont Get Cold Widget";
+			productReference = 68A3C27C205CA98300537787 /* Dont Get Cold Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -512,6 +639,20 @@
 					689A3FB92014630A00FFF496 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					68A3C27B205CA98300537787 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -529,6 +670,7 @@
 			projectRoot = "";
 			targets = (
 				689A3FB92014630A00FFF496 /* Dont Get Cold */,
+				68A3C27B205CA98300537787 /* Dont Get Cold Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -552,6 +694,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68A3C27A205CA98300537787 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A3C2A2205CBF2200537787 /* WeatherTableViewCell.xib in Resources */,
+				68A3C284205CA98300537787 /* MainInterface.storyboard in Resources */,
+				68A3C2BE205CC93200537787 /* Assets.xcassets in Resources */,
+				68A3C2BC205CC81900537787 /* Backgrounds.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -570,6 +723,7 @@
 				68460BF02026A648000CA2E8 /* UIView+Ext.swift in Sources */,
 				683F10FE201A2D47003A2F7F /* Forecast.swift in Sources */,
 				68460C0D202E51D9000CA2E8 /* NSCoder+Ext.swift in Sources */,
+				6845ED4320616EFA0009540C /* UIApplicationShortcutItem+Ext.swift in Sources */,
 				683F10FA20197278003A2F7F /* WeatherInfoViewModel.swift in Sources */,
 				6851D42F2016F03E00B5B68B /* Data+Ext.swift in Sources */,
 				68410AEB2014765B003FA3B7 /* UIAlertController+Ext.swift in Sources */,
@@ -586,6 +740,7 @@
 				683F110D201D4545003A2F7F /* WeatherIcon.swift in Sources */,
 				68007F7120267C10006DD710 /* MainViewController.swift in Sources */,
 				683F10F520195FB2003A2F7F /* WeatherInfoTableViewCell.swift in Sources */,
+				6845ED4620616F7F0009540C /* ShortcutItem.swift in Sources */,
 				6851D4262015549F00B5B68B /* Weather.swift in Sources */,
 				68410AED201485D0003FA3B7 /* DataManager.swift in Sources */,
 				68410AE720147603003FA3B7 /* AlertManager.swift in Sources */,
@@ -598,12 +753,55 @@
 				683F10E6201807DF003A2F7F /* City.swift in Sources */,
 				68460BE72026A0D9000CA2E8 /* WeatherTableViewCell.swift in Sources */,
 				68460BF42026B098000CA2E8 /* Array+Ext.swift in Sources */,
+				6845ED3F2060CAD00009540C /* UITableView+Ext.swift in Sources */,
+				6845ED4120616DBC0009540C /* ShortcutManager.swift in Sources */,
 				68460BF22026A921000CA2E8 /* UIColor+Ext.swift in Sources */,
 				689A3FD8201470B800FFF496 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68A3C278205CA98300537787 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68A3C2AE205CC00500537787 /* NSCoder+Ext.swift in Sources */,
+				68A3C2A1205CBF1500537787 /* WeatherTableViewCell.swift in Sources */,
+				68A3C2A8205CBFAD00537787 /* UIImage+Ext.swift in Sources */,
+				68A3C2A4205CBF7600537787 /* UIColor+Ext.swift in Sources */,
+				68A3C2B7205CC27F00537787 /* City.swift in Sources */,
+				68A3C2AC205CBFE300537787 /* JSONConvertable.swift in Sources */,
+				68A3C2B0205CC02300537787 /* WeatherIcon.swift in Sources */,
+				68A3C2A7205CBFA400537787 /* UIScreen+Ext.swift in Sources */,
+				68A3C2B6205CC26F00537787 /* RequestManager.swift in Sources */,
+				68A3C2B9205CC42900537787 /* Forecast.swift in Sources */,
+				68A3C2B3205CC04900537787 /* UserDefaults+Ext.swift in Sources */,
+				68A3C2A9205CBFBA00537787 /* Weather.swift in Sources */,
+				68A3C2AA205CBFC600537787 /* WeatherInfoViewModel.swift in Sources */,
+				68A3C2B5205CC26900537787 /* DataManager.swift in Sources */,
+				68A3C2AB205CBFD100537787 /* Date+Ext.swift in Sources */,
+				68A3C2B2205CC03A00537787 /* CacheManager.swift in Sources */,
+				68A3C2B8205CC42100537787 /* Data+Ext.swift in Sources */,
+				68A3C281205CA98300537787 /* TodayViewController.swift in Sources */,
+				68A3C2A3205CBF6200537787 /* UIView+Ext.swift in Sources */,
+				68A3C2AF205CC01500537787 /* SettingsManager.swift in Sources */,
+				68A3C2A6205CBF9200537787 /* CurrentWeather.swift in Sources */,
+				68A3C2A5205CBF8000537787 /* AppConstants.swift in Sources */,
+				68A3C2B4205CC07A00537787 /* Array+Ext.swift in Sources */,
+				68A3C2AD205CBFED00537787 /* WeatherData.swift in Sources */,
+				68A3C2B1205CC02C00537787 /* WeatherBackgroundImage.swift in Sources */,
+				68A3C2BB205CC6C800537787 /* LocationManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		68A3C287205CA98300537787 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68A3C27B205CA98300537787 /* Dont Get Cold Widget */;
+			targetProxy = 68A3C286205CA98300537787 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		689A3FC12014630A00FFF496 /* Main.storyboard */ = {
@@ -620,6 +818,14 @@
 				689A3FC72014630A00FFF496 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		68A3C282205CA98300537787 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				68A3C283205CA98300537787 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -735,7 +941,9 @@
 		689A3FCD2014630A00FFF496 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold/Dont Get Cold.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hovig Kousherian (DMKJ6937U8)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
@@ -753,7 +961,9 @@
 		689A3FCE2014630A00FFF496 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold/Dont Get Cold.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hovig Kousherian (3F7NZ8Q9YA)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
@@ -763,6 +973,46 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1eca0802-2194-4aec-9dd3-bdfe1391eb0c";
 				PROVISIONING_PROFILE_SPECIFIER = "Dont Get Cold (Distribution)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		68A3C289205CA98300537787 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold Widget/Dont Get Cold Widget.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hovig Kousherian (DMKJ6937U8)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
+				INFOPLIST_FILE = "Dont Get Cold Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hovigkousherian.Dont-Get-Cold.Dont-Get-Cold-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ab73d3ef-1550-468f-a97d-0d7558cc54af";
+				PROVISIONING_PROFILE_SPECIFIER = "Dont Get Cold - Widget (Development)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		68A3C28A205CA98300537787 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Dont Get Cold Widget/Dont Get Cold Widget.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hovig Kousherian (3F7NZ8Q9YA)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 3F7NZ8Q9YA;
+				INFOPLIST_FILE = "Dont Get Cold Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hovigkousherian.Dont-Get-Cold.Dont-Get-Cold-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "460bd6c9-0e84-4137-8989-51e0c192fe35";
+				PROVISIONING_PROFILE_SPECIFIER = "Dont Get Cold - Widget (Distribution)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -785,6 +1035,15 @@
 			buildConfigurations = (
 				689A3FCD2014630A00FFF496 /* Debug */,
 				689A3FCE2014630A00FFF496 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68A3C28B205CA98300537787 /* Build configuration list for PBXNativeTarget "Dont Get Cold Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68A3C289205CA98300537787 /* Debug */,
+				68A3C28A205CA98300537787 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

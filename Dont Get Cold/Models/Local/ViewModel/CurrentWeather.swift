@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CurrentWeather {
+class CurrentWeather: NSObject, NSCoding {
     
     var weather: Weather?
     var cityName: String?
@@ -33,8 +33,13 @@ class CurrentWeather {
         }
     }
     
+    override init() {
+        super.init()
+    }
     
-    init(withWeather weather: Weather) {
+    convenience init(withWeather weather: Weather) {
+        self.init()
+        
         self.weather = weather
         cityName = weather.name
         temperatureSummary = weather.weather?.first?.description
@@ -82,6 +87,42 @@ class CurrentWeather {
                 weatherInfoData.append(WeatherInfoViewModel(image: AppConstants.Images.HumidityIcon.rawValue, type: "Humidity", value: String(humidity) + " %"))
             }
         }
+    }
+    
+    convenience init(cityName: String?, temperature: String?, weatherIcon: String?, weatherBackgroundImage: String?, tempMin: String?, tempMax: String?, temperatureSummary: String?) {
+        self.init()
+        
+        self.cityName = cityName
+        self.temperature = temperature
+        self.weatherIcon = weatherIcon
+        self.weatherBackgroundImage = weatherBackgroundImage
+        self.tempMin = tempMin
+        self.tempMax = tempMax
+        self.temperatureSummary = temperatureSummary
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let cityName = aDecoder.decodeObject(forKey: .city) as? String,
+            let temperature = aDecoder.decodeObject(forKey: .temp) as? String,
+            let weatherIcon = aDecoder.decodeObject(forKey: .icon) as? String,
+            let weatherBackgroundImage = aDecoder.decodeObject(forKey: .backgroundImage) as? String,
+            let tempMin = aDecoder.decodeObject(forKey: .temp_min) as? String,
+            let tempMax = aDecoder.decodeObject(forKey: .temp_max) as? String,
+            let temperatureSummary = aDecoder.decodeObject(forKey: .tempSummary) as? String else {
+                return nil
+        }
+        
+        self.init(cityName: cityName, temperature: temperature, weatherIcon: weatherIcon, weatherBackgroundImage: weatherBackgroundImage, tempMin: tempMin, tempMax: tempMax, temperatureSummary: temperatureSummary)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.cityName ?? "", forKey: .city)
+        aCoder.encode(self.temperature ?? "", forKey: .temp)
+        aCoder.encode(self.weatherIcon ?? "", forKey: .icon)
+        aCoder.encode(self.weatherBackgroundImage ?? "", forKey: .backgroundImage)
+        aCoder.encode(self.tempMin ?? "", forKey: .temp_min)
+        aCoder.encode(self.tempMax ?? "", forKey: .temp_max)
+        aCoder.encode(self.temperatureSummary ?? "", forKey: .tempSummary)
     }
     
     func updateData(_ data: Weather) {
@@ -141,6 +182,8 @@ class CurrentWeather {
                 if let weatherInfo = weather.weather, let weatherId = weatherInfo.first?.id, let code = AppConstants.WeatherConditionCodes(rawValue: weatherId) {
                     weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                     weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
+                } else {
+                    weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, .ClearSky))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                 }
             }
             self.date = Date().convertDateToString(withFormatterStyle: .weekdayShortWithDayAndTime, timeZone: timeZone)

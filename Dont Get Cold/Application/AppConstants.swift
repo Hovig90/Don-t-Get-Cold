@@ -13,6 +13,10 @@ struct AppConstants {
     static let WeatherApiKey = "bbcf61f77b09ced0996ff61969903587"
     static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
     static let forecastDailyUrl = BaseUrl + "forecast/daily"
+    static let extensionURLScheme = "main-screen:"
+    
+    static let tableViewRefreshControl = 0o444
+    static let tableViewActivityIndicatorView = 0o333
     
     enum Colors: Int {
         case AppGray = 0x6B6A6A
@@ -59,11 +63,19 @@ struct AppConstants {
         case city
         case list
         case cnt
+        
+        //Local
+        case backgroundImage
+        case tempSummary
+        case weatherInfo
+        case date
+        case timeZone
     }
     
     enum CachingKey: String {
         case cities
         case measurementUnit
+        case currentCityTodayExtension
     }
     
     enum Images: String {
