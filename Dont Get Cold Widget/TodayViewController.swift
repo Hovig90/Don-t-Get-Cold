@@ -70,7 +70,9 @@ extension TodayViewController : UITableViewDelegate {
 class TodayViewController: UIViewController {
     
     //MARK: Members
-    var currentCity: CurrentWeather?
+    var currentCity: CurrentWeather? = {
+        return CacheManager.cache.get(forKey: .currentCityTodayExtension) as? CurrentWeather
+    }()
     
     //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -99,7 +101,7 @@ class TodayViewController: UIViewController {
             DispatchQueue.main.async {
                 self.currentCity = CurrentWeather(withWeather: weather)
                 self.currentCity?.cityTimeZone = TimeZone.current
-                //self.tableView.reloadData()
+                CacheManager.cache.set(self.currentCity!, forKey: .currentCityTodayExtension)
                 if let currentCityCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WeatherTableViewCell {
                     currentCityCell.dataModel = self.currentCity
                 }
@@ -107,3 +109,4 @@ class TodayViewController: UIViewController {
         }
     }
 }
+ 

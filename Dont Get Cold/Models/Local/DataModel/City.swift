@@ -22,7 +22,6 @@ class City: NSObject, Convertable, NSCoding {
     }
     
     required init?(with jsonDictionary: [String : Any]) {
-        
         self.id = jsonDictionary[AppConstants.Encoding.id.rawValue] as! Int
         self.name = jsonDictionary[AppConstants.Encoding.name.rawValue] as! String
         self.country = jsonDictionary[AppConstants.Encoding.country.rawValue] as! String
