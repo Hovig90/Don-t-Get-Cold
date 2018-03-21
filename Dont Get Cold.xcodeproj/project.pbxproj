@@ -326,24 +326,6 @@
 			path = Shortcut;
 			sourceTree = "<group>";
 		};
-		6845ED482061A3350009540C /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				68A3C285205CA98300537787 /* Info.plist */,
-				68A3C2BD205CC93200537787 /* Assets.xcassets */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
-		6845ED492061A3440009540C /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				68A3C280205CA98300537787 /* TodayViewController.swift */,
-				68A3C282205CA98300537787 /* MainInterface.storyboard */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
 		68460BE42026A0B3000CA2E8 /* WeatherTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,8 +563,10 @@
 			isa = PBXGroup;
 			children = (
 				68A3C2C0205D0B7900537787 /* Dont Get Cold Widget.entitlements */,
-				6845ED492061A3440009540C /* Presentation */,
-				6845ED482061A3350009540C /* Support */,
+				68A3C280205CA98300537787 /* TodayViewController.swift */,
+				68A3C282205CA98300537787 /* MainInterface.storyboard */,
+				68A3C285205CA98300537787 /* Info.plist */,
+				68A3C2BD205CC93200537787 /* Assets.xcassets */,
 			);
 			path = "Dont Get Cold Widget";
 			sourceTree = "<group>";

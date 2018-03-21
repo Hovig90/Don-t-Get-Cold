@@ -63,11 +63,19 @@ struct AppConstants {
         case city
         case list
         case cnt
+        
+        //Local
+        case backgroundImage
+        case tempSummary
+        case weatherInfo
+        case date
+        case timeZone
     }
     
     enum CachingKey: String {
         case cities
         case measurementUnit
+        case currentCityTodayExtension
     }
     
     enum Images: String {
