@@ -207,7 +207,7 @@ class CurrentWeather: NSObject, NSCoding {
 
     private func stringFromDouble(_ d: Double?) -> String {
         guard let doubleNumber = d else {
-            return "NIA"
+            return "--"
         }
         
         return String(Int(doubleNumber))
