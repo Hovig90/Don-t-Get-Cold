@@ -10,26 +10,17 @@ import UIKit
 
 class AlertManager {
     
-    func alertCancel(with title: String, message: String, target: UIViewController) {
-        alert(with: title, message: message, target: target, actions: [cancelAction()])
+    func alertCancel(with title: String, message: String, target: UIViewController, handler: ((UIAlertAction) -> Void)? = nil) {
+        alert(with: title, message: message, target: target, actions: [cancelAction(handler)])
     }
     
-    func alert(with title: String, message: String, target: UIViewController, action: String, handler: ((UIAlertAction) -> Void)?) {
-        alert(with: title, message: message, target: target, actions: [cancelAction(), customAction(title: action, handler: handler)])
+    func alert(with title: String, message: String, target: UIViewController, action: String, handler: ((UIAlertAction) -> Void)?, cancelHandler: ((UIAlertAction) -> Void)? = nil) {
+        alert(with: title, message: message, target: target, actions: [cancelAction(cancelHandler), customAction(title: action, handler: handler)])
     }
-    
-    //    func alert(with title: String, message: String, target: UIViewController, actions: [String], handlers: [((UIAlertAction) -> Void)?]) {
-    //        var actionsArray = Array<UIAlertAction>()
-    //        actionsArray.append(cancelAction())
-    //        for let (action, handler) in (actions, handlers) {
-    //            actionsArray.append(contentsOf: customAction(title: action, handler: handler))
-    //        }
-    //        alert(with: title, message: message, target: target, actions: actionsArray)
-    //    }
     
     //MARK: Private
-    private func cancelAction() -> UIAlertAction {
-        return UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    private func cancelAction(_ handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+        return UIAlertAction(title: "Cancel", style: .cancel, handler: handler)
     }
     
     private func customAction(title: String, handler: ((UIAlertAction) -> Void)?) -> UIAlertAction {
