@@ -183,6 +183,7 @@ class CurrentWeather: NSObject, NSCoding {
                     weatherIcon = WeatherIcon(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                     weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, code))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                 } else {
+                    weatherIcon = WeatherIcon(rawValue: (nil, nil, .ClearSky))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                     weatherBackgroundImage = WeatherBackgroundImage(rawValue: (nil, nil, .ClearSky))!.get(isNight(sunrise: sunrise!, sunset: sunset!, timeZone: timeZone) ? .night : .day)
                 }
             }
@@ -207,7 +208,7 @@ class CurrentWeather: NSObject, NSCoding {
 
     private func stringFromDouble(_ d: Double?) -> String {
         guard let doubleNumber = d else {
-            return "NIA"
+            return "--"
         }
         
         return String(Int(doubleNumber))
