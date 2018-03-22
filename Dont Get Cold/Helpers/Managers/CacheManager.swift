@@ -15,13 +15,10 @@ class CacheManager {
     private init() { }
     
     func set(_ obj: AnyObject, forKey key: AppConstants.CachingKey) {
-
         UserDefaults.save(object: obj, forKey: key)
     }
     
     func get(forKey key: AppConstants.CachingKey) -> AnyObject? {
-
-       
         return UserDefaults.get(objectForKey: key)
     }
     
@@ -76,6 +73,12 @@ class CacheManager {
         } else {
             print("Caching: The requested array object with the key '\(key.rawValue)' has not been cached yet.")
             return false
+        }
+    }
+    
+    func convertPastDataToGourp() {
+        for cachedDataType in AppConstants.CachingKey.allValues {
+            UserDefaults.convertPastDataToGourp(forKey: cachedDataType)
         }
     }
 }
