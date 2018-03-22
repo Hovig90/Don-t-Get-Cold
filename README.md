@@ -15,7 +15,8 @@ Features:
 - Select either Celsius or Fahrenheit for your temperature measurement.
 - Weather Widget that displays weather information for your current city.
 
-Quick Actions
+Quick Actions:
+
 Use 3D Touch right from the Home screen, to search or to access the weather data of the added cities on your list in fewer steps.
 
 
