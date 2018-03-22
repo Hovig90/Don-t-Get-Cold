@@ -161,9 +161,6 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         tableView.register(UINib(nibName: "WeatherFooterTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherFooterTableViewCell")
         tableView.separatorStyle = .none
         
-        PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
-            
-        }
         LocationManager.shared.configure(withDelegate: self)
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -199,9 +196,8 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
                 })
             }
         } else {
-            self.tableView.endRefreshing()
-            PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
-                print(error)
+            PermissionManager.permission.requestPermission(permission: .Location, target: self) { (success, error) in
+                self.tableView.endRefreshing()
             }
         }
     }
