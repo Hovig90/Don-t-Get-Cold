@@ -13,20 +13,18 @@ extension UserDefaults {
     static func save(object: AnyObject, forKey key: AppConstants.CachingKey) {
         let data = NSKeyedArchiver.archivedData(withRootObject: object)
         if let userDefaults = UserDefaults(suiteName: AppConstants.groupBundleIndentifier) {
-            userDefaults.set(data, forKey: key.rawValue)
-            userDefaults.synchronize()
+            userDefaults.set(data, forKey: key)
         } else {
-            standard.set(data, forKey: key.rawValue)
-            standard.synchronize()
+            standard.set(data, forKey: key)
         }
     }
     
     static func get(objectForKey key: AppConstants.CachingKey) -> AnyObject? {
         let data: Data?
         if let userDefaults = UserDefaults(suiteName: AppConstants.groupBundleIndentifier) {
-            data = userDefaults.object(forKey: key.rawValue) as? Data
+            data = userDefaults.object(forKey: key) as? Data
         } else {
-            data = standard.object(forKey: key.rawValue) as? Data
+            data = standard.object(forKey: key) as? Data
         }
         
         if let data = data {
@@ -37,9 +35,9 @@ extension UserDefaults {
     
     static func remove(objectForKey key: AppConstants.CachingKey) {
         if let userDefaults = UserDefaults(suiteName: AppConstants.groupBundleIndentifier) {
-            userDefaults.removeObject(forKey: key.rawValue)
+            userDefaults.removeObject(forKey: key)
         } else {
-            standard.removeObject(forKey: key.rawValue)
+            standard.removeObject(forKey: key)
         }
     }
     
@@ -52,5 +50,20 @@ extension UserDefaults {
         userDefaults.set(standardUserDefaultData, forKey: key)
         userDefaults.synchronize()
         standard.removeObject(forKey: key)
+    }
+}
+
+extension UserDefaults {
+    func set(_ value: Any?, forKey defaultName: AppConstants.CachingKey) {
+        set(value, forKey: defaultName.rawValue)
+        synchronize()
+    }
+    
+    func object(forKey defaultName: AppConstants.CachingKey) -> Any? {
+        return object(forKey: defaultName.rawValue)
+    }
+    
+    func removeObject(forKey defaultName: AppConstants.CachingKey) {
+        removeObject(forKey: defaultName.rawValue)
     }
 }
