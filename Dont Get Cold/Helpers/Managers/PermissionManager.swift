@@ -18,16 +18,16 @@ class PermissionManager {
         case Location
     }
     
-    func requestPermission(permission: Permission, target: UIViewController, completion: ((Error?) -> Void)? = nil) {
+    func requestPermission(permission: Permission, target: UIViewController, completion: ((Bool, Error?) -> Void)? = nil) {
         switch permission {
         case .Location:
-            requestLocationPermission(target: target)
+            requestLocationPermission(target: target, completion: completion)
             break
         }
     }
     
     //MARK: Private
-    private func requestLocationPermission(target: UIViewController) {
+    private func requestLocationPermission(target: UIViewController, completion: ((Bool, Error?) -> Void)? = nil) {
         switch LocationManager.authorizationStatus() {
         case .authorizedAlways,
              .authorizedWhenInUse:
@@ -35,7 +35,15 @@ class PermissionManager {
         case .denied,
              .restricted:
             AlertManager().alert(with: "Location Permission", message: "Your current location is needed to get an accurate weather information, and keep you up to date while you travel.", target: target, action: "OK", handler: { (action) in
-                self.openSettingsURL()
+                self.openSettingsURL(completionHandler: { (success) in
+                    if let completion = completion {
+                        completion(success, nil)
+                    }
+                })
+            }, cancelHandler: { (action) in
+                if let completion = completion {
+                    completion(false, nil)
+                }
             })
         case .notDetermined:
             LocationManager.shared.requestWhenInUseAuthorization()
