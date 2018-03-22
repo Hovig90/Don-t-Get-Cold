@@ -154,13 +154,12 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
             }
         }
         
+        tableView.activateRefreshControl(self, action: #selector(reloadViewController(withLoadedTimeZones:)))
         reloadViewController(withLoadedTimeZones: false)
         
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
         tableView.register(UINib(nibName: "WeatherFooterTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherFooterTableViewCell")
         tableView.separatorStyle = .none
-        
-        tableView.activateRefreshControl(self, action: #selector(reloadViewController(withLoadedTimeZones:)))
         
         PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
             
@@ -198,6 +197,11 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
                     self.timeZones = timeZones
                     self.requestWeatherData(forSavedCities: savedCities, andTimesZones: timeZones)
                 })
+            }
+        } else {
+            self.tableView.endRefreshing()
+            PermissionManager.permission.requestPermission(permission: .Location, target: self) { (error) in
+                print(error)
             }
         }
     }
