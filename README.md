@@ -2,6 +2,9 @@
 
 **Don't Get Cold** delivers weather forecast with a simple easy-to-use yet contemporary design. You can view the current temperature and weather conditions for your city and multiple locations all around the world, also it provides a sixteen-day forecast for each city.
 
+<img alt="kousherian.com" src="http://kousherian.com/wp-content/uploads/2018/03/Dont-Get-Cold-Mockup.png" width="50%" height="50%">
+
+
 Features:
 - Updated weather forecast and local time for each city on your list.
 - See weather conditions, such as cloudiness, visibility, wind, pressure, and humidity.
@@ -14,3 +17,9 @@ Features:
 
 Quick Actions
 Use 3D Touch right from the Home screen, to search or to access the weather data of the added cities on your list in fewer steps.
+
+
+License
+-------
+
+MIT License. See [LICENSE](LICENSE).
