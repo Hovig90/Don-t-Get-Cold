@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Don't Get Cold</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,9 +39,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>The Application $(PRODUCT_NAME) needs to access your location</string>
+	<string>The application $(PRODUCT_NAME) needs to access your current location to get an accurate weather information, and keep you up to date while you travel.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The Application $(PRODUCT_NAME) needs to access your location</string>
+	<string>The application $(PRODUCT_NAME) needs to access your current location to get an accurate weather information, and keep you up to date while you travel.</string>
 	<key>UIApplicationShortcutWidget</key>
 	<string>com.hovigkousherian.Dont-Get-Cold.Dont-Get-Cold-Widget</string>
 	<key>UILaunchStoryboardName</key>

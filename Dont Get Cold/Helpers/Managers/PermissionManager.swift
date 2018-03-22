@@ -34,7 +34,7 @@ class PermissionManager {
             break
         case .denied,
              .restricted:
-            AlertManager().alert(with: "Location Permission", message: "The App Needs your location.", target: target, action: "OK", handler: { (action) in
+            AlertManager().alert(with: "Location Permission", message: "Your current location is needed to get an accurate weather information, and keep you up to date while you travel.", target: target, action: "OK", handler: { (action) in
                 self.openSettingsURL()
             })
         case .notDetermined:
