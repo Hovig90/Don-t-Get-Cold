@@ -179,8 +179,12 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     func pushViewController(forSelectedCityIndexPathRow row: Int, animated: Bool = true) {
         if let weatherViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController {
-            weatherViewController.weatherDataModel = selectedCities[row]
-            self.navigationController?.pushViewController(weatherViewController, animated: animated)
+            if selectedCities.count != 0 && selectedCities.count > row {
+                weatherViewController.weatherDataModel = selectedCities[row]
+                self.navigationController?.pushViewController(weatherViewController, animated: animated)
+            } else {
+                reloadViewController(withLoadedTimeZones: true)
+            }
         }
     }
     
