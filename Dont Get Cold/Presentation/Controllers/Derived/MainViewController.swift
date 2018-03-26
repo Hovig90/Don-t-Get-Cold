@@ -163,6 +163,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         
         LocationManager.shared.configure(withDelegate: self)
         
+        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -190,6 +191,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     //MARK: Private
     @objc fileprivate func reloadViewController(withLoadedTimeZones: Bool) {
+        
         if let savedCities = CacheManager.cache.get(forKey: .cities) as? [City] {
             if withLoadedTimeZones {
                 self.requestWeatherData(forSavedCities: savedCities, andTimesZones: self.timeZones)

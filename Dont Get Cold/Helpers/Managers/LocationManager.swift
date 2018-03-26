@@ -33,6 +33,18 @@ class LocationManager: CLLocationManager {
         self.delegate = delegate
         self.startUpdatingLocation()
     }
+    
+    static func locationStatusEnabled() -> Bool {
+        switch LocationManager.authorizationStatus() {
+        case .authorizedAlways,
+             .authorizedWhenInUse:
+            return true
+        case .denied,
+             .notDetermined,
+             .restricted:
+            return false
+        }
+    }
 }
 
 extension LocationManager {

@@ -18,6 +18,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7l-jL-mxO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vXE-rT-CL0">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enable location services to get the current weather info." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6T-F3-QgP">
+                                            <rect key="frame" x="16" y="34.5" width="288" height="41"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="J6T-F3-QgP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vXE-rT-CL0" secondAttribute="top" constant="8" id="9fV-rt-41m"/>
+                                        <constraint firstAttribute="trailing" secondItem="J6T-F3-QgP" secondAttribute="trailing" constant="16" id="Mo3-l7-p55"/>
+                                        <constraint firstItem="J6T-F3-QgP" firstAttribute="leading" secondItem="vXE-rT-CL0" secondAttribute="leading" constant="16" id="WqN-Nv-K5R"/>
+                                        <constraint firstItem="J6T-F3-QgP" firstAttribute="centerX" secondItem="vXE-rT-CL0" secondAttribute="centerX" id="gyJ-VK-kaJ"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J6T-F3-QgP" secondAttribute="bottom" constant="8" id="iht-78-7FC"/>
+                                        <constraint firstItem="J6T-F3-QgP" firstAttribute="centerY" secondItem="vXE-rT-CL0" secondAttribute="centerY" id="sZN-Dy-xQ4"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RyJ-ys-1mA">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -28,9 +52,13 @@
                             </tableView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="X7l-jL-mxO" secondAttribute="bottom" id="8fH-RF-RjV"/>
+                            <constraint firstItem="X7l-jL-mxO" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="CwJ-y8-Csa"/>
                             <constraint firstItem="RyJ-ys-1mA" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="MdO-Bj-AE8"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="trailing" secondItem="X7l-jL-mxO" secondAttribute="trailing" id="YK2-vC-YO0"/>
                             <constraint firstItem="RyJ-ys-1mA" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" id="b3t-z5-Z4R"/>
                             <constraint firstItem="RyJ-ys-1mA" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="ghv-M0-g4y"/>
+                            <constraint firstItem="X7l-jL-mxO" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="lgr-O0-sXw"/>
                             <constraint firstItem="RyJ-ys-1mA" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="meZ-bI-XpO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
@@ -39,7 +67,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="110"/>
                     <connections>
+                        <outlet property="noDataLabel" destination="J6T-F3-QgP" id="cs0-uP-mp0"/>
                         <outlet property="tableView" destination="RyJ-ys-1mA" id="zgT-i1-xvt"/>
+                        <outlet property="visiualEffectView" destination="X7l-jL-mxO" id="XYx-Uq-SCL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -31,6 +31,11 @@ extension TodayViewController : NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         
+        if !LocationManager.locationStatusEnabled() {
+            self.tableView.isHidden = true
+            completionHandler(NCUpdateResult.noData)
+        }
+        
         completionHandler(NCUpdateResult.newData)
     }
 }
@@ -75,12 +80,15 @@ class TodayViewController: UIViewController {
     }()
     
     //MARK: Outlets
+    @IBOutlet weak var visiualEffectView: UIVisualEffectView!
+    @IBOutlet weak var noDataLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        visiualEffectView.effect = UIVibrancyEffect.widgetPrimary()
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
         
         LocationManager.shared.configure(withDelegate: self)
