@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Don't Get Cold</string>
+	<string>Don&apos;t Get Cold</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -25,6 +25,7 @@
 			<string>com.hovigkousherian.Dont-Get-Cold</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>main-screen-enable-location</string>
 				<string>main-screen</string>
 			</array>
 		</dict>

@@ -34,7 +34,7 @@ class LocationManager: CLLocationManager {
         self.startUpdatingLocation()
     }
     
-    static func locationStatusEnabled() -> Bool {
+    static func locationStatusAllowed() -> Bool {
         switch LocationManager.authorizationStatus() {
         case .authorizedAlways,
              .authorizedWhenInUse:

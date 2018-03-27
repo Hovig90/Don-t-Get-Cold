@@ -36,7 +36,12 @@ extension MainViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
-                CacheManager.cache.replace(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+                if SettingsManager.shared.isFirstLocationRequest() {
+                    CacheManager.cache.insert(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+                    self.selectedCities.insert(CurrentWeather(), at: 0)
+                } else {
+                    CacheManager.cache.replace(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+                }
                 self.requestWeatherData(forCity: locality + "," + counrtyCode, isCurrent: true)
             }
         }
@@ -229,7 +234,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
                     let currentCity = CurrentWeather(withWeather: weather)
                     currentCity.cityTimeZone = TimeZone.current
                     self.selectedCities.replace(at: 0, withElement: currentCity)
-                    self.tableView.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
+                    (self.tableView.visibleCells.count > 0 && self.tableView.visibleCells.count == self.selectedCities.count) ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
                 } else {
                     LocationManager.shared.getTimeZone(forCity: city, completion: { (_, timeZone) in
                         DispatchQueue.main.async {

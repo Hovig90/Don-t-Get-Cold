@@ -31,7 +31,7 @@ extension TodayViewController : NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         
-        if !LocationManager.locationStatusEnabled() {
+        if !LocationManager.locationStatusAllowed() {
             self.tableView.isHidden = true
             completionHandler(NCUpdateResult.noData)
         }
@@ -97,6 +97,15 @@ class TodayViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: Actions
+    @IBAction func noDataButtonTapped(_ sender: Any) {
+        extensionContext?.open(URL(string: AppConstants.extensionURLSchemeEnableLocation)!, completionHandler: { (success) in
+            if !success {
+                fatalError("Crash: Couldn't launch app from widget.")
+            }
+        })
     }
     
     //MARK: Private
