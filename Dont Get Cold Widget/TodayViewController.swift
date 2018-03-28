@@ -31,6 +31,12 @@ extension TodayViewController : NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         
+        if !LocationManager.locationStatusAllowed() {
+            noDataLabel.isHidden = false
+            self.tableView.isHidden = true
+            completionHandler(NCUpdateResult.noData)
+        }
+        
         completionHandler(NCUpdateResult.newData)
     }
 }
@@ -75,12 +81,16 @@ class TodayViewController: UIViewController {
     }()
     
     //MARK: Outlets
+    @IBOutlet weak var visiualEffectView: UIVisualEffectView!
+    @IBOutlet weak var noDataLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        visiualEffectView.effect = UIVibrancyEffect.widgetPrimary()
+        noDataLabel.isHidden = true
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
         
         LocationManager.shared.configure(withDelegate: self)
@@ -89,6 +99,15 @@ class TodayViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: Actions
+    @IBAction func noDataButtonTapped(_ sender: Any) {
+        extensionContext?.open(URL(string: AppConstants.extensionURLSchemeEnableLocation)!, completionHandler: { (success) in
+            if !success {
+                fatalError("Crash: Couldn't launch app from widget.")
+            }
+        })
     }
     
     //MARK: Private

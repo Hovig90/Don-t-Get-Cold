@@ -43,4 +43,13 @@ class SettingsManager {
     func check(measurementUnit unit: MeasurementUnit) -> Bool {
         return self.measurementUnit == unit
     }
+    
+    func isFirstLocationRequest() -> Bool {
+        guard CacheManager.cache.get(forKey: .locationRequestDone) != nil else {
+            CacheManager.cache.set(true as AnyObject, forKey: .locationRequestDone)
+            return true
+        }
+        
+        return false
+    }
 }

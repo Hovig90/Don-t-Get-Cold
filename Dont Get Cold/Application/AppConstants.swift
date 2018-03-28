@@ -14,6 +14,7 @@ struct AppConstants {
     static let BaseUrl = "http://api.openweathermap.org/data/2.5/"
     static let forecastDailyUrl = BaseUrl + "forecast/daily"
     static let extensionURLScheme = "main-screen:"
+    static let extensionURLSchemeEnableLocation = "main-screen-enable-location:"
     static let groupBundleIndentifier = "group.com.hovigkousherian.Dont-Get-Cold"
     
     static let tableViewRefreshControl = 0o444
@@ -77,9 +78,10 @@ struct AppConstants {
         case cities
         case measurementUnit
         case currentCityTodayExtension
+        case locationRequestDone
         
         static let allValues: [String] = [
-            cities.rawValue, measurementUnit.rawValue, currentCityTodayExtension.rawValue
+            cities.rawValue, measurementUnit.rawValue, currentCityTodayExtension.rawValue, locationRequestDone.rawValue
         ]
     }
     
