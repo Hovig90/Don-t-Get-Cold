@@ -36,7 +36,12 @@ extension MainViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(locations.first!) { (placemarks, error) in
             if let placemarks = placemarks, let placemark = placemarks.first, let locality = placemark.locality, let counrtyCode = placemark.isoCountryCode  {
-                CacheManager.cache.replace(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+                if SettingsManager.shared.isFirstLocationRequest() {
+                    CacheManager.cache.insert(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+                    self.selectedCities.insert(CurrentWeather(), at: 0)
+                } else {
+                    CacheManager.cache.replace(City(name: locality, country: counrtyCode, coord: Coordinate(withLongitude: Double((placemark.location?.coordinate.longitude)!), latitude: Double((placemark.location?.coordinate.latitude)!))), at: 0, forKey: .cities)
+                }
                 self.requestWeatherData(forCity: locality + "," + counrtyCode, isCurrent: true)
             }
         }
@@ -163,6 +168,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         
         LocationManager.shared.configure(withDelegate: self)
         
+        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -179,13 +185,18 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     func pushViewController(forSelectedCityIndexPathRow row: Int, animated: Bool = true) {
         if let weatherViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController {
-            weatherViewController.weatherDataModel = selectedCities[row]
-            self.navigationController?.pushViewController(weatherViewController, animated: animated)
+            if selectedCities.count != 0 && selectedCities.count > row {
+                weatherViewController.weatherDataModel = selectedCities[row]
+                self.navigationController?.pushViewController(weatherViewController, animated: animated)
+            } else {
+                reloadViewController(withLoadedTimeZones: true)
+            }
         }
     }
     
     //MARK: Private
     @objc fileprivate func reloadViewController(withLoadedTimeZones: Bool) {
+        
         if let savedCities = CacheManager.cache.get(forKey: .cities) as? [City] {
             if withLoadedTimeZones {
                 self.requestWeatherData(forSavedCities: savedCities, andTimesZones: self.timeZones)
@@ -223,7 +234,7 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
                     let currentCity = CurrentWeather(withWeather: weather)
                     currentCity.cityTimeZone = TimeZone.current
                     self.selectedCities.replace(at: 0, withElement: currentCity)
-                    self.tableView.visibleCells.count > 0 ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
+                    (self.tableView.visibleCells.count > 0 && self.tableView.visibleCells.count == self.selectedCities.count) ? self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none) : self.tableView.reloadData()
                 } else {
                     LocationManager.shared.getTimeZone(forCity: city, completion: { (_, timeZone) in
                         DispatchQueue.main.async {

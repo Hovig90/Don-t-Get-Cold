@@ -28,9 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if AppConstants.extensionURLScheme == url.absoluteString {
+        if url.absoluteString == AppConstants.extensionURLScheme {
             if let topViewController = getTopViewController() as? MainViewController {
                 topViewController.pushViewController(forSelectedCityIndexPathRow: 0, animated: false)
+            }
+        } else if url.absoluteString == AppConstants.extensionURLSchemeEnableLocation {
+            if let topViewController = getTopViewController() as? MainViewController {
+                PermissionManager.permission.requestPermission(permission: .Location, target: topViewController)
             }
         }
         
