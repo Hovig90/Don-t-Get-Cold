@@ -32,6 +32,7 @@ extension TodayViewController : NCWidgetProviding {
         // If there's an update, use NCUpdateResult.NewData
         
         if !LocationManager.locationStatusAllowed() {
+            noDataLabel.isHidden = false
             self.tableView.isHidden = true
             completionHandler(NCUpdateResult.noData)
         }
@@ -89,6 +90,7 @@ class TodayViewController: UIViewController {
         super.viewDidLoad()
         
         visiualEffectView.effect = UIVibrancyEffect.widgetPrimary()
+        noDataLabel.isHidden = true
         tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
         
         LocationManager.shared.configure(withDelegate: self)
