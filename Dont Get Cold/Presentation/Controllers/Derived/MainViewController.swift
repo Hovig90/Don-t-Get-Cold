@@ -83,7 +83,7 @@ extension MainViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherFooterTableViewCell") as? WeatherFooterTableViewCell
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: .WeatherFooterTableViewCellIdentifier) as? WeatherFooterTableViewCell
         
         cell?.delegate = self
         
@@ -120,7 +120,7 @@ extension MainViewController : UITableViewDelegate {
 //MARK: UITableViewDataSource
 extension MainViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: .WeatherTableViewCellIdentifier, for: indexPath) as! WeatherTableViewCell
         
         cell.dataModel = selectedCities[indexPath.row]
         cell.isDeletable = indexPath.row == 0 ? false : true
@@ -162,8 +162,8 @@ class MainViewController: BaseViewController, UIGestureRecognizerDelegate {
         tableView.activateRefreshControl(self, action: #selector(reloadViewController(withLoadedTimeZones:)))
         reloadViewController(withLoadedTimeZones: false)
         
-        tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
-        tableView.register(UINib(nibName: "WeatherFooterTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherFooterTableViewCell")
+        tableView.register(UINib(nibName: .WeatherTableViewCell, bundle: nil), forCellReuseIdentifier: .WeatherTableViewCellIdentifier)
+        tableView.register(UINib(nibName: .WeatherFooterTableViewCell, bundle: nil), forHeaderFooterViewReuseIdentifier: .WeatherFooterTableViewCellIdentifier)
         tableView.separatorStyle = .none
         
         LocationManager.shared.configure(withDelegate: self)

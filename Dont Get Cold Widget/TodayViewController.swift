@@ -25,12 +25,6 @@ extension TodayViewController : CLLocationManagerDelegate {
 //MARK: NCWidgetProviding
 extension TodayViewController : NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
         if !LocationManager.locationStatusAllowed() {
             noDataLabel.isHidden = false
             self.tableView.isHidden = true
@@ -41,9 +35,10 @@ extension TodayViewController : NCWidgetProviding {
     }
 }
 
+//MARK: UITableViewDataSource
 extension TodayViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: .WeatherTableViewCellIdentifier, for: indexPath) as! WeatherTableViewCell
         cell.backgroundImageViewContainerView.backgroundColor = UIColor.clear
         
         if let city = currentCity {
@@ -59,6 +54,7 @@ extension TodayViewController : UITableViewDataSource {
     }
 }
 
+//MARK: UITableViewDelegate
 extension TodayViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
@@ -91,7 +87,8 @@ class TodayViewController: UIViewController {
         
         visiualEffectView.effect = UIVibrancyEffect.widgetPrimary()
         noDataLabel.isHidden = true
-        tableView.register(UINib(nibName: "WeatherTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherTableViewCell")
+        
+        tableView.register(UINib(nibName: .WeatherTableViewCell, bundle: nil), forCellReuseIdentifier: .WeatherTableViewCellIdentifier)
         
         LocationManager.shared.configure(withDelegate: self)
     }

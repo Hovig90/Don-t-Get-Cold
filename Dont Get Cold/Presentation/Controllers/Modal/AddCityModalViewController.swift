@@ -61,7 +61,7 @@ extension AddCityModalViewController: UITableViewDelegate {
 //MARK: UITableViewDataSource
 extension AddCityModalViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: .AddCityCellIdentifier, for: indexPath)
         
         cell.backgroundColor = UIColor.clear
         cell.textLabel?.textColor = UIColor.white

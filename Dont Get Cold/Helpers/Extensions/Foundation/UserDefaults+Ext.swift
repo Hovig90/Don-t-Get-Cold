@@ -8,9 +8,11 @@
 
 import Foundation
 
+typealias CachingKey = AppConstants.CachingKey
+
 extension UserDefaults {
     
-    static func save(object: AnyObject, forKey key: AppConstants.CachingKey) {
+    static func save(object: AnyObject, forKey key: CachingKey) {
         let data = NSKeyedArchiver.archivedData(withRootObject: object)
         if let userDefaults = UserDefaults(suiteName: AppConstants.groupBundleIndentifier) {
             userDefaults.set(data, forKey: key)
@@ -19,7 +21,7 @@ extension UserDefaults {
         }
     }
     
-    static func get(objectForKey key: AppConstants.CachingKey) -> AnyObject? {
+    static func get(objectForKey key: CachingKey) -> AnyObject? {
         let data: Data?
         if let userDefaults = UserDefaults(suiteName: AppConstants.groupBundleIndentifier) {
             data = userDefaults.object(forKey: key) as? Data
@@ -33,7 +35,7 @@ extension UserDefaults {
         return nil
     }
     
-    static func remove(objectForKey key: AppConstants.CachingKey) {
+    static func remove(objectForKey key: CachingKey) {
         if let userDefaults = UserDefaults(suiteName: AppConstants.groupBundleIndentifier) {
             userDefaults.removeObject(forKey: key)
         } else {
@@ -54,16 +56,16 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    func set(_ value: Any?, forKey defaultName: AppConstants.CachingKey) {
+    func set(_ value: Any?, forKey defaultName: CachingKey) {
         set(value, forKey: defaultName.rawValue)
         synchronize()
     }
     
-    func object(forKey defaultName: AppConstants.CachingKey) -> Any? {
+    func object(forKey defaultName: CachingKey) -> Any? {
         return object(forKey: defaultName.rawValue)
     }
     
-    func removeObject(forKey defaultName: AppConstants.CachingKey) {
+    func removeObject(forKey defaultName: CachingKey) {
         removeObject(forKey: defaultName.rawValue)
     }
 }

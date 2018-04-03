@@ -8,6 +8,38 @@
 
 import UIKit
 
+typealias TableViewCellIdentifier = AppConstants.TableViewCellIdentifiers
+
+extension UITableView {
+    func dequeueReusableCell(withIdentifier identifier: TableViewCellIdentifier) -> UITableViewCell? {
+        return dequeueReusableCell(withIdentifier: identifier.rawValue)
+    }
+    
+    func dequeueReusableCell(withIdentifier identifier: TableViewCellIdentifier, for indexPath: IndexPath) -> UITableViewCell {
+        return dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath)
+    }
+    
+    func dequeueReusableHeaderFooterView(withIdentifier identifier: TableViewCellIdentifier) -> UITableViewHeaderFooterView? {
+        return dequeueReusableHeaderFooterView(withIdentifier: identifier.rawValue)
+    }
+    
+    func register(_ nib: UINib?, forCellReuseIdentifier identifier: TableViewCellIdentifier) {
+        register(nib, forCellReuseIdentifier: identifier.rawValue)
+    }
+    
+    func register(_ cellClass: Swift.AnyClass?, forCellReuseIdentifier identifier: TableViewCellIdentifier) {
+        register(cellClass, forCellReuseIdentifier: identifier.rawValue)
+    }
+    
+    func register(_ nib: UINib?, forHeaderFooterViewReuseIdentifier identifier: TableViewCellIdentifier) {
+        register(nib, forHeaderFooterViewReuseIdentifier: identifier.rawValue)
+    }
+    
+    func register(_ aClass: Swift.AnyClass?, forHeaderFooterViewReuseIdentifier identifier: TableViewCellIdentifier) {
+        register(aClass, forHeaderFooterViewReuseIdentifier: identifier.rawValue)
+    }
+}
+
 extension UITableView {
     
     //MARK: UIRefreshControl

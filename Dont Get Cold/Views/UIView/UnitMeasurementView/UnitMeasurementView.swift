@@ -44,10 +44,10 @@ class UnitMeasurementView: UIView {
         }
         if switchView.isOn {
             self.celsiusImageView.tintColor = UIColor(white: 1, alpha: 0.6)
-            self.fahrenheitImageView.tintColor = UIColor(hex: .AppGray)
+            self.fahrenheitImageView.tintColor = UIColor(hex: .appGray)
         } else {
             self.fahrenheitImageView.tintColor = UIColor(white: 1, alpha: 0.6)
-            self.celsiusImageView.tintColor = UIColor(hex: .AppGray)
+            self.celsiusImageView.tintColor = UIColor(hex: .appGray)
         }
     }
 }
