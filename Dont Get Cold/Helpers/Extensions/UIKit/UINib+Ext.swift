@@ -6,4 +6,10 @@
 //  Copyright © 2018 Hovig Kousherian. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UINib {
+    convenience init(nibName name: AppConstants.NibNames, bundle bundleOrNil: Bundle?) {
+        self.init(nibName: name.rawValue, bundle: bundleOrNil)
+    }
+}

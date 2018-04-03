@@ -12,7 +12,7 @@ class DataManager {
     
     //MARK: Public
     static func getCurrentWeatherData(_ uid: Int? = nil, withCityName city: String?, cityID id: String?, completion: @escaping (Int?, Weather?, Error?) -> Void) {
-        DataManager.getCurrentWeatherData(uid, withParameter: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&units=\(SettingsManager.shared.measurementUnit.rawValue)&id=\(id ?? "0")", completion: completion)
+        DataManager.getCurrentWeatherData(uid, withParameter: "APPID=\(AppConstants.weatherApiKey)&q=\(city ?? "")&units=\(SettingsManager.shared.measurementUnit.rawValue)&id=\(id ?? "0")", completion: completion)
     }
     
     static func getCurrentWeatherData(forCities cities: [City], completion: @escaping ([Weather]?, Error?) -> Void) {
@@ -34,7 +34,7 @@ class DataManager {
     }
     
     static func getForecastData(withCityName city: String?, cityID id: String?, andCount cnt: Int, completion: @escaping (Forecast?, Error?) -> Void) {
-        RequestManager.request(withURL: AppConstants.forecastDailyUrl, parameters: "APPID=\(AppConstants.WeatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(SettingsManager.shared.measurementUnit.rawValue)&cnt=\(cnt)") { (uid, data, responce, error) in
+        RequestManager.request(withURL: AppConstants.forecastDailyUrl, parameters: "APPID=\(AppConstants.weatherApiKey)&q=\(city ?? "")&id=\(id ?? "0")&units=\(SettingsManager.shared.measurementUnit.rawValue)&cnt=\(cnt)") { (uid, data, responce, error) in
             guard error == nil, let data = data?.convertToDictionary() else {
                 completion(nil, error)
                 return
@@ -66,7 +66,7 @@ class DataManager {
     
     //MARK: Private
     private static func getCurrentWeatherData(_ uid: Int? = nil, withParameter param: String, completion: @escaping (Int?, Weather?, Error?) -> Void) {
-        RequestManager.request(uid, withURL: AppConstants.BaseUrl + AppConstants.Encoding.weather.rawValue, parameters: param) { (uid, data, responce, error) in
+        RequestManager.request(uid, withURL: AppConstants.baseUrl + AppConstants.Encoding.weather.rawValue, parameters: param) { (uid, data, responce, error) in
             guard error == nil, let data = data?.convertToDictionary() else {
                 completion(uid, nil, error)
                 return

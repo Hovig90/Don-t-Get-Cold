@@ -9,40 +9,6 @@
 import Foundation
 import CoreLocation
 
-class Coordinate: NSObject, ServiceObjectSerializable, NSCoding {
-    
-    var lon: Double?
-    var lat: Double?
-    
-    init(withLongitude longitude: Double, latitude: Double) {
-        self.lon = longitude
-        self.lat = latitude
-    }
-    
-    required init?(response: HTTPURLResponse?, representation: Any) {
-        guard let representation = representation as? [String : Any] else {
-            return nil
-        }
-        
-        self.lon = representation[AppConstants.Encoding.lon.rawValue] as? Double
-        self.lat = representation[AppConstants.Encoding.lat.rawValue] as? Double
-    }
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        guard let lon = aDecoder.decodeDouble(forKey: .lon),
-            let lat = aDecoder.decodeDouble(forKey: .lat) else {
-              return nil
-        }
-        
-        self.init(withLongitude: lon, latitude: lat)
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.lon ?? 0, forKey: .lon)
-        aCoder.encode(self.lat ?? 0, forKey: .lat)
-    }
-}
-
 struct Tempreture: ServiceObjectSerializable {
     var temp: Double?
     var pressure: Int?
@@ -100,7 +66,6 @@ struct SystemData: ServiceObjectSerializable {
 }
 
 struct Weather: ServiceObjectSerializable {
-    
     var coord: Coordinate?
     var weather: [WeatherData]?
     var base: String?

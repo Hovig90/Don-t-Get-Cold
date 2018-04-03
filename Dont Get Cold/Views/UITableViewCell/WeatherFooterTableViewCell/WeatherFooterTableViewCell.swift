@@ -26,9 +26,6 @@ class WeatherFooterTableViewCell: UITableViewHeaderFooterView {
     //MARK: Members
     weak var delegate: WeatherFooterTableViewCellDelegate?
     
-    //MARK: Outlets
-
-    
     //MARK: Overrides
     override func awakeFromNib() {
         super.awakeFromNib()

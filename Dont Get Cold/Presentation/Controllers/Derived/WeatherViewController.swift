@@ -15,7 +15,7 @@ extension WeatherViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherInfoSectionHeaderTableViewCell") as? WeatherInfoSectionHeaderTableViewCell
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: .WeatherInfoSectionHeaderTableViewCellIdentifier) as? WeatherInfoSectionHeaderTableViewCell
         
         cell?.dataModel = self.weatherDataModel
         
@@ -34,7 +34,7 @@ extension WeatherViewController: UITableViewDelegate {
 //MARK: UITableViewDataSource
 extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoTableViewCell", for: indexPath) as! WeatherInfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: .WeatherInfoTableViewCellIdentifier, for: indexPath) as! WeatherInfoTableViewCell
         
         if let weatherData = self.weatherDataModel?.weatherInfoData[indexPath.row] {
             if let weatherDataImage = weatherData.image {
@@ -69,7 +69,7 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout {
 //MARK: UICollectionViewDataSource
 extension WeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCollectionViewCell", for: indexPath) as! WeatherForecastCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .WeatherForecastCollectionViewCellIdentifier, for: indexPath) as! WeatherForecastCollectionViewCell
         
         if let dailyForecast = weatherForecastViewModel?.dailyForecast[indexPath.row] {
             cell.weatherForecastTopLabel.text = dailyForecast.forecastDate
@@ -106,9 +106,9 @@ class WeatherViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "WeatherInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "WeatherInfoTableViewCell")
-        tableView.register(UINib(nibName: "WeatherInfoSectionHeaderTableViewCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherInfoSectionHeaderTableViewCell")
-        collectionView.register(UINib(nibName: "WeatherForecastCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "WeatherForecastCollectionViewCell")
+        tableView.register(UINib(nibName: .WeatherInfoTableViewCell, bundle: nil), forCellReuseIdentifier: .WeatherInfoTableViewCellIdentifier)
+        tableView.register(UINib(nibName: .WeatherInfoSectionHeaderTableViewCell, bundle: nil), forHeaderFooterViewReuseIdentifier: .WeatherInfoSectionHeaderTableViewCellIdentifier)
+        collectionView.register(UINib(nibName: .WeatherForecastCollectionViewCell, bundle: nil), forCellWithReuseIdentifier: .WeatherForecastCollectionViewCellIdentifier)
         
         timer = Timer(fireAt: Date(timeInterval: TimeInterval(60 - Int(Date().convertDateToString(withFormatterStyle: .seconds))!), since: Date()), interval: 60, target: self, selector: #selector(reloadWeatherViewController), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: .defaultRunLoopMode)

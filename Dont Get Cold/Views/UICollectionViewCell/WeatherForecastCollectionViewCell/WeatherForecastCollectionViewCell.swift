@@ -24,5 +24,4 @@ class WeatherForecastCollectionViewCell: UICollectionViewCell {
         weatherForecastImageView.regularShadow()
         weatherForecastBottomLabel.regularShadow()
     }
-
 }
